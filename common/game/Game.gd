@@ -26,10 +26,21 @@ func pre_configure():
 		spawn_player(playerId, order)
 		order += 1
 	
+	spawn_flag(Vector2(200, 200))
+	
 	if not get_tree().is_network_server():
 		# Report that this client is done
 		rpc_id(ServerNetwork.SERVER_ID, "on_client_ready", get_tree().get_network_unique_id())
 
+func spawn_flag(pos):
+	print("creating flags")
+	
+	var scene = load("res://common/game/Flag.tscn")
+	
+	var node = scene.instance()
+	node.position = pos
+	add_child(node)
+	
 
 func spawn_player(playerId, order):
 	print("Creating player game object")
