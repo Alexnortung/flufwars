@@ -5,27 +5,14 @@ var maxSpeed  : int = 500
 var motion : Vector2 = Vector2.ZERO
 var id
 
-#func _physics_process(delta):
-#	if is_network_master():
-#		var velocity := Vector2.ZERO
-#		if Input.is_action_pressed("ui_down"):
-#			velocity.y += SPEED
-#		if Input.is_action_pressed("ui_up"):
-#			velocity.y -= SPEED
-#		if Input.is_action_pressed("ui_left"):
-#			velocity.x -= SPEED
-#		if Input.is_action_pressed("ui_right"):
-#			velocity.x += SPEED
-#		
-#		velocity = move_and_slide(velocity)
-#		
-#		rpc_unreliable_id(1, "network_update", velocity)
+var playerSpawn : Node2D
 
 func set_player_name(playerName: String):
 	$NameLabel.text = playerName
 
-func set_id(id):
+func init(id, playerSpawnNode):
 	self.id = id
+	self.playerSpawn = playerSpawnNode
 
 func apply_friction(amount, axis):
 	var norm = motion.normalized() * amount
@@ -45,9 +32,6 @@ func apply_friction(amount, axis):
 func apply_movement(acceleration):
 	motion += acceleration
 	motion = motion.clamped(maxSpeed)
-	
 
-	
-
-
-
+func spawn():
+	self.position = self.playerSpawn.position

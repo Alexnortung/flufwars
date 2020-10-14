@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://common/game/levels/level1/Level1.gd" type="Script" id=1]
+[ext_resource path="res://common/game/PlayerSpawn.tscn" type="PackedScene" id=2]
+[ext_resource path="res://common/game/Team.tscn" type="PackedScene" id=3]
+[ext_resource path="res://common/game/Flag.tscn" type="PackedScene" id=4]
+
+[node name="Level1" type="Node2D"]
+position = Vector2( 403.175, 264.583 )
+script = ExtResource( 1 )
+
+[node name="Team1" parent="." instance=ExtResource( 3 )]
+position = Vector2( 282.431, 0 )
+
+[node name="PlayerSpawn" parent="Team1" instance=ExtResource( 2 )]
+position = Vector2( -2.51978, -84.4147 )
+
+[node name="Flag" parent="Team1" instance=ExtResource( 4 )]
+
+[node name="Team2" parent="." instance=ExtResource( 3 )]
+position = Vector2( -1.12373, 197.402 )
+
+[node name="PlayerSpawn" parent="Team2" instance=ExtResource( 2 )]
+position = Vector2( 0.840881, 62.2264 )
+
+[node name="Flag" parent="Team2" instance=ExtResource( 4 )]
+
+[node name="Team3" parent="." instance=ExtResource( 3 )]
+position = Vector2( 286.926, 183.917 )
+
+[node name="PlayerSpawn" parent="Team3" instance=ExtResource( 2 )]
+position = Vector2( 2.5199, 80.709 )
+
+[node name="Flag" parent="Team3" instance=ExtResource( 4 )]
+
+[node name="Team4" parent="." instance=ExtResource( 3 )]
+
+[node name="Flag" parent="Team4" instance=ExtResource( 4 )]
+
+[node name="PlayerSpawn" parent="Team4" instance=ExtResource( 2 )]
+position = Vector2( -4.6178, -94.9701 )

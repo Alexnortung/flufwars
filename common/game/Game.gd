@@ -21,8 +21,9 @@ func pre_configure():
 		sortedPlayers.push_back(playerId)
 	
 	sortedPlayers.sort()
-	
+	var i = 0
 	for playerId in sortedPlayers:
+		
 		spawn_player(playerId, order)
 		order += 1
 	
@@ -51,7 +52,7 @@ func spawn_player(playerId, order):
 	var scene = get_player_scene() #preload("res://common/game/Player.tscn")
 	
 	var node = scene.instance()
-	node.set_id(playerId)
+	node.init(playerId, null)
 	node.set_network_master(playerId)
 	node.set_name(str(playerId))
 	
