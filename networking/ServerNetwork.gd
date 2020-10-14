@@ -1,8 +1,8 @@
 extends Node
 
 const SERVER_ID := 1
-const SERVER_PORT := 3000
-const MAX_PLAYERS := 15
+const SERVER_PORT := 5300
+const MAX_PLAYERS := 16
 
 func _player_connected(id):
 	print("Player connected: " + str(id))
@@ -49,3 +49,5 @@ func host_game() -> bool:
 	else:
 		print("Failed to host game: %d" % result)
 		return false
+
+	

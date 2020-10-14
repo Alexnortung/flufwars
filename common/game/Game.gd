@@ -40,6 +40,7 @@ func spawn_player(playerId, order):
 	var scene = preload("res://common/game/Player.tscn")
 	
 	var node = scene.instance()
+	node.set_id(playerId)
 	node.set_network_master(playerId)
 	node.set_name(str(playerId))
 	
@@ -48,7 +49,7 @@ func spawn_player(playerId, order):
 	
 	node.get_node("NameLabel").text = playerName
 	
-	add_child(node)
+	$Players.add_child(node)
 
 
 remotesync func on_pre_configure_complete():

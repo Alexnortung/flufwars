@@ -26,3 +26,11 @@ func remove_player(playerId: int):
 		get_tree().change_scene("res://server/lobby/ServerLobby.tscn")
 	else:
 		print("Players remaining: %d" % GameData.players.size())
+
+func _physics_process(delta):
+	var players = $Players.get_children()
+	for player in players:
+		rpc_unreliable("update_player_position", {position = player.position, id = player.id})
+	#find alle spillere
+	#loop hen over dem
+	#send deres postioner

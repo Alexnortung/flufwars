@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
-const SPEED := 50.0
+const SPEED := 100.0
+var id
 
 puppet func network_update(networkPosition: Vector2):
 	self.position = networkPosition
@@ -19,7 +20,10 @@ func _physics_process(delta):
 		
 		velocity = move_and_slide(velocity)
 		
-		rpc_unreliable("network_update", self.position)
+		rpc_unreliable_id(1, "network_update", self.position)
 
 func set_player_name(playerName: String):
 	$NameLabel.text = playerName
+
+func set_id(id):
+	self.id = id
