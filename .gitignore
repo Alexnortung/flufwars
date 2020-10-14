@@ -14,5 +14,7 @@ mono_crash.*.json
 .directory
 *~
 
-export
 export/*
+!export/*/
+export/*/*
+!export/*/.gitkeep
