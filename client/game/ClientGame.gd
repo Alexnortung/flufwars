@@ -7,11 +7,14 @@ remotesync func on_pre_configure_complete():
 	print("All clients are configured. Starting the game.")
 	get_tree().paused = false
 
-remote func update_player_position(obj):
-	for player in $Players.get_children():
-		if player.id == obj.id:
-			player.position = obj.position
+remote func update_player_position(arr):
+	for playerpos in arr:
+		var player = $Players.get_node(str(playerpos.id))
+		player.position = playerpos.position
 	#find bruger med id
 	# men denne her har ikke adgang til andre spillere
 	#updater den bruger med det id
 	#return?
+
+func get_player_scene():
+	return load("res://client/game/ClientPlayer.tscn")

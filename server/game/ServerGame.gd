@@ -28,9 +28,14 @@ func remove_player(playerId: int):
 		print("Players remaining: %d" % GameData.players.size())
 
 func _physics_process(delta):
+	var arr = []
 	var players = $Players.get_children()
 	for player in players:
-		rpc_unreliable("update_player_position", {position = player.position, id = player.id})
+		arr.append({position = player.position, id = player.id})
+	rpc_unreliable("update_player_position", arr)
 	#find alle spillere
 	#loop hen over dem
 	#send deres postioner
+
+func get_player_scene():
+	return load("res://server/game/ServerPlayer.tscn")

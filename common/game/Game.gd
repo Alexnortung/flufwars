@@ -37,7 +37,7 @@ func spawn_player(playerId, order):
 	var player = GameData.players[playerId]
 	var playerName = player[GameData.PLAYER_NAME]
 	
-	var scene = preload("res://common/game/Player.tscn")
+	var scene = get_player_scene() #preload("res://common/game/Player.tscn")
 	
 	var node = scene.instance()
 	node.set_id(playerId)
@@ -51,6 +51,9 @@ func spawn_player(playerId, order):
 	
 	$Players.add_child(node)
 
+#virtual function
+func get_player_scene():
+	pass
 
 remotesync func on_pre_configure_complete():
 	print("All clients are configured. Starting the game.")
