@@ -3,7 +3,9 @@ extends Control
 func _ready():
 	ClientNetwork.connect("create_player", self, "create_player")
 	ClientNetwork.connect("remove_player", self, "remove_player")
-	#ClientNetwork.connect("assign_player_to_team", self, "assign_player_to_team")
+	ClientNetwork.connect("assign_player_to_team", self, "assign_player_to_team")
+
+	GameData.set_map_info({teamColors = Level1Data.teamColors, teamsInLevel = Level1Data.teamsInLevel, playersPerTeam = Level1Data.playersPerTeam})
 
 	generate_team_visual_structure()
 
@@ -35,8 +37,8 @@ func remove_player(playerId: int):
 func assign_client_to_team(teamIndex):
 	rpc_id(1, "join_team", teamIndex)
 
-remote func assign_player_to_team(playerId, teamIndex):
-	if GameData.players[playerId].team != null:
+remote func assign_player_to_team(playerId, teamIndex, firstTime = false):
+	if GameData.players[playerId].team != null && !firstTime:
 		var oldPlayerNamePlates = $Teams.get_node("Team_" + str(GameData.players[playerId].team.index)).get_node("Players")
 		print(oldPlayerNamePlates)
 		oldPlayerNamePlates.get_node("PlayerId_" + str(playerId)).queue_free()
@@ -52,8 +54,6 @@ remote func assign_player_to_team(playerId, teamIndex):
 
 
 func generate_team_visual_structure():
-	GameData.set_map_info({teamColors = Level1Data.teamColors, teamsInLevel = Level1Data.teamsInLevel, playersPerTeam = Level1Data.playersPerTeam})
-
 	var teams = GameData.teams
 
 	var teamScene = load("res://common/lobby/LobbyTeam.tscn")

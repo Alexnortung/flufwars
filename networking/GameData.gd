@@ -33,11 +33,23 @@ func assign_player_to_team(teamIndex: int, playerId):
 	var player = players[playerId]
 	team.players[player.id] = player
 	player.team = team
-	print(player)
+	#print(player)
 
 func remove_player_from_team(team, player):
 	team.players.erase(player.id)
 
+func write_team_dump():
+	print("############################################\n############################################")
+	for team in teams:
+		print(team)
+	print("############################################\n############################################")
+
+func write_player_dump():
+	print("printing player dump")
+	print("############################################\n############################################")
+	for player in players:
+		print(player)
+	print("############################################\n############################################")
 
 func reset():
 	self.players = {}

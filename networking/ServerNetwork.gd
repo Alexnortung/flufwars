@@ -15,22 +15,21 @@ func register_self(playerId: int, playerName: String):
 
 remote func on_register_self(playerId, playerName):
 	# Register this client with the server
-	ClientNetwork.on_register_player(playerId, playerName)
+	ClientNetwork.on_register_player(playerId, playerName, -1)
 	
 	# Register the new player with all existing clients
 	for curPlayerId in GameData.players:
-		ClientNetwork.register_player(curPlayerId, playerId, playerName)
+		ClientNetwork.register_player(curPlayerId, playerId, playerName, -1)
 	
 	# Catch the new player up on who is already here
 	for curPlayerId in GameData.players:
 		if curPlayerId != playerId:
 			var player = GameData.players[curPlayerId]
-			ClientNetwork.register_player(playerId, curPlayerId, player.name)
+			var teamIndex = -1
+			if player.team != null:
+				teamIndex = player.team.index
 
-remote func assign_player_to_team(teamId):
-	GameData.assign_player_to_team(teamId, get_tree().get_rpc_sender_id())
-	print(str(get_tree().get_rpc_sender_id()))
-	pass
+			ClientNetwork.register_player(playerId, curPlayerId, player.name, teamIndex)
 
 
 func is_hosting() -> bool:

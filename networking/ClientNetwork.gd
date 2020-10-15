@@ -26,15 +26,21 @@ func on_connected_to_server():
 	print("Connected to server.")
 
 
-func register_player(recipientId: int, playerId: int, playerName: String):
-	rpc_id(recipientId, "on_register_player", playerId, playerName)
+func register_player(recipientId: int, playerId: int, playerName: String, curPlayerTeam: int):
+	rpc_id(recipientId, "on_register_player", playerId, playerName, curPlayerTeam)
+	print("sending register data " + str(playerId))
 
 
-remote func on_register_player(playerId: int, playerName: String):
-	print(playerName)
+remote func on_register_player(playerId: int, playerName: String, curPlayerTeam: int):
+	#print(playerName)
 	print("on_register_player: " + str(playerId))
 	GameData.add_player(playerId, playerName)
-	print("Total players: %d" % GameData.players.size())
+	if curPlayerTeam != -1:
+		GameData.assign_player_to_team(curPlayerTeam, playerId)
+		emit_signal("assign_player_to_team", playerId, curPlayerTeam, true)
+		
+	#GameData.write_player_dump()
+	#print("Total players: %d" % GameData.players.size())
 
 func start_game():
 	rpc("on_start_game")
