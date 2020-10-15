@@ -5,14 +5,22 @@ var maxSpeed  : int = 500
 var motion : Vector2 = Vector2.ZERO
 var id : int
 var teamIndex : int
+var pickedUpFlag : Node2D = null
 
 var playerSpawn : Node2D
 
 func set_player_name(playerName: String):
 	$NameLabel.text = playerName
 
-func init(id, teamIndex, playerSpawnNode):
+func has_flag():
+	return pickedUpFlag != null
+
+func set_picked_up_flag(flag):
+	pickedUpFlag = flag
+
+func init(id : int, teamIndex : int, playerSpawnNode):
 	self.id = id
+	self.teamIndex = teamIndex
 	self.playerSpawn = playerSpawnNode
 
 func apply_friction(amount, axis):

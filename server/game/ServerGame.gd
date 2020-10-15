@@ -7,6 +7,7 @@ func _init():
 
 func _ready():
 	ClientNetwork.connect("remove_player", self, "remove_player")
+	$Level.connect("flag_picked_up", self, "flag_picked_up")
 	for playerId in GameData.players:
 		unreadyPlayers[playerId] = playerId
 
@@ -46,6 +47,7 @@ func handle_spawn_flag(flag):
 	print("handling spawn flag")
 	flag.connect("flag_picked_up", self, "flag_picked_up")
 
-func flag_picked_up(flag, player):
+func flag_picked_up(flag : Node2D, player : Node2D):
 	print("telling clients, flag was picked up")
 	rpc("on_flag_picked_up", flag.teamIndex, player.id)
+	print("ServerGame: Flag ID: " + str(flag.teamIndex) + " PlayerId: " + str(player.id))

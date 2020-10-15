@@ -33,8 +33,8 @@ func pre_configure():
 	var teamNodes = $Level.get_children()
 	var teamIndex = 0
 	for teamData in GameData.teams:
-		print("Team data")
-		print(teamData)
+		# print("Team data")
+		# print(teamData)
 		# var teamData = GameData.teams[teamIndex]
 		var teamNode = teamNodes[teamIndex]
 		var playerSpawnNodes = teamNode.get_node("PlayerSpawns").get_children()
@@ -45,8 +45,9 @@ func pre_configure():
 			print(playerData)
 			var spawnNode = playerSpawnNodes[i]
 			# create player node
-			spawn_player(playerData.id, teamNode, spawnNode)
+			var playerNode = spawn_player(playerData.id, teamNode, spawnNode)
 			i += 1
+			print("created player: id: " + str(playerNode.id) + " teamIndex: " + str(playerNode.teamIndex))
 		teamIndex += 1
 	
 	if not get_tree().is_network_server():
@@ -101,21 +102,22 @@ func spawn_player(playerId, teamNode, spawnNode):
 func get_player_scene():
 	pass
 
-func get_player(playerId :int) -> Node2D:
-	for player in $Players.get_children():
-		if player.id == playerId:
+func get_player(playerId : int) -> Node2D:
+	for _playerId in players:
+		var player = players[_playerId]
+		if playerId == player.id:
 			return player
 	return null
 
 func get_flag(teamIndex):
-	return $Flag
+	return $Level.get_flag(teamIndex)
 
 remotesync func on_pre_configure_complete():
 	print("All clients are configured. Starting the game.")
 	get_tree().paused = false
 
 remotesync func on_flag_picked_up(teamIndex : int, playerId : int):
-	print("Game remote: picking up the flag")
 	var flag = get_flag(teamIndex)
 	var player = get_player(playerId)
 	flag.picked_up(flag, player)
+	print("Game remote: picking up the flag. Teamindex: " + str(teamIndex) + " playerId: " + str(playerId))
