@@ -2,9 +2,12 @@ extends "res://common/game/Game.gd"
 
 var unreadyPlayers := {}
 
+func _init():
+	self.connect("spawn_flag", self, "handle_spawn_flag")
+
 func _ready():
 	ClientNetwork.connect("remove_player", self, "remove_player")
-	
+	$Level.connect("flag_picked_up", self, "flag_picked_up")
 	for playerId in GameData.players:
 		unreadyPlayers[playerId] = playerId
 
@@ -29,8 +32,8 @@ func remove_player(playerId: int):
 
 func _physics_process(delta):
 	var arr = []
-	var players = $Players.get_children()
-	for player in players:
+	for playerId in self.players:
+		var player = self.players[playerId]
 		arr.append({position = player.position, id = player.id})
 	rpc_unreliable("update_player_position", arr)
 	#find alle spillere
@@ -39,3 +42,12 @@ func _physics_process(delta):
 
 func get_player_scene():
 	return load("res://server/game/ServerPlayer.tscn")
+
+func handle_spawn_flag(flag):
+	print("handling spawn flag")
+	flag.connect("flag_picked_up", self, "flag_picked_up")
+
+func flag_picked_up(flag : Node2D, player : Node2D):
+	print("telling clients, flag was picked up")
+	rpc("on_flag_picked_up", flag.teamIndex, player.id)
+	print("ServerGame: Flag ID: " + str(flag.teamIndex) + " PlayerId: " + str(player.id))

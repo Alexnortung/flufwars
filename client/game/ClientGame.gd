@@ -9,7 +9,7 @@ remotesync func on_pre_configure_complete():
 
 remote func update_player_position(arr):
 	for playerpos in arr:
-		var player = $Players.get_node(str(playerpos.id))
+		var player = players[playerpos.id]
 		if (playerpos.position - player.position).length() > 1:
 			player.position = playerpos.position
 	#find bruger med id

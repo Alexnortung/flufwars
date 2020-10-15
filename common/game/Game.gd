@@ -1,5 +1,9 @@
 extends Node2D
 
+signal spawn_flag
+
+var players = {}
+
 func _ready():
 	print("Entering game")
 	get_tree().paused = true
@@ -17,33 +21,60 @@ func remove_player(playerId: int):
 func pre_configure():
 	var order := 0
 	var sortedPlayers = []
+
+	loadLevel()
+
 	for playerId in GameData.players:
 		sortedPlayers.push_back(playerId)
 	
 	sortedPlayers.sort()
-	var i = 0
-	for playerId in sortedPlayers:
-		
-		spawn_player(playerId, order)
-		order += 1
-	
-	spawn_flag(Vector2(200, 200))
+	# var i = 0
+
+	var teamNodes = $Level.get_children()
+	var teamIndex = 0
+	for teamData in GameData.teams:
+		# print("Team data")
+		# print(teamData)
+		# var teamData = GameData.teams[teamIndex]
+		var teamNode = teamNodes[teamIndex]
+		var playerSpawnNodes = teamNode.get_node("PlayerSpawns").get_children()
+		var i = 0
+		for playerId in teamData.players:
+			var playerData = teamData.players[playerId]
+			print("player data")
+			print(playerData)
+			var spawnNode = playerSpawnNodes[i]
+			# create player node
+			var playerNode = spawn_player(playerData.id, teamNode, spawnNode)
+			i += 1
+			print("created player: id: " + str(playerNode.id) + " teamIndex: " + str(playerNode.teamIndex))
+		teamIndex += 1
 	
 	if not get_tree().is_network_server():
 		# Report that this client is done
 		rpc_id(ServerNetwork.SERVER_ID, "on_client_ready", get_tree().get_network_unique_id())
+
+func loadLevel():
+	var levelScene = load("res://common/game/levels/level1/Level1.tscn")
+	var levelNode = levelScene.instance()
+	levelNode.set_name("Level")
+	add_child(levelNode)
 
 func spawn_flag(pos):
 	print("creating flags")
 	
 	var scene = load("res://common/game/Flag.tscn")
 	
-	var node = scene.instance()
-	node.position = pos
-	add_child(node)
+	var flagNode = scene.instance()
+	flagNode.position = pos
+	# TODO: set correct teamIndex
+	flagNode.teamIndex = 0
+	add_child(flagNode)
+	emit_signal("spawn_flag", flagNode)
 	
 
-func spawn_player(playerId, order):
+func spawn_player(playerId, teamNode, spawnNode):
+	var teamIndex = teamNode.teamIndex
 	print("Creating player game object")
 	
 	var player = GameData.players[playerId]
@@ -51,22 +82,42 @@ func spawn_player(playerId, order):
 	
 	var scene = get_player_scene() #preload("res://common/game/Player.tscn")
 	
-	var node = scene.instance()
-	node.init(playerId, null)
-	node.set_network_master(playerId)
-	node.set_name(str(playerId))
+	var playerNode = scene.instance()
+	playerNode.init(playerId, teamIndex, spawnNode)
+	playerNode.set_network_master(playerId)
+	playerNode.set_name(str(playerId))
 	
-	node.position.x = 100 * (order + 1)
-	node.position.y = 100
+	playerNode.position = spawnNode.position
+	# playerNode.position.x = 100 * (order + 1)
+	# playerNode.position.y = 100
 	
-	node.get_node("NameLabel").text = playerName
+	playerNode.get_node("NameLabel").text = playerName
 	
-	$Players.add_child(node)
+	teamNode.get_node("Players").add_child(playerNode)
+	spawnNode.playerNode = playerNode
+	players[playerId] = playerNode
+	return playerNode
 
 #virtual function
 func get_player_scene():
 	pass
 
+func get_player(playerId : int) -> Node2D:
+	for _playerId in players:
+		var player = players[_playerId]
+		if playerId == player.id:
+			return player
+	return null
+
+func get_flag(teamIndex):
+	return $Level.get_flag(teamIndex)
+
 remotesync func on_pre_configure_complete():
 	print("All clients are configured. Starting the game.")
 	get_tree().paused = false
+
+remotesync func on_flag_picked_up(teamIndex : int, playerId : int):
+	var flag = get_flag(teamIndex)
+	var player = get_player(playerId)
+	flag.picked_up(flag, player)
+	print("Game remote: picking up the flag. Teamindex: " + str(teamIndex) + " playerId: " + str(playerId))
