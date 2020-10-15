@@ -31,8 +31,8 @@ func remove_player(playerId: int):
 
 func _physics_process(delta):
 	var arr = []
-	var players = $Players.get_children()
-	for player in players:
+	for playerId in self.players:
+		var player = self.players[playerId]
 		arr.append({position = player.position, id = player.id})
 	rpc_unreliable("update_player_position", arr)
 	#find alle spillere

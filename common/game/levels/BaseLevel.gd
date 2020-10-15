@@ -9,9 +9,12 @@ signal flag_picked_up
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	var teamIndex = 0
 	for teamNode in self.get_children():
 		print("BaseLevel: teamnode Name:" + teamNode.Name)
 		teamNode.flag.connect("flag_picked_up", self, "flag_picked_up")
+		teamNode.teamIndex = teamIndex
+		teamIndex += 1
 
 
 func flag_picked_up(flag, player):

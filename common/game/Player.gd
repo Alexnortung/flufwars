@@ -3,14 +3,15 @@ extends KinematicBody2D
 var acc : int = 4000
 var maxSpeed  : int = 500
 var motion : Vector2 = Vector2.ZERO
-var id
+var id : int
+var teamIndex : int
 
 var playerSpawn : Node2D
 
 func set_player_name(playerName: String):
 	$NameLabel.text = playerName
 
-func init(id, playerSpawnNode):
+func init(id, teamIndex, playerSpawnNode):
 	self.id = id
 	self.playerSpawn = playerSpawnNode
 
