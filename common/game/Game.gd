@@ -1,5 +1,7 @@
 extends Node2D
 
+signal spawn_flag
+
 func _ready():
 	print("Entering game")
 	get_tree().paused = true
@@ -38,9 +40,12 @@ func spawn_flag(pos):
 	
 	var scene = load("res://common/game/Flag.tscn")
 	
-	var node = scene.instance()
-	node.position = pos
-	add_child(node)
+	var flagNode = scene.instance()
+	flagNode.position = pos
+	# TODO: set correct teamIndex
+	flagNode.teamIndex = 0
+	add_child(flagNode)
+	emit_signal("spawn_flag", flagNode)
 	
 
 func spawn_player(playerId, order):
@@ -67,6 +72,21 @@ func spawn_player(playerId, order):
 func get_player_scene():
 	pass
 
+func get_player(playerId :int) -> Node2D:
+	for player in $Players.get_children():
+		if player.id == playerId:
+			return player
+	return null
+
+func get_flag(teamIndex):
+	return $Flag
+
 remotesync func on_pre_configure_complete():
 	print("All clients are configured. Starting the game.")
 	get_tree().paused = false
+
+remotesync func on_flag_picked_up(teamIndex : int, playerId : int):
+	print("Game remote: picking up the flag")
+	var flag = get_flag(teamIndex)
+	var player = get_player(playerId)
+	flag.picked_up(flag, player)

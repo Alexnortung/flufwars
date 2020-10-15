@@ -2,9 +2,11 @@ extends "res://common/game/Game.gd"
 
 var unreadyPlayers := {}
 
+func _init():
+	self.connect("spawn_flag", self, "handle_spawn_flag")
+
 func _ready():
 	ClientNetwork.connect("remove_player", self, "remove_player")
-	
 	for playerId in GameData.players:
 		unreadyPlayers[playerId] = playerId
 
@@ -39,3 +41,11 @@ func _physics_process(delta):
 
 func get_player_scene():
 	return load("res://server/game/ServerPlayer.tscn")
+
+func handle_spawn_flag(flag):
+	print("handling spawn flag")
+	flag.connect("flag_picked_up", self, "flag_picked_up")
+
+func flag_picked_up(flag, player):
+	print("telling clients, flag was picked up")
+	rpc("on_flag_picked_up", flag.teamIndex, player.id)
