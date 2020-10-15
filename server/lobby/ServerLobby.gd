@@ -15,8 +15,15 @@ func on_start_game():
 
 
 remote func join_team(teamIndex: int):
+	var playerId = get_tree().get_rpc_sender_id()
+	var team = GameData.players[playerId].team
+
+	if team != null:
+		if team.index == teamIndex:
+			return
+		GameData.remove_player_from_team(GameData.teams[teamIndex], GameData.players[playerId])
+
 	if GameData.teams[teamIndex].players.size() < Level1Data.playersPerTeam:
-		var playerId =  get_tree().get_rpc_sender_id()
 		GameData.assign_player_to_team(teamIndex, playerId)
 		rpc("assign_player_to_team", playerId, teamIndex)
 		print("Player " + str(playerId) + " joined team " + str(teamIndex))

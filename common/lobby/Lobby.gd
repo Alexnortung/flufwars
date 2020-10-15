@@ -36,10 +36,10 @@ func assign_client_to_team(teamIndex):
 	rpc_id(1, "join_team", teamIndex)
 
 remote func assign_player_to_team(playerId, teamIndex):
-#	var oldPlayerNamePlates = $Teams.get_node("Team_" + str(GameData.players[playerId].team.index)).get_node("Players")
-
-#	if GameData.players[playerId].team != null:
-#		oldPlayerNamePlates.get_node("PlayerId_" + str(playerId)).remove_and_skip()
+	if GameData.players[playerId].team != null:
+		var oldPlayerNamePlates = $Teams.get_node("Team_" + str(GameData.players[playerId].team.index)).get_node("Players")
+		print(oldPlayerNamePlates)
+		oldPlayerNamePlates.get_node("PlayerId_" + str(playerId)).queue_free()
 
 	GameData.assign_player_to_team(teamIndex, playerId)
 	var namePlateScene = preload("res://common/lobby/NamePlate.tscn")
