@@ -12,3 +12,13 @@ func _ready():
 
 func on_start_game():
 	get_tree().change_scene("res://server/game/ServerGame.tscn")
+
+
+remote func join_team(teamIndex: int):
+	if GameData.teams[teamIndex].players.size() < Level1Data.playersPerTeam:
+		var playerId =  get_tree().get_rpc_sender_id()
+		GameData.assign_player_to_team(teamIndex, playerId)
+		rpc("assign_player_to_team", playerId, teamIndex)
+		print("Player " + str(playerId) + " joined team " + str(teamIndex))
+	# TODO:create error no space on the team
+#	emit_signal("assign_player_to_team", teamIndex, playerId)

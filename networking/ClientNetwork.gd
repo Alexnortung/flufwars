@@ -2,11 +2,12 @@ extends "BaseNetwork.gd"
 
 signal create_player
 signal start_game
+signal assign_player_to_team
 
 var localPlayerName: String
 
 func join_game(serverIp: String, playerName: String) -> bool:
-	get_tree().connect('connected_to_server', self, 'on_connected_to_server')
+	get_tree().connect('connected_to_server', self, 'on_connectd= _to_server')
 	
 	self.localPlayerName = playerName
 	
@@ -33,9 +34,7 @@ remote func on_register_player(playerId: int, playerName: String):
 	print(playerName)
 	print("on_register_player: " + str(playerId))
 	GameData.add_player(playerId, playerName)
-	emit_signal("create_player", playerId)
 	print("Total players: %d" % GameData.players.size())
-
 
 func start_game():
 	rpc("on_start_game")
