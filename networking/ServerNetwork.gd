@@ -27,6 +27,11 @@ remote func on_register_self(playerId, playerName):
 			var player = GameData.players[curPlayerId]
 			ClientNetwork.register_player(playerId, curPlayerId, player.name)
 
+remote func assign_player_to_team(teamId):
+	GameData.assign_player_to_team(teamId, get_tree().get_rpc_sender_id())
+	print(str(get_tree().get_rpc_sender_id()))
+	pass
+
 
 func is_hosting() -> bool:
 	if get_tree().network_peer != null and get_tree().network_peer.get_connection_status() != NetworkedMultiplayerENet.ConnectionStatus.CONNECTION_DISCONNECTED:
