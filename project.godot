@@ -35,6 +35,10 @@ gdscript/warnings/return_value_discarded=false
 
 2d_physics/layer_1="players"
 
+[physics]
+
+common/physics_fps=128
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"
