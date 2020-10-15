@@ -1,5 +1,6 @@
 extends Node
 
+var clientPlayerId: int
 var players = {}
 var teams = []
 var map_info

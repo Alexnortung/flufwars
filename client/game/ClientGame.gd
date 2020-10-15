@@ -1,7 +1,7 @@
 extends "res://common/game/Game.gd"
 
 func _ready():
-	pass
+	get_player(GameData.clientPlayerId).connect("gun_fire", self, "gun_fire")
 
 remotesync func on_pre_configure_complete():
 	print("All clients are configured. Starting the game.")
@@ -19,3 +19,8 @@ remote func update_player_position(arr):
 
 func get_player_scene():
 	return load("res://client/game/ClientPlayer.tscn")
+
+func gun_fire():
+	rpc_id(1, "gun_fired")
+
+

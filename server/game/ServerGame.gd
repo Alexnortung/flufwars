@@ -10,6 +10,8 @@ func _ready():
 	$Level.connect("flag_picked_up", self, "flag_picked_up")
 	for playerId in GameData.players:
 		unreadyPlayers[playerId] = playerId
+	for playerId in self.players:
+		self.players[playerId].connect("take_damage", self, "damage_taken")
 
 remote func on_client_ready(playerId):
 	print("client ready: %s" % playerId)
@@ -51,3 +53,14 @@ func flag_picked_up(flag : Node2D, player : Node2D):
 	print("telling clients, flag was picked up")
 	rpc("on_flag_picked_up", flag.teamIndex, player.id)
 	print("ServerGame: Flag ID: " + str(flag.teamIndex) + " PlayerId: " + str(player.id))
+
+func damage_taken(playerId: int, newHealth: int):
+	rpc("on_take_damage", playerId, newHealth)
+
+remote func gun_fired():
+	var playerId = get_tree().get_rpc_sender_id()
+	var player = get_player(playerId)
+	var weapon = player.get_weapon()
+	if weapon == null:
+		return
+	rpc("on_spawn_projectile", playerId, weapon.projectile)

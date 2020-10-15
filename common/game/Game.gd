@@ -3,6 +3,9 @@ extends Node2D
 signal spawn_flag
 
 var players = {}
+const projectileTypes = {
+	base_projectile = preload("res://common/game/projectiles/BaseProjectile.tscn"), # 0
+}
 
 func _ready():
 	print("Entering game")
@@ -121,3 +124,12 @@ remotesync func on_flag_picked_up(teamIndex : int, playerId : int):
 	var player = get_player(playerId)
 	flag.picked_up(flag, player)
 	print("Game remote: picking up the flag. Teamindex: " + str(teamIndex) + " playerId: " + str(playerId))
+
+remotesync func on_damage_taken(playerId: int, newHealth: int):
+	get_player(playerId).update_health(newHealth)
+
+remotesync func on_spawn_projectile(playerId: int, projectileType: String):
+	var projectileLoad = projectileTypes[projectileType]
+	var projectile = projectileLoad.instance()
+	var player = get_player(playerId)
+	projectile.position = Vector2(player.position.x + 100, player.position.y)

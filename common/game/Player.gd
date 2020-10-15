@@ -6,8 +6,17 @@ var motion : Vector2 = Vector2.ZERO
 var id : int
 var teamIndex : int
 var pickedUpFlag : Node2D = null
+var dead : bool = false
+var health : int = 100
 
 var playerSpawn : Node2D
+signal take_damage
+
+func _ready():
+	self.connect("body_entered", self, "pickup")
+	self.set_meta("tag", "player")
+	$Weapon.connect("gun_fire", self, "gun_fire")
+	pass # Replace with function body.
 
 func set_player_name(playerName: String):
 	$NameLabel.text = playerName
@@ -44,3 +53,20 @@ func apply_movement(acceleration):
 
 func spawn():
 	self.position = self.playerSpawn.position
+
+func update_health(newHealth: int):
+	health = newHealth
+	should_die()
+
+func take_damage(damage:int):
+	emit_signal("take_damage", self.id, health-damage)
+
+func should_die():
+	if health <= 0 && !dead:
+		dead = true
+
+func gun_fire(weapon):
+	emit_signal("gun_fire", weapon)
+
+func get_weapon():
+	return $Weapon.get_node("Weapon")
