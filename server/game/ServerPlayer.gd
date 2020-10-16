@@ -32,7 +32,7 @@ func update_health(newHealth: int):
 
 func should_die():
 	if health <= 0 && !dead:
-		#self.get_node("RespawnTimer").start(2)
+		self.get_node("RespawnTimer").start(2)
 		emit_signal("player_dead", self.id)
 		
 
