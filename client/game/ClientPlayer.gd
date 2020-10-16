@@ -16,6 +16,9 @@ func _physics_process(delta):
 func update_health(newHealth: int):
 	health = newHealth
 	
+func _process(delta):
+	animate_sprite()
+		
 func get_input_axis():
 	var axis = Vector2.ZERO
 	axis.x = int(Input.is_action_pressed("ui_right")) - int(Input.is_action_pressed("ui_left"))

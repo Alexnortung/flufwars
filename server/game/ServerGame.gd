@@ -13,7 +13,7 @@ func _ready():
 	for playerId in self.players:
 		var player = self.players[playerId]
 		player.connect("take_damage", self, "damage_taken")
-		player.connect("weapon_auto_attack", self, "weapon_auto_attack")
+		player.connect("weapon_auto_attack", self, "weapon_auto_attack", [ player ])
 
 remote func on_client_ready(playerId):
 	print("client ready: %s" % playerId)
@@ -56,12 +56,14 @@ func flag_picked_up(flag : Node2D, player : Node2D):
 func damage_taken(playerId: int, newHealth: int):
 	rpc("on_take_damage", playerId, newHealth)
 
-func weapon_auto_attack():
-	var playerId = get_tree().get_rpc_sender_id()
-	var player = get_player(playerId)
+func weapon_auto_attack(player):
+	print("Player: weapon auto attack")
+	var playerId = player.id
 	var weapon = player.get_weapon()
 	# spawn projectile or other attack logic
-	rpc("on_spawn_projectile", playerId, weapon.projectile)
+	var position = player.get_projectile_spawn_position()
+	var direction = player.get_direction()
+	rpc("on_spawn_projectile", position, direction, weapon.projectile)
 
 remote func single_attacked():
 	var playerId = get_tree().get_rpc_sender_id()
@@ -71,11 +73,12 @@ remote func single_attacked():
 	if weapon == null:
 		print("no weapon")
 		return
-	rpc("on_spawn_projectile", playerId, weapon.projectile)
-	#TODO:
-	# spawn projectiles from position and direction
+	var position = player.get_projectile_spawn_position()
+	var direction = player.get_direction()
+	rpc("on_spawn_projectile", position, direction, weapon.projectile)
 
 remote func auto_attacked(start):
 	var playerId = get_tree().get_rpc_sender_id()
 	var player = get_player(playerId)
-	player.setAttacking(start)
+	print("ServerGame: player auto_attacked: " + str(start))
+	player.set_attacking(start)

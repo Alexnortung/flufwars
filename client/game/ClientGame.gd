@@ -3,6 +3,7 @@ extends "res://common/game/Game.gd"
 func _ready():
 	var clientPlayer = get_player(GameData.clientPlayerId)
 	clientPlayer.connect("single_attack", self, "single_attack")
+	clientPlayer.connect("auto_attack", self, "auto_attack")
 
 remotesync func on_pre_configure_complete():
 	print("All clients are configured. Starting the game.")

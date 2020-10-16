@@ -21,3 +21,10 @@ func get_team(teamIndex):
 
 func get_flag(teamIndex):
 	return self.get_team(teamIndex).get_node("Flag")
+
+func createTeamColor(colorName, colorCode):
+	var flagImage = load("res://assets/flag/" + colorName + "_flag.png")
+	var colorCodeObj = Color(colorCode)
+	#var player_path = "res://assets/player/" + 
+	return { color = colorName, code = colorCodeObj, flagImage = flagImage}
+		

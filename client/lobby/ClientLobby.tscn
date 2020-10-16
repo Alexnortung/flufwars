@@ -15,4 +15,5 @@ text = "Start Game"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+[connection signal="draw" from="." to="." method="_on_Lobby_draw"]
 [connection signal="pressed" from="StartButton" to="." method="_on_StartButton_pressed"]

@@ -38,3 +38,6 @@ func should_die():
 
 remote func on_player_change_direction(normalized_direction):
 	server_direction = normalized_direction
+
+func get_direction():
+	return server_direction.normalized()

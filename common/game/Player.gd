@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+const projectileSpawnOffset = 100
+
 var acc : int = 4000
 var maxSpeed  : int = 500
 var motion : Vector2 = Vector2.ZERO
@@ -86,12 +88,14 @@ func get_weapon():
 	return $Weapon.get_node("Weapon")
 
 func auto_attack(start):
+	print("Player: auto_attack: " + str(start))
 	emit_signal("auto_attack", start)
 
 func set_attacking(start):
 	self.get_weapon().set_attacking(start)
 
 func weapon_auto_attack():
+	print("Player: weapon auto attack")
 	emit_signal("weapon_auto_attack")
 
 func get_direction():
@@ -102,3 +106,16 @@ func get_direction():
 
 func get_normalized_direction():
 	return get_direction().normalized()
+	
+func animate_sprite():
+	var mouse_x = get_viewport().get_mouse_position().x
+	if mouse_x < self.position.x && (motion == Vector2.ZERO):
+		$AnimatedSprite.play("base_left")
+	elif mouse_x > self.position.x && (motion == Vector2.ZERO):
+		$AnimatedSprite.play("base_right")
+	elif mouse_x > self.position.x && (motion != Vector2.ZERO):
+		$AnimatedSprite.play("walk_right")
+	elif mouse_x > self.position.x && (motion != Vector2.ZERO):
+		$AnimatedSprite.play("walk_left")
+func get_projectile_spawn_position() -> Vector2:
+	return self.position + (get_direction() * projectileSpawnOffset)

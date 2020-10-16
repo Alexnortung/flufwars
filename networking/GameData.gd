@@ -28,13 +28,12 @@ func generate_team_structure():
 		var team = { players = {}, color = teamColors[i], index = i }
 		teams.append(team)
 
-
 func assign_player_to_team(teamIndex: int, playerId):
 	var team = teams[teamIndex]
 	var player = players[playerId]
 	team.players[player.id] = player
 	player.team = team
-	#print(player)
+
 
 func remove_player_from_team(team, player):
 	team.players.erase(player.id)
