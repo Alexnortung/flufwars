@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+const projectileSpawnOffset = 100
+
 var acc : int = 4000
 var maxSpeed  : int = 500
 var motion : Vector2 = Vector2.ZERO
@@ -112,3 +114,5 @@ func animate_sprite():
 		$AnimatedSprite.play("walk_right")
 	elif mouse_x > self.position.x && (motion != Vector2.ZERO):
 		$AnimatedSprite.play("walk_left")
+func get_projectile_spawn_position() -> Vector2:
+	return self.position + (get_direction() * projectileSpawnOffset)

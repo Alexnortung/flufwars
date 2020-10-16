@@ -61,7 +61,9 @@ func weapon_auto_attack(player):
 	var playerId = player.id
 	var weapon = player.get_weapon()
 	# spawn projectile or other attack logic
-	rpc("on_spawn_projectile", playerId, weapon.projectile)
+	var position = player.get_projectile_spawn_position()
+	var direction = player.get_direction()
+	rpc("on_spawn_projectile", position, direction, weapon.projectile)
 
 remote func single_attacked():
 	var playerId = get_tree().get_rpc_sender_id()
@@ -71,9 +73,9 @@ remote func single_attacked():
 	if weapon == null:
 		print("no weapon")
 		return
-	rpc("on_spawn_projectile", playerId, weapon.projectile)
-	#TODO:
-	# spawn projectiles from position and direction
+	var position = player.get_projectile_spawn_position()
+	var direction = player.get_direction()
+	rpc("on_spawn_projectile", position, direction, weapon.projectile)
 
 remote func auto_attacked(start):
 	var playerId = get_tree().get_rpc_sender_id()
