@@ -1,8 +1,10 @@
 extends Node2D
 
 signal spawn_flag
+signal spawn_projectile
 
 var players = {}
+var projectiles = {}
 const projectileTypes = {
 	base_projectile = preload("res://common/game/projectiles/BaseProjectile.tscn"), # 0
 }
@@ -130,16 +132,19 @@ remotesync func on_flag_picked_up(teamIndex : int, playerId : int):
 remotesync func on_take_damage(playerId: int, newHealth: int):
 	get_player(playerId).update_health(newHealth)
 
-remotesync func on_spawn_projectile(position: Vector2, direction: Vector2, projectileType: String):
+remotesync func on_spawn_projectile(position: Vector2, direction: Vector2, projectileType: String, projectileId: String):
 	# print("spawning projectile")
 	var projectileLoad = projectileTypes[projectileType]
 	var projectile = projectileLoad.instance()
-	projectile.init(position, direction)
+	projectile.init(position, direction, projectileId)
 	add_child(projectile)
+	projectiles[projectileId] = projectile
+	emit_signal("spawn_projectile", projectile)
 
 remotesync func on_respawn_player(playerId: int):
 	var player = get_player(playerId)
 	player.position = player.playerSpawn.position
+	player.health = player.initHealth
 	player.kill_player(false)
 
 remotesync func on_player_dead(playerId):
@@ -150,3 +155,7 @@ func player_dies(playerId: int):
 
 func respawn_player(playerId: int):
 	pass
+
+remotesync func on_projectile_hit(projectileId):
+	projectiles[projectileId].queue_free()
+	projectiles.erase(projectileId)

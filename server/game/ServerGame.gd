@@ -7,6 +7,7 @@ func _init():
 
 func _ready():
 	ClientNetwork.connect("remove_player", self, "remove_player")
+	self.connect("spawn_projectile", self, "set_projectile_connection")
 	$Level.connect("flag_picked_up", self, "flag_picked_up")
 	for playerId in GameData.players:
 		unreadyPlayers[playerId] = playerId
@@ -63,7 +64,7 @@ func weapon_auto_attack(player):
 	# spawn projectile or other attack logic
 	var position = player.get_projectile_spawn_position()
 	var direction = player.get_direction()
-	rpc("on_spawn_projectile", position, direction, weapon.projectile)
+	rpc("on_spawn_projectile", position, direction, weapon.projectile, UUID.v4())
 
 remote func single_attacked():
 	var playerId = get_tree().get_rpc_sender_id()
@@ -75,7 +76,7 @@ remote func single_attacked():
 		return
 	var position = player.get_projectile_spawn_position()
 	var direction = player.get_direction()
-	rpc("on_spawn_projectile", position, direction, weapon.projectile)
+	rpc("on_spawn_projectile", position, direction, weapon.projectile, UUID.v4())
 
 remote func auto_attacked(start):
 	var playerId = get_tree().get_rpc_sender_id()
@@ -86,3 +87,11 @@ remote func auto_attacked(start):
 func respawn_player(playerId: int):
 	rpc("on_respawn_player", playerId)
 	print("respawn player")
+
+func set_projectile_connection(projectile: Node):
+	projectile.connect("hit", self, "projectile_hit")
+
+func projectile_hit(projectile: Node2D, collider: Node2D):
+	if collider.get_meta("tag") == "player":
+		collider.take_damage(projectile.damage)
+	rpc("on_projectile_hit", projectile.id)

@@ -1,18 +1,18 @@
 extends KinematicBody2D
 
+signal hit
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 var damage = 50
 var speed = 100
 var direction = Vector2.ZERO
 var velocity = Vector2.ZERO
+var id
 
-func init(position : Vector2, direction : Vector2):
+func init(position : Vector2, direction : Vector2, id = UUID.v4()):
 	self.position = position
 	self.direction = direction.normalized()
 	self.velocity = self.direction * speed
+	self.id = id
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -20,9 +20,7 @@ func _ready():
 	$Area2D.connect("body_entered", self, "hit")
 
 func hit(body: Node):
-	if body.get_meta("tag") == "player":
-		body.take_damage(damage)
-	self.queue_free()
+	emit_signal("hit", self, body)
 
 func _physics_process(delta):
 	var collision = move_and_collide(velocity * delta)

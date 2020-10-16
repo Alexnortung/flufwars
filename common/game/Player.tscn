@@ -5,8 +5,9 @@
 [ext_resource path="res://common/game/weapons/BaseGun.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/players/green_player.tres" type="SpriteFrames" id=5]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 20, 20 )
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 22.0
+height = 18.0
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 7
@@ -14,16 +15,8 @@ collision_mask = 7
 script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 3, -2 )
 shape = SubResource( 1 )
-
-[node name="ColorRect" type="ColorRect" parent="."]
-margin_left = -20.0
-margin_top = -20.0
-margin_right = 20.0
-margin_bottom = 20.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="NameLabel" type="Label" parent="."]
 margin_left = -25.0502
@@ -54,7 +47,7 @@ __meta__ = {
 one_shot = true
 
 [node name="PlayerAnim" type="AnimatedSprite" parent="."]
-position = Vector2( 8, -16 )
+position = Vector2( 7.64645, -16 )
 scale = Vector2( 0.1, 0.1 )
 frames = ExtResource( 5 )
 animation = "walk_right"

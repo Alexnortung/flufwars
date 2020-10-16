@@ -10,6 +10,7 @@ var teamIndex : int
 var pickedUpFlag : Node2D = null
 var dead : bool = false
 var health : int = 100
+const initHealth : int = 100
 
 var lookDirectionOffset: int = 45
 
