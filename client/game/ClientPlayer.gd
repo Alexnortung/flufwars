@@ -13,9 +13,7 @@ func _physics_process(delta):
 		var normalizedDirection = get_normalized_direction()
 		$Weapon.position = normalizedDirection * lookDirectionOffset
 		rpc_unreliable_id(1, "on_player_change_direction", normalizedDirection)
-	
-func _process(delta):
-	animate_sprite()
+
 		
 func get_input_axis():
 	var axis = Vector2.ZERO
