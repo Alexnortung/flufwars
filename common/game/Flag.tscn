@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://common/game/Flag.gd" type="Script" id=1]
-[ext_resource path="res://assets/flag/Blue_flag.png" type="Texture" id=2]
+[ext_resource path="res://assets/flag/blue_flag.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 

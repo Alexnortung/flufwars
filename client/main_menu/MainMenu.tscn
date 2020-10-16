@@ -11,23 +11,26 @@ __meta__ = {
 }
 
 [node name="ScreenTitle" type="Label" parent="."]
-margin_left = 30.0
+anchor_right = 1.0
 margin_top = 39.0
-margin_right = 101.0
 margin_bottom = 53.0
-text = "Main Menu"
+text = "2020 GAME OF THE YEAR"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="PlayerNameLabel" type="Label" parent="."]
-margin_left = 193.0
+anchor_right = 1.0
 margin_top = 110.0
-margin_right = 265.0
 margin_bottom = 124.0
 text = "Player Name"
+align = 1
 
 [node name="PlayerName" type="LineEdit" parent="PlayerNameLabel"]
-margin_left = 1.0
+anchor_left = 0.4
+anchor_right = 0.6
 margin_top = 22.0
-margin_right = 242.0
 margin_bottom = 46.0
 text = "A Player"
 __meta__ = {
@@ -35,18 +38,19 @@ __meta__ = {
 }
 
 [node name="ServerIpLabel" type="Label" parent="."]
-margin_left = 193.0
+anchor_right = 1.0
 margin_top = 179.0
-margin_right = 233.0
 margin_bottom = 193.0
 text = "Server IP"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="ServerIp" type="LineEdit" parent="ServerIpLabel"]
+anchor_left = 0.4
+anchor_right = 0.6
 margin_top = 21.0
-margin_right = 243.0
 margin_bottom = 45.0
 text = "127.0.0.1"
 __meta__ = {
@@ -54,9 +58,9 @@ __meta__ = {
 }
 
 [node name="ConnectButton" type="Button" parent="."]
-margin_left = 375.0
+anchor_left = 0.45
+anchor_right = 0.55
 margin_top = 268.0
-margin_right = 439.0
 margin_bottom = 288.0
 text = "Connect"
 __meta__ = {

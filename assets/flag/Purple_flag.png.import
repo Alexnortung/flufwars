@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Purple_flag.png-09252cf23951fe97a9c1affc33a81f5d.stex"
+path="res://.import/purple_flag.png-297fe5198c3aef76faa3b6dfa3288fba.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/flag/Purple_flag.png"
-dest_files=[ "res://.import/Purple_flag.png-09252cf23951fe97a9c1affc33a81f5d.stex" ]
+source_file="res://assets/flag/purple_flag.png"
+dest_files=[ "res://.import/purple_flag.png-297fe5198c3aef76faa3b6dfa3288fba.stex" ]
 
 [params]
 

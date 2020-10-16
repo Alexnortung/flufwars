@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Pink_flag.png-4c94632f67c0344cea53e8bf975bab85.stex"
+path="res://.import/pink_flag.png-a03114c30d976affb732f825f5549b8e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/flag/Pink_flag.png"
-dest_files=[ "res://.import/Pink_flag.png-4c94632f67c0344cea53e8bf975bab85.stex" ]
+source_file="res://assets/flag/pink_flag.png"
+dest_files=[ "res://.import/pink_flag.png-a03114c30d976affb732f825f5549b8e.stex" ]
 
 [params]
 

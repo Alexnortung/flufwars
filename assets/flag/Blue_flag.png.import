@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Blue_flag.png-85ccc2c20c173056860ed1a9f9131c51.stex"
+path="res://.import/blue_flag.png-670cfa4ccc46a4907feff1ee2c2d59d4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/flag/Blue_flag.png"
-dest_files=[ "res://.import/Blue_flag.png-85ccc2c20c173056860ed1a9f9131c51.stex" ]
+source_file="res://assets/flag/blue_flag.png"
+dest_files=[ "res://.import/blue_flag.png-670cfa4ccc46a4907feff1ee2c2d59d4.stex" ]
 
 [params]
 

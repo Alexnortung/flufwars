@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Red_flag.png-4b9e672538363146c4d481b7e775f956.stex"
+path="res://.import/red_flag.png-bc2e8df4415cbfa7034d0a745fc6cf33.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/flag/Red_flag.png"
-dest_files=[ "res://.import/Red_flag.png-4b9e672538363146c4d481b7e775f956.stex" ]
+source_file="res://assets/flag/red_flag.png"
+dest_files=[ "res://.import/red_flag.png-bc2e8df4415cbfa7034d0a745fc6cf33.stex" ]
 
 [params]
 

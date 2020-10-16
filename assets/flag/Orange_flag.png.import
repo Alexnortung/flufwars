@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Orange_flag.png-97a25f93ec1ac9c8b904a1cdcf34b6ac.stex"
+path="res://.import/orange_flag.png-60a8ff76e29a1528fb09ac572d0b7053.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/flag/Orange_flag.png"
-dest_files=[ "res://.import/Orange_flag.png-97a25f93ec1ac9c8b904a1cdcf34b6ac.stex" ]
+source_file="res://assets/flag/orange_flag.png"
+dest_files=[ "res://.import/orange_flag.png-60a8ff76e29a1528fb09ac572d0b7053.stex" ]
 
 [params]
 
