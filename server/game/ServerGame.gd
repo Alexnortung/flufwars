@@ -36,11 +36,8 @@ func _physics_process(delta):
 	var arr = []
 	for playerId in self.players:
 		var player = self.players[playerId]
-		arr.append({position = player.position, id = player.id})
+		arr.append({position = player.position, id = player.id, lookDirection = player.server_direction})
 	rpc_unreliable("update_player_position", arr)
-	#find alle spillere
-	#loop hen over dem
-	#send deres postioner
 
 func get_player_scene():
 	return load("res://server/game/ServerPlayer.tscn")
@@ -66,3 +63,6 @@ remote func gun_fired():
 		print("no weapon")
 		return
 	rpc("on_spawn_projectile", playerId, weapon.projectile)
+
+	#TODO:
+	# spawn projectiles from position and direction

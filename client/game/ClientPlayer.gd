@@ -9,6 +9,10 @@ func _physics_process(delta):
 		motion = move_and_slide(motion)
 		#Behøves ikke at sende noget right?
 		rpc_unreliable_id(1, "network_update", axis)
+
+		var normalizedDirection = get_normalized_direction()
+		$Weapon.position = normalizedDirection * lookDirectionOffset
+		rpc_unreliable_id(1, "on_player_change_direction", normalizedDirection)
 	
 func get_input_axis():
 	var axis = Vector2.ZERO

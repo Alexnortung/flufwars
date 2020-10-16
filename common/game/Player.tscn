@@ -25,10 +25,10 @@ __meta__ = {
 }
 
 [node name="NameLabel" type="Label" parent="."]
-margin_left = -30.0
-margin_top = 40.0
-margin_right = 116.0
-margin_bottom = 90.0
+margin_left = -25.0502
+margin_top = 38.9393
+margin_right = 120.95
+margin_bottom = 88.9393
 text = "Name"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -38,3 +38,13 @@ __meta__ = {
 script = ExtResource( 2 )
 
 [node name="Weapon" parent="Weapon" instance=ExtResource( 3 )]
+
+[node name="ColorRect" type="ColorRect" parent="Weapon"]
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 5.0
+margin_bottom = 5.0
+color = Color( 1, 0.890196, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
