@@ -20,12 +20,12 @@ func add_player(playerId: int, playerName: String):
 	self.players[playerId] = newPlayer
 
 func generate_team_structure():
-	var teamColors = map_info.teamColors
+	#var teamColors = map_info.teamColors
 	var teamsInLevel = map_info.teamsInLevel
 	var playersPerTeam = map_info.playersPerTeam
 	teams = []
 	for i in range(teamsInLevel):
-		var team = { players = {}, color = teamColors[i], index = i }
+		var team = { players = {}, color = Level1Data.colorDic[i].code, index = i }
 		teams.append(team)
 
 func assign_player_to_team(teamIndex: int, playerId):

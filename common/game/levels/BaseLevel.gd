@@ -25,6 +25,7 @@ func get_flag(teamIndex):
 func createTeamColor(colorName, colorCode):
 	var flagImage = load("res://assets/flag/" + colorName + "_flag.png")
 	var colorCodeObj = Color(colorCode)
+	var playerAnimObj = load("res://assets/players/"+colorName+"_player.tres")
 	#var player_path = "res://assets/player/" + 
-	return { color = colorName, code = colorCodeObj, flagImage = flagImage}
+	return { color = colorName, code = colorCodeObj, flagImage = flagImage, playerAnim = playerAnimObj }
 		
