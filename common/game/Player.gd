@@ -102,3 +102,13 @@ func get_direction():
 func get_normalized_direction():
 	return get_direction().normalized()
 	
+func animate_sprite():
+	var mouse_x = get_viewport().get_mouse_position().x
+	if mouse_x < self.position.x && (motion == Vector2.ZERO):
+		$AnimatedSprite.play("base_left")
+	elif mouse_x > self.position.x && (motion == Vector2.ZERO):
+		$AnimatedSprite.play("base_right")
+	elif mouse_x > self.position.x && (motion != Vector2.ZERO):
+		$AnimatedSprite.play("walk_right")
+	elif mouse_x > self.position.x && (motion != Vector2.ZERO):
+		$AnimatedSprite.play("walk_left")

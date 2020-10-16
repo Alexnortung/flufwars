@@ -22,7 +22,10 @@ func _physics_process(delta):
 	# Continously place flag ontop of the player who is carrying the flag 
 	if picked_up_player != null:
 		self.position = picked_up_player.position
-		self.rotation = 0.5
+		if get_viewport().get_mouse_position().x > picked_up_player.position.x:
+			self.rotation = 0.5
+		else:
+			self.rotation = -0.5
  
 func picked_up(flag, player):
 	picked_up_player = player
