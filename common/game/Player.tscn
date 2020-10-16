@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://common/game/Player.gd" type="Script" id=1]
 [ext_resource path="res://common/game/WeaponListener.gd" type="Script" id=2]
 [ext_resource path="res://common/game/weapons/BaseGun.tscn" type="PackedScene" id=3]
+[ext_resource path="res://common/game/PlayerNameLabel.gd" type="Script" id=4]
+
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 20, 20 )
@@ -25,14 +27,23 @@ __meta__ = {
 }
 
 [node name="NameLabel" type="Label" parent="."]
-margin_left = -25.0502
-margin_top = 38.9393
-margin_right = 120.95
-margin_bottom = 88.9393
+margin_left = -73.0
+margin_top = -56.0
+margin_right = 73.0
+margin_bottom = -21.0
 text = "Name"
+align = 1
+script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="BackgroundNameLabel" type="ColorRect" parent="NameLabel"]
+show_behind_parent = true
+margin_left = 53.0
+margin_right = 93.0
+margin_bottom = 14.0
+color = Color( 0.376471, 0.376471, 0.376471, 1 )
 
 [node name="Weapon" type="Node2D" parent="."]
 script = ExtResource( 2 )
