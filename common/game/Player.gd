@@ -18,6 +18,7 @@ signal take_damage
 signal single_attack
 signal auto_attack # state change
 signal weapon_auto_attack # there should be spawned a projectile
+signal player_dead # server signal
 
 func _physics_process(delta):
 	pass
@@ -31,7 +32,6 @@ func _ready():
 	$Weapon.connect("single_attack", self, "single_attack")
 	$Weapon.connect("weapon_auto_attack", self, "weapon_auto_attack")
 	$Weapon.connect("auto_attack", self, "auto_attack")
-	pass # Replace with function body.
 
 func set_player_name(playerName: String):
 	$NameLabel.text = playerName
@@ -69,19 +69,27 @@ func apply_movement(acceleration):
 func spawn():
 	self.position = self.playerSpawn.position
 
+func kill_player(is_dead):
+	print("killing player")
+	dead = is_dead
+	set_process(!is_dead)
+	set_physics_process(!is_dead)
+	set_process_input(!is_dead)
+	self.call_deferred("set_collision", is_dead)
+	print(str($CollisionShape2D.is_disabled()))
+	self.set_visible(!is_dead)
+
+func set_collision(value: bool):
+	$CollisionShape2D.set_disabled(value)
+
+#virtual function
 func update_health(newHealth: int):
-	health = newHealth
-	should_die()
+	pass
 
 func take_damage(damage:int):
 	emit_signal("take_damage", self.id, health-damage)
 
-func should_die():
-	if health <= 0 && !dead:
-		dead = true
-
 func single_attack():
-	# print("Player: gun_fire")
 	emit_signal("single_attack")
 
 func get_weapon():

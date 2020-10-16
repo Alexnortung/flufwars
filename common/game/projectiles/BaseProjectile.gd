@@ -4,7 +4,7 @@ extends KinematicBody2D
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-var damage = 1
+var damage = 50
 var speed = 100
 var direction = Vector2.ZERO
 var velocity = Vector2.ZERO

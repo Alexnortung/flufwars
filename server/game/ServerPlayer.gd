@@ -7,6 +7,7 @@ var server_axis = {
 
 var server_direction = Vector2(0,0)
 
+
 puppet func network_update(networkAxis: Vector2):
 	server_axis = networkAxis
 
@@ -25,9 +26,18 @@ func get_input_axis():
 	axis.y = server_axis.y
 	return axis.normalized()
 
+func update_health(newHealth: int):
+	health = newHealth
+	should_die()
+
+func should_die():
+	if health <= 0 && !dead:
+		self.get_node("RespawnTimer").start(2)
+		emit_signal("player_dead", self.id)
+		
+
 remote func on_player_change_direction(normalized_direction):
 	server_direction = normalized_direction
-	# print("set server direction")
 
 func get_direction():
 	return server_direction.normalized()
