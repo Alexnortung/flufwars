@@ -14,6 +14,10 @@ remote func update_player_position(arr):
 		var player = players[playerpos.id]
 		if (playerpos.position - player.position).length() > 1:
 			player.position = playerpos.position
+		
+		var playerdirection = playerpos.lookDirection * 45
+		if (playerdirection - player.get_node("Weapon").position).length() > 1:
+			player.get_node("Weapon").position = playerdirection
 	#find bruger med id
 	# men denne her har ikke adgang til andre spillere
 	#updater den bruger med det id

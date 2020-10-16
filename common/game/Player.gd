@@ -9,6 +9,8 @@ var pickedUpFlag : Node2D = null
 var dead : bool = false
 var health : int = 100
 
+var lookDirectionOffset: int = 45
+
 var playerSpawn : Node2D
 signal take_damage
 signal single_attack
@@ -88,3 +90,12 @@ func set_attacking(start):
 
 func weapon_auto_attack():
 	emit_signal("weapon_auto_attack")
+func get_direction():
+	var mousePos = get_viewport().get_mouse_position()
+	var playerPos = self.position
+	var vectorBetweenPoints = mousePos - playerPos
+	return vectorBetweenPoints
+
+func get_normalized_direction():
+	return get_direction().normalized()
+	
