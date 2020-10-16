@@ -84,5 +84,5 @@ remote func auto_attacked(start):
 	player.set_attacking(start)
 
 func respawn_player(playerId: int):
-	rpc("on_respawn_player", self, playerId)
+	rpc("on_respawn_player", playerId)
 	print("respawn player")

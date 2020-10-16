@@ -139,7 +139,7 @@ remotesync func on_spawn_projectile(position: Vector2, direction: Vector2, proje
 
 remotesync func on_respawn_player(playerId: int):
 	var player = get_player(playerId)
-	player.position = player.playerSpawn
+	player.position = player.playerSpawn.position
 	player.kill_player(false)
 
 remotesync func on_player_dead(playerId):
