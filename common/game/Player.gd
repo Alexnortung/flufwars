@@ -11,9 +11,10 @@ var health : int = 100
 
 var playerSpawn : Node2D
 signal take_damage
+signal gun_fire
 
 func _ready():
-	self.connect("body_entered", self, "pickup")
+	# self.connect("body_entered", self, "pickup")
 	self.set_meta("tag", "player")
 	$Weapon.connect("gun_fire", self, "gun_fire")
 	pass # Replace with function body.
@@ -65,8 +66,9 @@ func should_die():
 	if health <= 0 && !dead:
 		dead = true
 
-func gun_fire(weapon):
-	emit_signal("gun_fire", weapon)
+func gun_fire():
+	print("Player: gun_fire")
+	emit_signal("gun_fire")
 
 func get_weapon():
 	return $Weapon.get_node("Weapon")

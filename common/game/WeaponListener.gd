@@ -16,4 +16,5 @@ func connect_weapons():
 	$Weapon.connect("attack", self, "attack")
 
 func gun_fire():
-	emit_signal("gun_fire", $Weapon)
+	# print("Weapon_listener: fire_gun")
+	emit_signal("gun_fire")

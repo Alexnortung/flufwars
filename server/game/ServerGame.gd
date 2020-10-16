@@ -59,8 +59,10 @@ func damage_taken(playerId: int, newHealth: int):
 
 remote func gun_fired():
 	var playerId = get_tree().get_rpc_sender_id()
+	print("Got gun_fired from: " + str(playerId))
 	var player = get_player(playerId)
 	var weapon = player.get_weapon()
 	if weapon == null:
+		print("no weapon")
 		return
 	rpc("on_spawn_projectile", playerId, weapon.projectile)
