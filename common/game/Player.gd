@@ -67,12 +67,17 @@ func spawn():
 	self.position = self.playerSpawn.position
 
 func kill_player(is_dead):
+	print("killing player")
 	dead = is_dead
 	set_process(!is_dead)
 	set_physics_process(!is_dead)
 	set_process_input(!is_dead)
-	$CollisionShape2D.set_disabled(is_dead)
+	self.call_deferred("set_collision", is_dead)
+	print(str($CollisionShape2D.is_disabled()))
 	self.set_visible(!is_dead)
+
+func set_collision(value: bool):
+	$CollisionShape2D.set_disabled(value)
 
 #virtual function
 func update_health(newHealth: int):
@@ -117,5 +122,6 @@ func animate_sprite():
 		$AnimatedSprite.play("walk_right")
 	elif mouse_x > self.position.x && (motion != Vector2.ZERO):
 		$AnimatedSprite.play("walk_left")
+
 func get_projectile_spawn_position() -> Vector2:
 	return self.position + (get_direction() * projectileSpawnOffset)
