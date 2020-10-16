@@ -7,5 +7,4 @@ func _physics_process(delta):
 		fire()
 
 func fire():
-	# print("BaseGun: fire_gun")
 	emit_signal("gun_fire")
