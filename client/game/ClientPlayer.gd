@@ -7,12 +7,14 @@ func _physics_process(delta):
 			apply_movement(axis * acc *  delta)
 		apply_friction(acc * delta, axis)
 		motion = move_and_slide(motion)
-		#Behøves ikke at sende noget right?
 		rpc_unreliable_id(1, "network_update", axis)
 
 		var normalizedDirection = get_normalized_direction()
 		$Weapon.position = normalizedDirection * lookDirectionOffset
 		rpc_unreliable_id(1, "on_player_change_direction", normalizedDirection)
+
+func update_health(newHealth: int):
+	health = newHealth
 	
 func get_input_axis():
 	var axis = Vector2.ZERO

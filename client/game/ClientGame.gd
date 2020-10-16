@@ -2,7 +2,6 @@ extends "res://common/game/Game.gd"
 
 func _ready():
 	var clientPlayer = get_player(GameData.clientPlayerId)
-	# print("connecting gun_fire in clientGame")
 	clientPlayer.connect("single_attack", self, "single_attack")
 
 remotesync func on_pre_configure_complete():
@@ -18,16 +17,11 @@ remote func update_player_position(arr):
 		var playerdirection = playerpos.lookDirection * 45
 		if (playerdirection - player.get_node("Weapon").position).length() > 1:
 			player.get_node("Weapon").position = playerdirection
-	#find bruger med id
-	# men denne her har ikke adgang til andre spillere
-	#updater den bruger med det id
-	#return?
 
 func get_player_scene():
 	return load("res://client/game/ClientPlayer.tscn")
 
 func single_attack():
-	# print("ClientGame: gun_fire")
 	rpc_id(1, "single_attacked")
 
 func auto_attack(start : bool):

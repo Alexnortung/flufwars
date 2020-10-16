@@ -45,7 +45,7 @@ fire={
 
 [physics]
 
-common/physics_fps=128
+common/physics_fps=500
 
 [rendering]
 

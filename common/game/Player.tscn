@@ -48,3 +48,7 @@ color = Color( 1, 0.890196, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="RespawnTimer" type="Timer" parent="."]
+one_shot = true
+[connection signal="timeout" from="RespawnTimer" to="." method="_on_RespawnTimer_timeout"]
