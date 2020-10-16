@@ -23,6 +23,9 @@ signal player_dead # server signal
 func _physics_process(delta):
 	pass
 
+func _process(delta):
+	animate_sprite()
+	
 func _ready():
 	# self.connect("body_entered", self, "pickup")
 	self.set_meta("tag", "player")
@@ -113,15 +116,19 @@ func get_normalized_direction():
 	return get_direction().normalized()
 	
 func animate_sprite():
-	var mouse_x = get_viewport().get_mouse_position().x
-	if mouse_x < self.position.x && (motion == Vector2.ZERO):
+	var look_direction_x = $Weapon.position.x 
+	if look_direction_x <= 0 && (motion == Vector2.ZERO):
 		$AnimatedSprite.play("base_left")
-	elif mouse_x > self.position.x && (motion == Vector2.ZERO):
+	elif look_direction_x > 0 && (motion == Vector2.ZERO):
 		$AnimatedSprite.play("base_right")
-	elif mouse_x > self.position.x && (motion != Vector2.ZERO):
+	elif look_direction_x >= 0 && (motion != Vector2.ZERO):
 		$AnimatedSprite.play("walk_right")
-	elif mouse_x > self.position.x && (motion != Vector2.ZERO):
+	elif look_direction_x < 0 && (motion != Vector2.ZERO):
 		$AnimatedSprite.play("walk_left")
+		
+
+func set_look_direction(direction : Vector2):
+	$Weapon.position = direction * lookDirectionOffset
 
 func get_projectile_spawn_position() -> Vector2:
 	return self.position + (get_direction() * projectileSpawnOffset)
