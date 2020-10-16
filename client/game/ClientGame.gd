@@ -26,4 +26,7 @@ func single_attack():
 	# print("ClientGame: gun_fire")
 	rpc_id(1, "single_attacked")
 
+func auto_attack(start : bool):
+	rpc_id(1, "auto_attacked", start)
+
 

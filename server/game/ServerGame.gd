@@ -11,7 +11,9 @@ func _ready():
 	for playerId in GameData.players:
 		unreadyPlayers[playerId] = playerId
 	for playerId in self.players:
-		self.players[playerId].connect("take_damage", self, "damage_taken")
+		var player = self.players[playerId]
+		player.connect("take_damage", self, "damage_taken")
+		player.connect("weapon_auto_attack", self, "weapon_auto_attack")
 
 remote func on_client_ready(playerId):
 	print("client ready: %s" % playerId)
@@ -57,6 +59,13 @@ func flag_picked_up(flag : Node2D, player : Node2D):
 func damage_taken(playerId: int, newHealth: int):
 	rpc("on_take_damage", playerId, newHealth)
 
+func weapon_auto_attack():
+	var playerId = get_tree().get_rpc_sender_id()
+	var player = get_player(playerId)
+	var weapon = player.get_weapon()
+	# spawn projectile or other attack logic
+	rpc("on_spawn_projectile", playerId, weapon.projectile)
+
 remote func single_attacked():
 	var playerId = get_tree().get_rpc_sender_id()
 	print("Got gun_fired from: " + str(playerId))
@@ -66,3 +75,8 @@ remote func single_attacked():
 		print("no weapon")
 		return
 	rpc("on_spawn_projectile", playerId, weapon.projectile)
+
+remote func auto_attacked(start):
+	var playerId = get_tree().get_rpc_sender_id()
+	var player = get_player(playerId)
+	player.setAttacking(start)
