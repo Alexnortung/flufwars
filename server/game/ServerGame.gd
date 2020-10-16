@@ -11,7 +11,9 @@ func _ready():
 	for playerId in GameData.players:
 		unreadyPlayers[playerId] = playerId
 	for playerId in self.players:
-		self.players[playerId].connect("take_damage", self, "damage_taken")
+		var player = self.players[playerId]
+		player.connect("take_damage", self, "damage_taken")
+		player.connect("weapon_auto_attack", self, "weapon_auto_attack")
 
 remote func on_client_ready(playerId):
 	print("client ready: %s" % playerId)
@@ -36,11 +38,8 @@ func _physics_process(delta):
 	var arr = []
 	for playerId in self.players:
 		var player = self.players[playerId]
-		arr.append({position = player.position, id = player.id})
+		arr.append({position = player.position, id = player.id, lookDirection = player.server_direction})
 	rpc_unreliable("update_player_position", arr)
-	#find alle spillere
-	#loop hen over dem
-	#send deres postioner
 
 func get_player_scene():
 	return load("res://server/game/ServerPlayer.tscn")
@@ -57,6 +56,13 @@ func flag_picked_up(flag : Node2D, player : Node2D):
 func damage_taken(playerId: int, newHealth: int):
 	rpc("on_take_damage", playerId, newHealth)
 
+func weapon_auto_attack():
+	var playerId = get_tree().get_rpc_sender_id()
+	var player = get_player(playerId)
+	var weapon = player.get_weapon()
+	# spawn projectile or other attack logic
+	rpc("on_spawn_projectile", playerId, weapon.projectile)
+
 remote func single_attacked():
 	var playerId = get_tree().get_rpc_sender_id()
 	print("Got gun_fired from: " + str(playerId))
@@ -66,3 +72,10 @@ remote func single_attacked():
 		print("no weapon")
 		return
 	rpc("on_spawn_projectile", playerId, weapon.projectile)
+	#TODO:
+	# spawn projectiles from position and direction
+
+remote func auto_attacked(start):
+	var playerId = get_tree().get_rpc_sender_id()
+	var player = get_player(playerId)
+	player.setAttacking(start)

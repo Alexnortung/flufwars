@@ -1,9 +1,10 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://common/game/Player.gd" type="Script" id=1]
-[ext_resource path="res://common/game/PlayerNameLabel.gd" type="Script" id=2]
-[ext_resource path="res://common/game/WeaponListener.gd" type="Script" id=3]
-[ext_resource path="res://common/game/weapons/BaseGun.tscn" type="PackedScene" id=4]
+[ext_resource path="res://common/game/WeaponListener.gd" type="Script" id=2]
+[ext_resource path="res://common/game/weapons/BaseGun.tscn" type="PackedScene" id=3]
+[ext_resource path="res://common/game/PlayerNameLabel.gd" type="Script" id=4]
+
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 20, 20 )
@@ -45,7 +46,16 @@ margin_bottom = 14.0
 color = Color( 0.376471, 0.376471, 0.376471, 1 )
 
 [node name="Weapon" type="Node2D" parent="."]
-script = ExtResource( 3 )
+script = ExtResource( 2 )
 
-[node name="Weapon" parent="Weapon" instance=ExtResource( 4 )]
+[node name="Weapon" parent="Weapon" instance=ExtResource( 3 )]
 
+[node name="ColorRect" type="ColorRect" parent="Weapon"]
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 5.0
+margin_bottom = 5.0
+color = Color( 1, 0.890196, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

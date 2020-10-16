@@ -9,15 +9,23 @@ var pickedUpFlag : Node2D = null
 var dead : bool = false
 var health : int = 100
 
+var lookDirectionOffset: int = 45
+
 var playerSpawn : Node2D
 signal take_damage
 signal single_attack
-signal auto_attack
+signal auto_attack # state change
+signal weapon_auto_attack # there should be spawned a projectile
+
+func _physics_process(delta):
+	pass
 
 func _ready():
 	# self.connect("body_entered", self, "pickup")
 	self.set_meta("tag", "player")
 	$Weapon.connect("single_attack", self, "single_attack")
+	$Weapon.connect("weapon_auto_attack", self, "weapon_auto_attack")
+	$Weapon.connect("auto_attack", self, "auto_attack")
 	pass # Replace with function body.
 
 func set_player_name(playerName: String):
@@ -73,3 +81,21 @@ func single_attack():
 
 func get_weapon():
 	return $Weapon.get_node("Weapon")
+
+func auto_attack(start):
+	emit_signal("auto_attack", start)
+
+func set_attacking(start):
+	self.get_weapon().set_attacking(start)
+
+func weapon_auto_attack():
+	emit_signal("weapon_auto_attack")
+func get_direction():
+	var mousePos = get_viewport().get_mouse_position()
+	var playerPos = self.position
+	var vectorBetweenPoints = mousePos - playerPos
+	return vectorBetweenPoints
+
+func get_normalized_direction():
+	return get_direction().normalized()
+	
