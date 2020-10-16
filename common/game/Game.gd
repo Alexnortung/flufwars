@@ -125,7 +125,7 @@ remotesync func on_flag_picked_up(teamIndex : int, playerId : int):
 	flag.picked_up(flag, player)
 	print("Game remote: picking up the flag. Teamindex: " + str(teamIndex) + " playerId: " + str(playerId))
 
-remotesync func on_damage_taken(playerId: int, newHealth: int):
+remotesync func on_take_damage(playerId: int, newHealth: int):
 	get_player(playerId).update_health(newHealth)
 
 remotesync func on_spawn_projectile(playerId: int, projectileType: String):
