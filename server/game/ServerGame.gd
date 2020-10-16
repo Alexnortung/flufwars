@@ -54,7 +54,7 @@ func flag_picked_up(flag : Node2D, player : Node2D):
 func damage_taken(playerId: int, newHealth: int):
 	rpc("on_take_damage", playerId, newHealth)
 
-remote func gun_fired():
+remote func single_attacked():
 	var playerId = get_tree().get_rpc_sender_id()
 	print("Got gun_fired from: " + str(playerId))
 	var player = get_player(playerId)

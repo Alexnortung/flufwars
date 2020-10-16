@@ -13,12 +13,13 @@ var lookDirectionOffset: int = 45
 
 var playerSpawn : Node2D
 signal take_damage
-signal gun_fire
+signal single_attack
+signal auto_attack
 
 func _ready():
 	# self.connect("body_entered", self, "pickup")
 	self.set_meta("tag", "player")
-	$Weapon.connect("gun_fire", self, "gun_fire")
+	$Weapon.connect("single_attack", self, "single_attack")
 	pass # Replace with function body.
 
 func set_player_name(playerName: String):
@@ -68,9 +69,9 @@ func should_die():
 	if health <= 0 && !dead:
 		dead = true
 
-func gun_fire():
-	print("Player: gun_fire")
-	emit_signal("gun_fire")
+func single_attack():
+	# print("Player: gun_fire")
+	emit_signal("single_attack")
 
 func get_weapon():
 	return $Weapon.get_node("Weapon")

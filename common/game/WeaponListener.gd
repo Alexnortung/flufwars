@@ -1,5 +1,6 @@
 extends Node2D
-signal gun_fire
+signal single_attack
+signal auto_attack
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -12,8 +13,11 @@ func update_weapon(weapon: Node2D):
 	connect_weapons()
 
 func connect_weapons():
-	$Weapon.connect("gun_fire", self, "gun_fire")
-	$Weapon.connect("attack", self, "attack")
+	$Weapon.connect("single_attack", self, "single_attack")
+	$Weapon.connect("auto_attack", self, "auto_attack")
 
-func gun_fire():
-	emit_signal("gun_fire")
+func single_attack():
+	emit_signal("single_attack")
+
+func auto_attack(start : bool):
+	emit_signal("auto_attack", start)
