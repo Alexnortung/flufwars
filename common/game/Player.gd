@@ -110,13 +110,13 @@ func get_normalized_direction():
 func animate_sprite():
 	var look_direction_x = $Weapon.position.x 
 	if look_direction_x <= 0 && (motion == Vector2.ZERO):
-		$AnimatedSprite.play("base_left")
+		$PlayerAnim.play("base_left")
 	elif look_direction_x > 0 && (motion == Vector2.ZERO):
-		$AnimatedSprite.play("base_right")
+		$PlayerAnim.play("base_right")
 	elif look_direction_x >= 0 && (motion != Vector2.ZERO):
-		$AnimatedSprite.play("walk_right")
+		$PlayerAnim.play("walk_right")
 	elif look_direction_x < 0 && (motion != Vector2.ZERO):
-		$AnimatedSprite.play("walk_left")
+		$PlayerAnim.play("walk_left")
 		
 
 func set_look_direction(direction : Vector2):

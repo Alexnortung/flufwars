@@ -1,0 +1,31 @@
+[gd_resource type="SpriteFrames" load_steps=7 format=2]
+
+[ext_resource path="res://assets/players/green_base_right.png" type="Texture" id=1]
+[ext_resource path="res://assets/players/green_left_step_2.png" type="Texture" id=2]
+[ext_resource path="res://assets/players/green_base_left.png" type="Texture" id=3]
+[ext_resource path="res://assets/players/green_left_step_1.png" type="Texture" id=4]
+[ext_resource path="res://assets/players/green_right_walk_2.png" type="Texture" id=5]
+[ext_resource path="res://assets/players/green_right_walk_1.png" type="Texture" id=6]
+
+[resource]
+animations = [ {
+"frames": [ ExtResource( 6 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "walk_right",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "base_right",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "base_left",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "walk_left",
+"speed": 5.0
+} ]
