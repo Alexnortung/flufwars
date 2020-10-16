@@ -70,13 +70,11 @@ func spawn():
 	self.position = self.playerSpawn.position
 
 func kill_player(is_dead):
-	print("killing player")
 	dead = is_dead
 	set_process(!is_dead)
 	set_physics_process(!is_dead)
 	set_process_input(!is_dead)
 	self.call_deferred("set_collision", is_dead)
-	print(str($CollisionShape2D.is_disabled()))
 	self.set_visible(!is_dead)
 
 func set_collision(value: bool):

@@ -100,7 +100,7 @@ func spawn_player(playerId, teamNode, spawnNode):
 	spawnNode.playerNode = playerNode
 	players[playerId] = playerNode
 	playerNode.connect("player_dead", self, "player_dies")
-	#playerNode.get_node("RespawnTimer").connect("timeout", self, "respawn_player")
+	playerNode.get_node("RespawnTimer").connect("timeout", self, "respawn_player", [playerId])
 	return playerNode
 
 #virtual function
@@ -137,11 +137,16 @@ remotesync func on_spawn_projectile(position: Vector2, direction: Vector2, proje
 	projectile.init(position, direction)
 	add_child(projectile)
 
+remotesync func on_respawn_player(playerId: int):
+	var player = get_player(playerId)
+	player.position = player.playerSpawn
+	player.kill_player(false)
+
 remotesync func on_player_dead(playerId):
 	get_player(playerId).kill_player(true)
 
 func player_dies(playerId: int):
 	rpc("on_player_dead", playerId)
 
-func respawn_player():
+func respawn_player(playerId: int):
 	pass

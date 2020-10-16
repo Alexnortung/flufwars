@@ -82,3 +82,7 @@ remote func auto_attacked(start):
 	var player = get_player(playerId)
 	print("ServerGame: player auto_attacked: " + str(start))
 	player.set_attacking(start)
+
+func respawn_player(playerId: int):
+	rpc("on_respawn_player", self, playerId)
+	print("respawn player")
