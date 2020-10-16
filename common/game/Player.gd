@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+const projectileSpawnOffset = 100
+
 var acc : int = 4000
 var maxSpeed  : int = 500
 var motion : Vector2 = Vector2.ZERO
@@ -102,3 +104,5 @@ func get_direction():
 func get_normalized_direction():
 	return get_direction().normalized()
 	
+func get_projectile_spawn_position() -> Vector2:
+	return self.position + (get_direction() * projectileSpawnOffset)

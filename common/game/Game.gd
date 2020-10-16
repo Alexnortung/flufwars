@@ -128,10 +128,9 @@ remotesync func on_flag_picked_up(teamIndex : int, playerId : int):
 remotesync func on_take_damage(playerId: int, newHealth: int):
 	get_player(playerId).update_health(newHealth)
 
-remotesync func on_spawn_projectile(playerId: int, projectileType: String):
+remotesync func on_spawn_projectile(position: Vector2, direction: Vector2, projectileType: String):
 	# print("spawning projectile")
 	var projectileLoad = projectileTypes[projectileType]
 	var projectile = projectileLoad.instance()
-	var player = get_player(playerId)
-	projectile.position = Vector2(player.position.x + 100, player.position.y)
+	projectile.init(position, direction)
 	add_child(projectile)
