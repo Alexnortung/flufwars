@@ -83,13 +83,16 @@ func get_weapon():
 	return $Weapon.get_node("Weapon")
 
 func auto_attack(start):
+	print("Player: auto_attack: " + str(start))
 	emit_signal("auto_attack", start)
 
 func set_attacking(start):
 	self.get_weapon().set_attacking(start)
 
 func weapon_auto_attack():
+	print("Player: weapon auto attack")
 	emit_signal("weapon_auto_attack")
+
 func get_direction():
 	var mousePos = get_viewport().get_mouse_position()
 	var playerPos = self.position

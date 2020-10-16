@@ -2,6 +2,7 @@ extends Node2D
 
 signal single_attack
 signal auto_attack
+signal weapon_auto_attack
 
 enum {
 	ATTACK_TYPE_SINGLE,
@@ -11,8 +12,8 @@ enum {
 var lastFramePressed = false
 var isPressed = false
 
-var attackType = ATTACK_TYPE_SINGLE
-var cooldown = 3.5
+var attackType = ATTACK_TYPE_AUTO
+var cooldown = 0.5
 var isAttacking = false
 var isReady = true
 
@@ -42,29 +43,41 @@ func on_attacking(start : bool):
 func auto_fire_logic():
 	if isPressed && !lastFramePressed:
 		# emit the the gun should start to shoot
-		emit_signal("auto_attck", true)
+		emit_signal("auto_attack", true)
 	elif !isPressed && lastFramePressed:
 		# emit that the gun should stop shooting
-		emit_signal("auto_attck", false)
+		emit_signal("auto_attack", false)
 
 func set_attacking(start):
+	print("set_attacking: " + str(start))
 	isAttacking = start
-	if isReady:
+	if isReady && start:
 		# shoot
 		start_auto_attack()
 
 
 func on_cooldown_finished():
+	print("cooldown finshed, is attacking: " + str(isAttacking))
 	isReady = true
 	if attackType == ATTACK_TYPE_AUTO && isAttacking:
+		# print("firing again")
 		start_auto_attack()
+	elif attackType == ATTACK_TYPE_AUTO && !isAttacking:
+		stop_cooldown()
+	elif attackType == ATTACK_TYPE_SINGLE:
+		stop_cooldown()
+
+func stop_cooldown():
+	$CooldownTimer.stop()
 
 func start_auto_attack():
 	# emit auto attack
+	# print("auto fired weapon")
 	emit_signal("weapon_auto_attack")
 	on_attack()
 
 func on_attack():
 	# reset timer
 	$CooldownTimer.start(cooldown)
+	# print("cooldown timer started")
 	isReady = false

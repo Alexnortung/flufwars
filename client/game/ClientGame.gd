@@ -4,6 +4,7 @@ func _ready():
 	var clientPlayer = get_player(GameData.clientPlayerId)
 	# print("connecting gun_fire in clientGame")
 	clientPlayer.connect("single_attack", self, "single_attack")
+	clientPlayer.connect("auto_attack", self, "auto_attack")
 
 remotesync func on_pre_configure_complete():
 	print("All clients are configured. Starting the game.")

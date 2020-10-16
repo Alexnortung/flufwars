@@ -27,4 +27,4 @@ func get_input_axis():
 
 remote func on_player_change_direction(normalized_direction):
 	server_direction = normalized_direction
-	print("set server direction")
+	# print("set server direction")
