@@ -26,6 +26,7 @@ func _physics_process(delta):
 
 func _process(delta):
 	animate_sprite()
+	animate_weapon()
 	
 func _ready():
 	# self.connect("body_entered", self, "pickup")
@@ -125,6 +126,15 @@ func animate_sprite():
 	elif look_direction_x < 0 && (motion != Vector2.ZERO):
 		$PlayerAnim.play("walk_left")
 		
+func animate_weapon():
+	var look_direction_x = $Weapon.position.x 
+	if look_direction_x <= 0:
+		$Weapon/Weapon/AnimatedSprite.play("left")
+		$Weapon/Weapon/AnimatedSprite.rotation = $Weapon.position.angle()-3.25
+	elif look_direction_x > 0:
+		$Weapon/Weapon/AnimatedSprite.play("right")
+		$Weapon/Weapon/AnimatedSprite.rotation = $Weapon.position.angle()
+	
 
 func set_look_direction(direction : Vector2):
 	$Weapon.position = direction * lookDirectionOffset
