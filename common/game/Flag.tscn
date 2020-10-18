@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://common/game/Flag.gd" type="Script" id=1]
 [ext_resource path="res://assets/flag/blue_flag.png" type="Texture" id=2]
+[ext_resource path="res://assets/flag/bar/healthbar_inner.png" type="Texture" id=3]
+[ext_resource path="res://assets/flag/bar/healthbar_outer.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -33,5 +35,19 @@ texture = ExtResource( 2 )
 [node name="RespawnTimer" type="Timer" parent="."]
 
 [node name="RespawnBar" type="Node2D" parent="."]
+visible = false
+position = Vector2( -30, 35 )
 scale = Vector2( 3, 3 )
+
+[node name="OuterBar" type="Sprite" parent="RespawnBar"]
+position = Vector2( 9.881, 1 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 4 )
+
+[node name="InnerBar" type="Node2D" parent="RespawnBar"]
+
+[node name="InnerBarSprite" type="Sprite" parent="RespawnBar/InnerBar"]
+position = Vector2( 9.881, 1 )
+scale = Vector2( 0.195, 0.19 )
+texture = ExtResource( 3 )
 [connection signal="draw" from="." to="." method="_on_Flag_draw"]
