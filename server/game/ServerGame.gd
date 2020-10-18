@@ -92,6 +92,7 @@ func set_projectile_connection(projectile: Node):
 	projectile.connect("hit", self, "projectile_hit")
 
 func projectile_hit(projectile: Node2D, collider: Node2D):
-	if collider.get_meta("tag") == "player":
+	var tag = collider.get_meta("tag")
+	if tag == "player":
 		collider.take_damage(projectile.damage)
 	rpc("on_projectile_hit", projectile.id)

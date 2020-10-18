@@ -7,6 +7,7 @@ var speed = 100
 var direction = Vector2.ZERO
 var velocity = Vector2.ZERO
 var id
+var _should_emit = true
 
 func init(position : Vector2, direction : Vector2, id = UUID.v4()):
 	self.position = position
@@ -20,6 +21,11 @@ func _ready():
 	$Area2D.connect("body_entered", self, "hit")
 
 func hit(body: Node):
+	if !_should_emit:
+		return
+	if body.get_meta("tag") == "projectile":
+		body.dont_emit_hit()
+		emit_signal("hit", body, self)
 	emit_signal("hit", self, body)
 
 func _physics_process(delta):
@@ -27,6 +33,9 @@ func _physics_process(delta):
 	if collision:
 		hit(collision.collider)
 
+# use this to tell collided projectiles that this projctile will emit hit for it.
+func dont_emit_hit():
+	_should_emit = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
