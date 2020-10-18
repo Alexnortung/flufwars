@@ -13,7 +13,7 @@ var dropped : bool = false
 func _ready():
 	self.initialPosition = self.position
 	self.connect("body_entered", self, "pickup")
-	$RespawnTimer.connect("timeout", self, "on_respawn_timer_end")
+	$RespawnBar.connect("timeout", self, "on_respawn_timer_end")
 
 func is_picked_up():
 	return pickedUpPlayer != null
@@ -33,13 +33,7 @@ func _physics_process(delta):
 		set_bar()
  
 func set_bar():
-	var inner = $RespawnBar.get_node("InnerBar")
-	var initialScale = 0.195
-	var progress = ($RespawnTimer.time_left / respawnTime)
-	var scale = initialScale * progress
-	var initialPosX = 9.881
-	inner.get_node("InnerBarSprite").scale.x = scale
-
+	pass
 func follow_player():
 	self.position = pickedUpPlayer.position
 	if pickedUpPlayer.get_direction().x > 0:
@@ -52,7 +46,7 @@ func picked_up(flag, player):
 	pickedUpPlayer = player
 	$RespawnBar.set_visible(false)
 	player.set_picked_up_flag(flag)
-	$RespawnTimer.stop()
+	$RespawnBar.stop()
 	print("picking up the flag " + str(flag.teamIndex) + " from player " + str(player.id))
 
 
@@ -64,10 +58,11 @@ func on_flag_drop():
 	dropped = true
 	self.rotation = 0
 	self.pickedUpPlayer = null
-	$RespawnTimer.start(respawnTime)
+	$RespawnBar.start(respawnTime)
 
 func on_respawn_timer_end():
-	$RespawnTimer.stop()
+	print("Respawn timer ended")
+	$RespawnBar.stop()
 	$RespawnBar.set_visible(false)
 	dropped = false
 	self.position = self.initialPosition
