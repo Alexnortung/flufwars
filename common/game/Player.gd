@@ -35,6 +35,9 @@ func _ready():
 	$Weapon.connect("weapon_auto_attack", self, "weapon_auto_attack")
 	$Weapon.connect("auto_attack", self, "auto_attack")
 
+	if is_network_master():
+		$Camera2D.make_current()
+
 func set_player_name(playerName: String):
 	$NameLabel.text = playerName
 
@@ -117,8 +120,8 @@ func weapon_auto_attack():
 
 func get_direction():
 	var mousePos = get_viewport().get_mouse_position()
-	var playerPos = self.position
-	var vectorBetweenPoints = mousePos - playerPos
+	var screenCenter = get_viewport().size / 2
+	var vectorBetweenPoints = mousePos - screenCenter
 	return vectorBetweenPoints
 
 func get_normalized_direction():

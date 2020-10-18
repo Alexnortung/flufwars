@@ -54,4 +54,6 @@ scale = Vector2( 0.1, 0.1 )
 frames = ExtResource( 5 )
 animation = "walk_right"
 frame = 1
+
+[node name="Camera2D" type="Camera2D" parent="."]
 [connection signal="timeout" from="RespawnTimer" to="." method="_on_RespawnTimer_timeout"]
