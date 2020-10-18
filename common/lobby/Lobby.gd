@@ -39,10 +39,13 @@ func assign_client_to_team(teamIndex):
 
 remote func assign_player_to_team(playerId, teamIndex, firstTime = false):
 	if GameData.players[playerId].team != null && !firstTime:
-		var oldPlayerNamePlates = $Teams.get_node("Team_" + str(GameData.players[playerId].team.index)).get_node("Players")
+		# remove player from old team
+		var oldTeamIndex = GameData.players[playerId].team.index
+		var oldPlayerNamePlates = $Teams.get_node("Team_" + str(oldTeamIndex)).get_node("Players")
 		print(oldPlayerNamePlates)
 		oldPlayerNamePlates.get_node("PlayerId_" + str(playerId)).queue_free()
 
+	# Update game data
 	GameData.assign_player_to_team(teamIndex, playerId)
 	var namePlateScene = preload("res://common/lobby/NamePlate.tscn")
 

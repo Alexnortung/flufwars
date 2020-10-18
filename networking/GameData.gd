@@ -31,12 +31,22 @@ func generate_team_structure():
 func assign_player_to_team(teamIndex: int, playerId):
 	var team = teams[teamIndex]
 	var player = players[playerId]
+	if player.team != null:
+		var tempTeam = player.team
+		# print("removing player " + str(playerId) + " from " + str(tempTeam.index))
+		remove_player_from_team(player.team, player)
+	# print("assigning player " + str(playerId) + " to " + str(teamIndex))
 	team.players[player.id] = player
 	player.team = team
 
 
 func remove_player_from_team(team, player):
-	team.players.erase(player.id)
+	print("removing from team")
+	print(team)
+	var newPlayers = teams[team.index].players.erase(player.id)
+	print(team)
+	print(newPlayers)
+
 
 func write_team_dump():
 	print("############################################\n############################################")
