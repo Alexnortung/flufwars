@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 const projectileSpawnOffset = 100
+const progressBarScene = preload("res://common/game/ProgressBar.tscn")
 
 var acc : int = 4000
 var maxSpeed  : int = 500
@@ -11,15 +12,18 @@ var pickedUpFlag : Node2D = null
 var dead : bool = false
 var health : int = 100
 const initHealth : int = 100
+var captureTime : float = 2.0
 
 var lookDirectionOffset: int = 45
 
+var captureProgress : Node2D = null
 var playerSpawn : Node2D
 signal take_damage
 signal single_attack
 signal auto_attack # state change
 signal weapon_auto_attack # there should be spawned a projectile
 signal player_dead # server signal
+signal flag_captured #server signal
 
 func _physics_process(delta):
 	pass
@@ -153,3 +157,40 @@ func set_look_direction(direction : Vector2):
 
 func get_projectile_spawn_position() -> Vector2:
 	return self.position + (get_direction() * projectileSpawnOffset)
+
+func spawn_progress(time, callback: String, args = []):
+	var progressBarNode = progressBarScene.instance()
+	$ProgressBars.add_child(progressBarNode)
+	progressBarNode.start(time)
+	progressBarNode.connect("timeout", self, callback, args)
+	return progressBarNode
+
+func kill_progress_bar(bar: Node2D):
+	bar.stop()
+	bar.queue_free()
+func start_capture():
+	if !has_flag():
+		return
+	captureProgress = spawn_progress(captureTime, "flag_capture")
+
+func stop_capture():
+	if captureProgress == null:
+		return
+	kill_progress_bar(captureProgress)
+	captureProgress = null
+
+# called when timer runs out
+func flag_capture():
+	kill_progress_bar(captureProgress)
+	captureProgress = null
+	print("flag capture timer finished")
+	emit_signal("flag_captured")
+
+# called from remote / server
+func flag_captured():
+	if captureProgress != null:
+		kill_progress_bar(captureProgress)
+		captureProgress = null
+	# destroy flag
+	pickedUpFlag.queue_free()
+	pickedUpFlag = null

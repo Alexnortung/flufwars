@@ -159,3 +159,6 @@ func respawn_player(playerId: int):
 remotesync func on_projectile_hit(projectileId):
 	projectiles[projectileId].queue_free()
 	projectiles.erase(projectileId)
+
+remotesync func on_flag_captured(playerId):
+	get_player(playerId).flag_captured()
