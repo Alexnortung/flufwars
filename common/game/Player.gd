@@ -90,6 +90,8 @@ func take_damage(damage:int):
 	emit_signal("take_damage", self.id, health-damage)
 
 func single_attack():
+	if self.dead:
+		return
 	emit_signal("single_attack")
 
 func get_weapon():
@@ -103,6 +105,8 @@ func set_attacking(start):
 	self.get_weapon().set_attacking(start)
 
 func weapon_auto_attack():
+	if self.dead:
+		return
 	print("Player: weapon auto attack")
 	emit_signal("weapon_auto_attack")
 
