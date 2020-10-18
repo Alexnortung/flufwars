@@ -78,6 +78,11 @@ func kill_player(is_dead):
 	set_process_input(!is_dead)
 	self.call_deferred("set_collision", is_dead)
 	self.set_visible(!is_dead)
+	if has_flag():
+		print("dropping flag")
+		pickedUpFlag.on_flag_drop()
+	pickedUpFlag = null
+	spawn()
 
 func set_collision(value: bool):
 	$CollisionShape2D.set_disabled(value)

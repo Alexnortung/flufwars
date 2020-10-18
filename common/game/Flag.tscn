@@ -29,4 +29,9 @@ __meta__ = {
 position = Vector2( 6.65, -6.1 )
 scale = Vector2( 0.01, 0.01 )
 texture = ExtResource( 2 )
+
+[node name="RespawnTimer" type="Timer" parent="."]
+
+[node name="RespawnBar" type="Node2D" parent="."]
+scale = Vector2( 3, 3 )
 [connection signal="draw" from="." to="." method="_on_Flag_draw"]

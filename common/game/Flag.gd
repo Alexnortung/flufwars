@@ -2,15 +2,21 @@ extends Node2D
 
 signal flag_picked_up
 
-var picked_up_player = null
+const respawnTime = 7.0
+
+var pickedUpPlayer = null
 var teamIndex : int
+var initialPosition : Vector2
+var dropped : bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	self.initialPosition = self.position
 	self.connect("body_entered", self, "pickup")
+	$RespawnTimer.connect("timeout", self, "on_respawn_timer_end")
 
 func is_picked_up():
-	return picked_up_player != null
+	return pickedUpPlayer != null
 
 func pickup(node):
 	# Tell all players over the network that the player picked up the flag.
@@ -20,18 +26,34 @@ func pickup(node):
 	
 func _physics_process(delta):
 	# Continously place flag ontop of the player who is carrying the flag 
-	if picked_up_player != null:
-		self.position = picked_up_player.position
-		if get_viewport().get_mouse_position().x > picked_up_player.position.x:
-			self.rotation = 0.5
-		else:
-			self.rotation = -0.5
+	if pickedUpPlayer != null:
+		follow_player()
  
+func follow_player():
+	self.position = pickedUpPlayer.position
+	if pickedUpPlayer.get_direction().x > 0:
+		self.rotation = 0.5
+	else:
+		self.rotation = -0.5
+
 func picked_up(flag, player):
-	picked_up_player = player
+	dropped = false
+	pickedUpPlayer = player
 	player.set_picked_up_flag(flag)
+	$RespawnTimer.stop()
 	print("picking up the flag " + str(flag.teamIndex) + " from player " + str(player.id))
 
 
 func _on_Flag_draw():
 	$FlagShape/FlagSprite.texture = Level1Data.colorDic[teamIndex].flagImage
+
+func on_flag_drop():
+	dropped = true
+	self.rotation = 0
+	self.pickedUpPlayer = null
+	$RespawnTimer.start(respawnTime)
+
+func on_respawn_timer_end():
+	$RespawnTimer.stop()
+	dropped = false
+	self.position = self.initialPosition
