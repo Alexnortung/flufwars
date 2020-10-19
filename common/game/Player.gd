@@ -24,6 +24,13 @@ signal auto_attack # state change
 signal weapon_auto_attack # there should be spawned a projectile
 signal player_dead # server signal
 signal flag_captured #server signal
+signal pickup_resource #server signal
+
+var resources = [
+	0,
+	0,
+	0,
+]
 
 func _physics_process(delta):
 	pass
@@ -194,3 +201,12 @@ func flag_captured():
 	# destroy flag
 	pickedUpFlag.queue_free()
 	pickedUpFlag = null
+
+func resource_pickup(resourceSpawner: Node2D):
+	emit_signal("pickup_resource", resourceSpawner)
+
+func resource_collected(key, amount: int):
+	resources[key] += amount
+
+func resource_spent(key, amount: int):
+	resources[key] -= amount
