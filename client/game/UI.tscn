@@ -1,0 +1,56 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://client/game/UI.tres" type="Theme" id=1]
+
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+bg_color = Color( 0.215686, 0.215686, 0.215686, 1 )
+
+[node name="UI" type="CanvasLayer"]
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource( 1 )
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 50.0
+margin_bottom = 41.0
+grow_horizontal = 0
+grow_vertical = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="PanelContainer/HBoxContainer"]
+margin_top = 8.0
+margin_right = 8.0
+margin_bottom = 22.0
+text = "0"
+
+[node name="Label2" type="Label" parent="PanelContainer/HBoxContainer"]
+margin_left = 12.0
+margin_top = 8.0
+margin_right = 20.0
+margin_bottom = 22.0
+text = "0"
+
+[node name="Label3" type="Label" parent="PanelContainer/HBoxContainer"]
+margin_left = 24.0
+margin_top = 8.0
+margin_right = 40.0
+margin_bottom = 22.0
+text = "10"
