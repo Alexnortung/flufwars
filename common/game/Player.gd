@@ -202,6 +202,8 @@ func flag_captured():
 	# destroy flag
 	pickedUpFlag.queue_free()
 	pickedUpFlag = null
+	self.get_parent().get_parent().get_parent().get_parent().get_parent().print_tree()
+
 
 func resource_pickup(resourceSpawner: Node2D):
 	emit_signal("pickup_resource", resourceSpawner)

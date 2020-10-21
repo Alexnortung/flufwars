@@ -124,6 +124,12 @@ func get_player(playerId : int) -> Node2D:
 func get_flag(teamIndex):
 	return $Level.get_flag(teamIndex)
 
+func check_if_flag_is_taken(teamIndex):
+	var flag = get_flag(teamIndex)
+	if flag == null:
+		return false
+	return true
+
 remotesync func on_pre_configure_complete():
 	print("All clients are configured. Starting the game.")
 	get_tree().paused = false

@@ -86,8 +86,10 @@ remote func auto_attacked(start):
 	player.set_attacking(start)
 
 func respawn_player(playerId: int):
-	rpc("on_respawn_player", playerId)
-	print("respawn player")
+	var player = get_player(playerId)
+	if check_if_flag_is_taken(player.teamIndex):
+		rpc("on_respawn_player", playerId)
+		print("respawn player")
 
 func set_projectile_connection(projectile: Node):
 	projectile.connect("hit", self, "projectile_hit")
