@@ -95,6 +95,8 @@ func spawn_player(playerId, teamNode, spawnNode):
 	playerNode.position = spawnNode.position
 	# playerNode.position.x = 100 * (order + 1)
 	# playerNode.position.y = 100
+
+	add_camera_to_player(playerId, playerNode)
 	
 	playerNode.get_node("NameLabel").text = playerName
 	playerNode.get_node("PlayerAnim").set_sprite_frames(Level1Data.colorDic[teamIndex].playerAnim)
@@ -104,6 +106,9 @@ func spawn_player(playerId, teamNode, spawnNode):
 	playerNode.connect("player_dead", self, "player_dies")
 	playerNode.get_node("RespawnTimer").connect("timeout", self, "respawn_player", [playerId])
 	return playerNode
+
+func add_camera_to_player(playerId: int, playerNode: Node2D):
+	pass
 
 #virtual function
 func get_player_scene():

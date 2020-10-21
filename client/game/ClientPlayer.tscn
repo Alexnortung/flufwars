@@ -5,6 +5,3 @@
 
 [node name="Game" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-
-[node name="PlayerCamera" type="Camera2D" parent="." index="5"]
-current = true
