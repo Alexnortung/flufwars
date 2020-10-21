@@ -15,6 +15,7 @@ func _ready():
 		var player = self.players[playerId]
 		player.connect("take_damage", self, "damage_taken")
 		player.connect("weapon_auto_attack", self, "weapon_auto_attack", [ player ])
+		player.connect("flag_captured", self, "player_captured_flag", [ playerId ])
 
 remote func on_client_ready(playerId):
 	print("client ready: %s" % playerId)
@@ -92,6 +93,11 @@ func set_projectile_connection(projectile: Node):
 	projectile.connect("hit", self, "projectile_hit")
 
 func projectile_hit(projectile: Node2D, collider: Node2D):
-	if collider.get_meta("tag") == "player":
+	var tag = collider.get_meta("tag")
+	if tag == "player":
 		collider.take_damage(projectile.damage)
 	rpc("on_projectile_hit", projectile.id)
+
+func player_captured_flag(playerId : int):
+	print("got flag captured from player " + str(playerId))
+	rpc("on_flag_captured", playerId)

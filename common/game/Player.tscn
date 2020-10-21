@@ -19,11 +19,12 @@ position = Vector2( 3, -2 )
 shape = SubResource( 1 )
 
 [node name="NameLabel" type="Label" parent="."]
-margin_left = -25.0502
-margin_top = 38.9393
-margin_right = 120.95
-margin_bottom = 88.9393
+margin_left = -73.0004
+margin_top = 35.9546
+margin_right = 72.9998
+margin_bottom = 85.9546
 text = "Name"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -34,6 +35,7 @@ script = ExtResource( 2 )
 [node name="Weapon" parent="Weapon" instance=ExtResource( 3 )]
 
 [node name="ColorRect" type="ColorRect" parent="Weapon"]
+visible = false
 margin_left = -5.0
 margin_top = -5.0
 margin_right = 5.0
@@ -52,4 +54,9 @@ scale = Vector2( 0.1, 0.1 )
 frames = ExtResource( 5 )
 animation = "walk_right"
 frame = 1
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="ProgressBars" type="Node2D" parent="."]
+position = Vector2( 0, 60 )
 [connection signal="timeout" from="RespawnTimer" to="." method="_on_RespawnTimer_timeout"]

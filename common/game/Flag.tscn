@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://common/game/Flag.gd" type="Script" id=1]
 [ext_resource path="res://assets/flag/blue_flag.png" type="Texture" id=2]
+[ext_resource path="res://common/game/ProgressBar.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -29,4 +30,10 @@ __meta__ = {
 position = Vector2( 6.65, -6.1 )
 scale = Vector2( 0.01, 0.01 )
 texture = ExtResource( 2 )
+
+[node name="RespawnTimer" type="Timer" parent="."]
+
+[node name="RespawnBar" parent="." instance=ExtResource( 3 )]
+visible = false
+position = Vector2( -30, 35 )
 [connection signal="draw" from="." to="." method="_on_Flag_draw"]

@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://common/game/levels/level1/Level1.gd" type="Script" id=1]
 [ext_resource path="res://common/game/PlayerSpawn.tscn" type="PackedScene" id=2]
 [ext_resource path="res://common/game/Team.tscn" type="PackedScene" id=3]
 [ext_resource path="res://common/game/Flag.tscn" type="PackedScene" id=4]
+[ext_resource path="res://common/game/FlagCapturePoint.tscn" type="PackedScene" id=5]
 
 [node name="Level1" type="Node2D"]
 script = ExtResource( 1 )
@@ -18,6 +19,9 @@ position = Vector2( 855.159, 120.159 )
 [node name="PlayerSpawn" parent="Team1/PlayerSpawns" instance=ExtResource( 2 )]
 position = Vector2( 942.421, 114.653 )
 
+[node name="FlagCapturePoint" parent="Team1" instance=ExtResource( 5 )]
+position = Vector2( 876.905, 11.3393 )
+
 [node name="Team2" parent="." instance=ExtResource( 3 )]
 
 [node name="Flag" parent="Team2" instance=ExtResource( 4 )]
@@ -27,6 +31,9 @@ position = Vector2( 848.393, 306.161 )
 
 [node name="PlayerSpawn" parent="Team2/PlayerSpawns" instance=ExtResource( 2 )]
 position = Vector2( 930.662, 392.326 )
+
+[node name="FlagCapturePoint" parent="Team2" instance=ExtResource( 5 )]
+position = Vector2( 830.287, 463.651 )
 
 [node name="Team3" parent="." instance=ExtResource( 3 )]
 
@@ -38,6 +45,9 @@ position = Vector2( 197.014, 294.821 )
 [node name="PlayerSpawn" parent="Team3/PlayerSpawns" instance=ExtResource( 2 )]
 position = Vector2( 151.191, 355.372 )
 
+[node name="FlagCapturePoint" parent="Team3" instance=ExtResource( 5 )]
+position = Vector2( 225.526, 440.972 )
+
 [node name="Team4" parent="." instance=ExtResource( 3 )]
 
 [node name="Flag" parent="Team4" instance=ExtResource( 4 )]
@@ -47,3 +57,6 @@ position = Vector2( 94.494, 108.353 )
 
 [node name="PlayerSpawn" parent="Team4/PlayerSpawns" instance=ExtResource( 2 )]
 position = Vector2( 171.771, 62.52 )
+
+[node name="FlagCapturePoint" parent="Team4" instance=ExtResource( 5 )]
+position = Vector2( 22.6786, 168.829 )

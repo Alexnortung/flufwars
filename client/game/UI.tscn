@@ -1,0 +1,66 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://client/game/UI.tres" type="Theme" id=1]
+[ext_resource path="res://client/game/UIStyleBox.tres" type="StyleBox" id=2]
+[ext_resource path="res://client/game/UI.gd" type="Script" id=3]
+
+[node name="UI" type="CanvasLayer"]
+script = ExtResource( 3 )
+
+[node name="ResourcesPanel" type="PanelContainer" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource( 1 )
+custom_styles/panel = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ResourcesPanel"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 50.0
+margin_bottom = 24.0
+grow_horizontal = 0
+grow_vertical = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="ResourcesPanel/HBoxContainer"]
+margin_right = 8.0
+margin_bottom = 14.0
+text = "0"
+
+[node name="Label2" type="Label" parent="ResourcesPanel/HBoxContainer"]
+margin_left = 12.0
+margin_right = 20.0
+margin_bottom = 14.0
+text = "0"
+
+[node name="Label3" type="Label" parent="ResourcesPanel/HBoxContainer"]
+margin_left = 24.0
+margin_right = 40.0
+margin_bottom = 14.0
+text = "10"
+
+[node name="AmmoPanel" type="PanelContainer" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+grow_vertical = 0
+theme = ExtResource( 1 )
+custom_styles/panel = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="AmmoPanel"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 26.0
+margin_bottom = 24.0
+text = "20"
