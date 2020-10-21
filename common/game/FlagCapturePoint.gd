@@ -12,7 +12,14 @@ func on_enter(body: Node2D):
 	if !is_player(body):
 		return
 	# start capture
-	body.start_capture()
+
+	# get the team of the player
+	var team = int(self.get_parent().name.right(4)) - 1
+
+	# checking if the team is the right one
+	if str(body.teamIndex) == str(team): 
+		body.start_capture()
+	return 
 
 func on_exit(body : Node2D):
 	if !is_player(body):

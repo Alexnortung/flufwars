@@ -23,7 +23,6 @@ remote func update_player_position(arr):
 
 func add_camera_to_player(playerId: int, playerNode: Node2D):
 	if playerId == GameData.clientPlayerId:
-		print("player has been assigned a camera")
 		var playerCameraScene = load("res://client/game/CameraScene.tscn")
 		var playerCamera = playerCameraScene.instance()
 		playerNode.add_child(playerCamera)

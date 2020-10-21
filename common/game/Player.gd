@@ -175,6 +175,7 @@ func spawn_progress(time, callback: String, args = []):
 func kill_progress_bar(bar: Node2D):
 	bar.stop()
 	bar.queue_free()
+	
 func start_capture():
 	if !has_flag():
 		return
