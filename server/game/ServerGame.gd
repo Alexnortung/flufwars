@@ -59,7 +59,7 @@ func damage_taken(playerId: int, newHealth: int):
 	rpc("on_take_damage", playerId, newHealth)
 
 func weapon_auto_attack(player):
-	print("Player: weapon auto attack")
+	#print("Player: weapon auto attack")
 	var playerId = player.id
 	var weapon = player.get_weapon()
 	# spawn projectile or other attack logic
@@ -82,14 +82,42 @@ remote func single_attacked():
 remote func auto_attacked(start):
 	var playerId = get_tree().get_rpc_sender_id()
 	var player = get_player(playerId)
-	print("ServerGame: player auto_attacked: " + str(start))
+	#print("ServerGame: player auto_attacked: " + str(start))
 	player.set_attacking(start)
 
 func respawn_player(playerId: int):
 	var player = get_player(playerId)
-	if check_if_flag_is_taken(player.teamIndex):
+	var aliveTeams = check_if_game_over()
+
+	if aliveTeams.size() < 2:
+		print("end_game")
+
+	if !check_if_flag_is_taken(player.teamIndex):
 		rpc("on_respawn_player", playerId)
 		print("respawn player")
+
+func check_if_game_over():
+	var aliveTeams = []
+
+
+	print("########################################################################################################################")
+	for team in GameData.teams:
+		print(team)
+		if !check_if_flag_is_taken(team.index):
+			if team.players.size() != 0:
+				aliveTeams.append(team.index)
+		else:
+			for player in team.players:
+				var gamePlayer = get_player(player)
+				print("player is alive? " + str(gamePlayer.dead))
+				if !gamePlayer.dead:
+					aliveTeams.append(team.index)
+					break
+
+	for at in aliveTeams:
+		print(str(at))
+	print("########################################################################################################################")
+	return aliveTeams
 
 func set_projectile_connection(projectile: Node):
 	projectile.connect("hit", self, "projectile_hit")

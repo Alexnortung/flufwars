@@ -57,4 +57,3 @@ frame = 1
 
 [node name="ProgressBars" type="Node2D" parent="."]
 position = Vector2( 0, 60 )
-[connection signal="timeout" from="RespawnTimer" to="." method="_on_RespawnTimer_timeout"]

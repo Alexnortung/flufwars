@@ -79,6 +79,8 @@ func spawn_flag(pos):
 	
 
 func spawn_player(playerId, teamNode, spawnNode):
+	var lololololol = self.get_node_or_null("lolololol")
+	print(str(lololololol))
 	var teamIndex = teamNode.teamIndex
 	print("Creating player game object")
 	
@@ -127,8 +129,8 @@ func get_flag(teamIndex):
 func check_if_flag_is_taken(teamIndex):
 	var flag = get_flag(teamIndex)
 	if flag == null:
-		return false
-	return true
+		return true
+	return false
 
 remotesync func on_pre_configure_complete():
 	print("All clients are configured. Starting the game.")

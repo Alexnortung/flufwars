@@ -22,9 +22,9 @@ func single_attack():
 	emit_signal("single_attack")
 
 func auto_attack(start : bool):
-	print("WeaponListener: auto attack: " + str(start))
+	#print("WeaponListener: auto attack: " + str(start))
 	emit_signal("auto_attack", start)
 
 func weapon_auto_attack():
-	print("WeaponListener: weapon auto attack")
+	#print("WeaponListener: weapon auto attack")
 	emit_signal("weapon_auto_attack")
