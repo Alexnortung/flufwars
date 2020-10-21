@@ -12,8 +12,7 @@ remotesync func on_pre_configure_complete():
 remote func update_player_position(arr):
 	for playerpos in arr:
 		var player = players[playerpos.id]
-		if (playerpos.position - player.position).length() > 1:
-			player.position = playerpos.position
+		player.position = player.position.linear_interpolate(playerpos.position, 0.5)
 		
 		var playerdirection = playerpos.lookDirection
 		player.set_look_direction(playerdirection)
