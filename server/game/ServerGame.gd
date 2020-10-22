@@ -90,7 +90,8 @@ func respawn_player(playerId: int):
 	var aliveTeams = check_if_game_over()
 
 	if aliveTeams.size() < 2:
-		print("end_game")
+		rpc("end_game")
+		end_game()
 
 	if !check_if_flag_is_taken(player.teamIndex):
 		rpc("on_respawn_player", playerId)
@@ -109,7 +110,6 @@ func check_if_game_over():
 		else:
 			for player in team.players:
 				var gamePlayer = get_player(player)
-				print("player is alive? " + str(gamePlayer.dead))
 				if !gamePlayer.dead:
 					aliveTeams.append(team.index)
 					break
@@ -131,3 +131,6 @@ func projectile_hit(projectile: Node2D, collider: Node2D):
 func player_captured_flag(playerId : int):
 	print("got flag captured from player " + str(playerId))
 	rpc("on_flag_captured", playerId)
+
+func load_lobby():
+	get_tree().change_scene("res://server/lobby/ServerLobby.tscn")

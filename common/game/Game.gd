@@ -65,6 +65,10 @@ func loadLevel():
 	levelNode.set_name("Level")
 	add_child(levelNode)
 
+# virtual lobby
+func load_lobby():
+	pass
+
 func spawn_flag(pos):
 	print("creating flags")
 	
@@ -175,3 +179,9 @@ remotesync func on_projectile_hit(projectileId):
 
 remotesync func on_flag_captured(playerId):
 	get_player(playerId).flag_captured()
+
+remote func end_game():
+	if get_tree().get_rpc_sender_id() == 1:
+		GameData.teams = []
+		GameData.players = {}
+		#load_lobby()
