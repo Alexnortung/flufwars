@@ -68,30 +68,16 @@ func loadLevel():
 # virtual lobby
 func load_lobby():
 	pass
-
-func spawn_flag(pos):
-	print("creating flags")
-	
-	var scene = load("res://common/game/Flag.tscn")
-	
-	var flagNode = scene.instance()
-	flagNode.position = pos
-	# TODO: set correct teamIndex
-	flagNode.teamIndex = 0
-	add_child(flagNode)
-	emit_signal("spawn_flag", flagNode)
 	
 
 func spawn_player(playerId, teamNode, spawnNode):
-	var lololololol = self.get_node_or_null("lolololol")
-	print(str(lololololol))
 	var teamIndex = teamNode.teamIndex
 	print("Creating player game object")
 	
 	var player = GameData.players[playerId]
 	var playerName = player[GameData.PLAYER_NAME]
 	
-	var scene = get_player_scene() #preload("res://common/game/Player.tscn")
+	var scene = get_player_scene() 
 	
 	var playerNode = scene.instance()
 	playerNode.init(playerId, teamIndex, spawnNode)
@@ -99,8 +85,6 @@ func spawn_player(playerId, teamNode, spawnNode):
 	playerNode.set_name(str(playerId))
 	
 	playerNode.position = spawnNode.position
-	# playerNode.position.x = 100 * (order + 1)
-	# playerNode.position.y = 100
 
 	add_camera_to_player(playerId, playerNode)
 	
@@ -130,7 +114,7 @@ func get_player(playerId : int) -> Node2D:
 func get_flag(teamIndex):
 	return $Level.get_flag(teamIndex)
 
-func check_if_flag_is_taken(teamIndex):
+func is_flag_taken(teamIndex):
 	var flag = get_flag(teamIndex)
 	if flag == null:
 		return true

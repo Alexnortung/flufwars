@@ -87,24 +87,21 @@ remote func auto_attacked(start):
 
 func respawn_player(playerId: int):
 	var player = get_player(playerId)
-	var aliveTeams = check_if_game_over()
+	var aliveTeams = get_alive_teams()
 
 	if aliveTeams.size() < 2:
 		rpc("end_game")
 		end_game()
 
-	if !check_if_flag_is_taken(player.teamIndex):
+	if !is_flag_taken(player.teamIndex):
 		rpc("on_respawn_player", playerId)
 		print("respawn player")
 
-func check_if_game_over():
+func get_alive_teams():
 	var aliveTeams = []
-
-
-	print("########################################################################################################################")
 	for team in GameData.teams:
 		print(team)
-		if !check_if_flag_is_taken(team.index):
+		if !is_flag_taken(team.index):
 			if team.players.size() != 0:
 				aliveTeams.append(team.index)
 		else:
@@ -116,7 +113,6 @@ func check_if_game_over():
 
 	for at in aliveTeams:
 		print(str(at))
-	print("########################################################################################################################")
 	return aliveTeams
 
 func set_projectile_connection(projectile: Node):
