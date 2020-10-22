@@ -57,6 +57,7 @@ remote func assign_player_to_team(playerId, teamIndex, firstTime = false):
 
 
 func generate_team_visual_structure():
+	print(GameData.teams)
 	var teams = GameData.teams
 
 	var teamScene = load("res://common/lobby/LobbyTeam.tscn")

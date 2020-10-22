@@ -13,8 +13,11 @@ func on_enter(body: Node2D):
 		return
 	# start capture
 
+	# get the team of the player
+	var team = int(self.get_parent().name.right(4)) - 1
+
 	# checking if the team is the right one
-	if str(body.teamIndex) == body.pickedUpFlag.teamIndex: 
+	if str(body.teamIndex) == str(team): 
 		body.start_capture()
 	return 
 

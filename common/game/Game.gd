@@ -165,7 +165,8 @@ remotesync func on_flag_captured(playerId):
 	get_player(playerId).flag_captured()
 
 remote func end_game():
-	if get_tree().get_rpc_sender_id() == 1:
+	print("sender is: " + str(get_tree().get_rpc_sender_id()))
+	if get_tree().get_rpc_sender_id() == 1 or get_tree().is_network_server():
+		print("sent from server")
 		GameData.teams = []
-		GameData.players = {}
-		#load_lobby()
+		load_lobby()

@@ -90,8 +90,11 @@ func respawn_player(playerId: int):
 	var aliveTeams = get_alive_teams()
 
 	if aliveTeams.size() < 2:
+		print("game_ended###############################################")
 		rpc("end_game")
+		print("game_ended###############################################")
 		end_game()
+		print("game_ended###############################################")
 
 	if !is_flag_taken(player.teamIndex):
 		rpc("on_respawn_player", playerId)
@@ -100,7 +103,6 @@ func respawn_player(playerId: int):
 func get_alive_teams():
 	var aliveTeams = []
 	for team in GameData.teams:
-		print(team)
 		if !is_flag_taken(team.index):
 			if team.players.size() != 0:
 				aliveTeams.append(team.index)
@@ -110,9 +112,6 @@ func get_alive_teams():
 				if !gamePlayer.dead:
 					aliveTeams.append(team.index)
 					break
-
-	for at in aliveTeams:
-		print(str(at))
 	return aliveTeams
 
 func set_projectile_connection(projectile: Node):

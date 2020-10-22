@@ -4,6 +4,8 @@ const SERVER_ID := 1
 const SERVER_PORT := 5300
 const MAX_PLAYERS := 16
 
+var isFirstGame = true
+
 func _player_connected(id):
 	print("Player connected: " + str(id))
 
