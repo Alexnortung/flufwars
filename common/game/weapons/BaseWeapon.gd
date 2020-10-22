@@ -49,7 +49,7 @@ func auto_fire_logic():
 		emit_signal("auto_attack", false)
 
 func set_attacking(start):
-	print("set_attacking: " + str(start))
+	#print("set_attacking: " + str(start))
 	isAttacking = start
 	if isReady && start:
 		# shoot
@@ -57,7 +57,7 @@ func set_attacking(start):
 
 
 func on_cooldown_finished():
-	print("cooldown finshed, is attacking: " + str(isAttacking))
+	#print("cooldown finshed, is attacking: " + str(isAttacking))
 	isReady = true
 	if attackType == ATTACK_TYPE_AUTO && isAttacking:
 		# print("firing again")

@@ -25,6 +25,7 @@ signal weapon_auto_attack # there should be spawned a projectile
 signal player_dead # server signal
 signal flag_captured #server signal
 signal pickup_resource #server signal
+signal timeout
 
 var resources = [
 	0,
@@ -126,7 +127,7 @@ func set_attacking(start):
 func weapon_auto_attack():
 	if self.dead:
 		return
-	print("Player: weapon auto attack")
+	#print("Player: weapon auto attack")
 	emit_signal("weapon_auto_attack")
 
 func get_direction():
@@ -202,7 +203,7 @@ func flag_captured():
 	# destroy flag
 	pickedUpFlag.queue_free()
 	pickedUpFlag = null
-	self.get_parent().get_parent().get_parent().get_parent().get_parent().print_tree()
+	#self.get_parent().get_parent().get_parent().get_parent().get_parent().print_tree()
 
 
 func resource_pickup(resourceSpawner: Node2D):

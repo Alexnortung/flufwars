@@ -36,4 +36,5 @@ func single_attack():
 func auto_attack(start : bool):
 	rpc_id(1, "auto_attacked", start)
 
-
+func load_lobby():
+	get_tree().change_scene("res://client/lobby/ClientLobby.tscn")

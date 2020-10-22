@@ -65,6 +65,10 @@ func loadLevel():
 	levelNode.set_name("Level")
 	add_child(levelNode)
 
+# virtual lobby
+func load_lobby():
+	pass
+
 func spawn_flag(pos):
 	print("creating flags")
 	
@@ -79,6 +83,8 @@ func spawn_flag(pos):
 	
 
 func spawn_player(playerId, teamNode, spawnNode):
+	var lololololol = self.get_node_or_null("lolololol")
+	print(str(lololololol))
 	var teamIndex = teamNode.teamIndex
 	print("Creating player game object")
 	
@@ -127,8 +133,8 @@ func get_flag(teamIndex):
 func check_if_flag_is_taken(teamIndex):
 	var flag = get_flag(teamIndex)
 	if flag == null:
-		return false
-	return true
+		return true
+	return false
 
 remotesync func on_pre_configure_complete():
 	print("All clients are configured. Starting the game.")
@@ -173,3 +179,9 @@ remotesync func on_projectile_hit(projectileId):
 
 remotesync func on_flag_captured(playerId):
 	get_player(playerId).flag_captured()
+
+remote func end_game():
+	if get_tree().get_rpc_sender_id() == 1:
+		GameData.teams = []
+		GameData.players = {}
+		#load_lobby()
