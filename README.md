@@ -1,4 +1,45 @@
-# GodotClientServer
+# Flufwars
+
+A capture the flag (CTF) style, online multiplayer game. The game is made with the game engine Godot and based on the template [GodotClientServer](https://github.com/Wavesonics/GodotClientServer) by [Wavesonics](https://github.com/Wavesonics).
+
+## Compilation
+
+The game can be compiled from the godot editor > project > export > export all.
+
+The compiled files will be exported to `export/client` and `export/server`
+
+## Running the game
+
+### Server
+
+The server can be run in two ways, either by running the dedicated binary in the `export/server` folder
+
+Linux:
+
+```bash
+./Server.x86_64
+```
+
+or by running the client binary with the `--server` flag. from `export/client`.
+
+Linux:
+
+```bash
+./Client.x86_64 --server
+```
+
+### Client
+
+The client binary can be run from the `export/client`.
+
+Linux:
+
+```bash
+./Client.x86_64
+```
+
+# From GodotClientServer README
+
 **A project template for a Dedicated Server & Client within a single project.**
 
 

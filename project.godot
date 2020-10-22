@@ -15,7 +15,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="ClientServer"
+config/name="Flufwars"
 run/main_scene="res://entry/Entry.tscn"
 config/icon="res://icon.png"
 
