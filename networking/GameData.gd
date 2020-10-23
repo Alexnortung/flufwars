@@ -42,10 +42,10 @@ func assign_player_to_team(teamIndex: int, playerId):
 
 func remove_player_from_team(team, player):
 	print("removing from team")
-	print(team)
+	#print(team)
 	var newPlayers = teams[team.index].players.erase(player.id)
-	print(team)
-	print(newPlayers)
+	#print(team)
+	#print(newPlayers)
 
 
 func write_team_dump():

@@ -57,3 +57,5 @@ frame = 1
 
 [node name="ProgressBars" type="Node2D" parent="."]
 position = Vector2( 0, 60 )
+
+[node name="Camera2D" type="Camera2D" parent="."]

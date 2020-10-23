@@ -13,12 +13,12 @@ func _ready():
 	print("Entering game")
 	get_tree().paused = true
 	
-	ClientNetwork.connect("remove_player", self, "remove_player")
+	ClientNetwork.connect("remove_player", self, "remove_game_player")
 	
 	pre_configure()
 
 
-func remove_player(playerId: int):
+func remove_game_player(playerId: int):
 	var playerNode = get_node(str(playerId))
 	playerNode.queue_free()
 
@@ -85,8 +85,6 @@ func spawn_player(playerId, teamNode, spawnNode):
 	playerNode.set_name(str(playerId))
 	
 	playerNode.position = spawnNode.position
-
-	add_camera_to_player(playerId, playerNode)
 	
 	playerNode.get_node("NameLabel").text = playerName
 	playerNode.get_node("PlayerAnim").set_sprite_frames(Level1Data.colorDic[teamIndex].playerAnim)
@@ -96,9 +94,6 @@ func spawn_player(playerId, teamNode, spawnNode):
 	playerNode.connect("player_dead", self, "player_dies")
 	playerNode.get_node("RespawnTimer").connect("timeout", self, "respawn_player", [playerId])
 	return playerNode
-
-func add_camera_to_player(playerId: int, playerNode: Node2D):
-	pass
 
 #virtual function
 func get_player_scene():
