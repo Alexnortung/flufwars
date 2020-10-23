@@ -1,6 +1,7 @@
 extends Node
 
 signal flag_picked_up
+signal spawn_resource
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -11,6 +12,7 @@ func _ready():
 		teamNode.teamIndex = teamIndex
 		flagNode.teamIndex = teamIndex
 		teamIndex += 1
+		connect_resource_spawners(teamNode.get_resource_spawners())
 
 func flag_picked_up(flag, player):
 	print("BaseLevel: flag picked up")
@@ -30,3 +32,10 @@ func createTeamColor(colorName, colorCode):
 	#var player_path = "res://assets/player/" + 
 	return { color = colorName, code = colorCodeObj, flagImage = flagImage, playerAnim = playerAnimObj }
 		
+func connect_resource_spawners(resourceSpawners: Array):
+	for i in resourceSpawners:
+		var resourceSpawner = resourceSpawners[i]
+		resourceSpawner.connect("spawn_resource", self, "spawn_resource", [ resourceSpawner ])
+
+func spawn_resource(resourceSpawner: Node2D):
+	emit_signal("spawn_resource", resourceSpawner)

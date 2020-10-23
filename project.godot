@@ -8,9 +8,14 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Object",
+"class": "TypeFormattingLogic",
+"language": "GDScript",
+"path": "res://addons/metadata_inspector/TypeFormattingLogic.gd"
+} ]
 _global_script_class_icons={
-
+"TypeFormattingLogic": ""
 }
 
 [application]
@@ -31,6 +36,10 @@ UUID="*res://common/lib/uuid.gd"
 
 gdscript/warnings/unused_argument=false
 gdscript/warnings/return_value_discarded=false
+
+[editor_plugins]
+
+enabled=PoolStringArray( "metadata_inspector" )
 
 [input]
 
