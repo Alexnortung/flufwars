@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://common/game/levels/level1/Level1.gd" type="Script" id=1]
 [ext_resource path="res://common/game/PlayerSpawn.tscn" type="PackedScene" id=2]
 [ext_resource path="res://common/game/Team.tscn" type="PackedScene" id=3]
 [ext_resource path="res://common/game/Flag.tscn" type="PackedScene" id=4]
 [ext_resource path="res://common/game/FlagCapturePoint.tscn" type="PackedScene" id=5]
+[ext_resource path="res://common/game/ResourceSpawners/CashSpawner.tscn" type="PackedScene" id=6]
 
 [node name="Level1" type="Node2D"]
 script = ExtResource( 1 )
@@ -22,6 +23,12 @@ position = Vector2( 942.421, 114.653 )
 [node name="FlagCapturePoint" parent="Team1" instance=ExtResource( 5 )]
 position = Vector2( 876.905, 11.3393 )
 
+[node name="ResourceSpawners" type="Node2D" parent="Team1"]
+
+[node name="BaseResourceSpawner" parent="Team1/ResourceSpawners" instance=ExtResource( 6 )]
+id = 7209184b-8413-46ed-91ab-772f9166a2a3
+position = Vector2( 1053.19, 14.6832 )
+
 [node name="Team2" parent="." instance=ExtResource( 3 )]
 
 [node name="Flag" parent="Team2" instance=ExtResource( 4 )]
@@ -34,6 +41,12 @@ position = Vector2( 930.662, 392.326 )
 
 [node name="FlagCapturePoint" parent="Team2" instance=ExtResource( 5 )]
 position = Vector2( 830.287, 463.651 )
+
+[node name="ResourceSpawners" type="Node2D" parent="Team2"]
+
+[node name="BaseResourceSpawner" parent="Team2/ResourceSpawners" instance=ExtResource( 6 )]
+id = 5cc7e3c2-7e1f-46b5-8f8e-f9aea06e1f22
+position = Vector2( 1026.49, 541.945 )
 
 [node name="Team3" parent="." instance=ExtResource( 3 )]
 
@@ -48,6 +61,12 @@ position = Vector2( 151.191, 355.372 )
 [node name="FlagCapturePoint" parent="Team3" instance=ExtResource( 5 )]
 position = Vector2( 225.526, 440.972 )
 
+[node name="ResourceSpawners" type="Node2D" parent="Team3"]
+
+[node name="BaseResourceSpawner" parent="Team3/ResourceSpawners" instance=ExtResource( 6 )]
+id = 724b6ee9-1569-4c30-8a33-d0161d1ce2d9
+position = Vector2( 35.6733, 447.361 )
+
 [node name="Team4" parent="." instance=ExtResource( 3 )]
 
 [node name="Flag" parent="Team4" instance=ExtResource( 4 )]
@@ -60,3 +79,9 @@ position = Vector2( 171.771, 62.52 )
 
 [node name="FlagCapturePoint" parent="Team4" instance=ExtResource( 5 )]
 position = Vector2( 22.6786, 168.829 )
+
+[node name="ResourceSpawners" type="Node2D" parent="Team4"]
+
+[node name="BaseResourceSpawner" parent="Team4/ResourceSpawners" instance=ExtResource( 6 )]
+id = 014b7bfe-a775-4cda-b5ed-6faa1f5a5d16
+position = Vector2( -16.379, -13.8591 )

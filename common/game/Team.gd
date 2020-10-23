@@ -12,6 +12,8 @@ func _ready():
 	# connect flag events
 	flag = $Flag
 
+func get_resource_spawners():
+	return $ResourceSpawners.children()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
