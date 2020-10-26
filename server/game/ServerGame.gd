@@ -9,6 +9,8 @@ func _ready():
 	ClientNetwork.connect("remove_player", self, "remove_player")
 	self.connect("spawn_projectile", self, "set_projectile_connection")
 	$Level.connect("flag_picked_up", self, "flag_picked_up")
+	$Level.connect("spawn_resource", self, "spawn_resource")
+	$Level.connect("split_resources", self, "split_resources")
 	for playerId in GameData.players:
 		unreadyPlayers[playerId] = playerId
 	for playerId in self.players:
@@ -129,3 +131,19 @@ func player_captured_flag(playerId : int):
 
 func load_lobby():
 	get_tree().change_scene("res://server/lobby/ServerLobby.tscn")
+
+func spawn_resource(resourceSpawner: Node2D):
+	# rpc call that the resource spawner has spawned a new resource
+	rpc("resource_spawned", resourceSpawner.id)
+
+func split_resources(resourceSpawner: Node2D):
+	# rpc id call to the player that they picked up x amount of y resource
+	var players = resourceSpawner.get_players_inside()
+	# update server player
+	resourceSpawner.update_player_resources()
+	for player in players:
+		# tell the client the player was updated
+		rpc_id(player.id, "resource_amount_changed", player.resources)
+	# rpc call that the resource spawner is now empty
+	# call this after telling the players that they picked up the resources
+	rpc("resources_picked_up", resourceSpawner.id)

@@ -47,9 +47,6 @@ func _ready():
 	$Weapon.connect("weapon_auto_attack", self, "weapon_auto_attack")
 	$Weapon.connect("auto_attack", self, "auto_attack")
 
-	if is_network_master():
-		$Camera2D.make_current()
-
 func set_player_name(playerName: String):
 	$NameLabel.text = playerName
 

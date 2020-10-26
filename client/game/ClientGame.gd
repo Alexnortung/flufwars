@@ -1,9 +1,12 @@
 extends "res://common/game/Game.gd"
 
 func _ready():
-	var clientPlayer = get_player(GameData.clientPlayerId)
+	var clientPlayer = get_client_player()
 	clientPlayer.connect("single_attack", self, "single_attack")
 	clientPlayer.connect("auto_attack", self, "auto_attack")
+
+func get_ui():
+	return $UI
 
 remotesync func on_pre_configure_complete():
 	print("All clients are configured. Starting the game.")
@@ -30,6 +33,9 @@ func add_camera_to_player(playerId: int, playerNode: Node2D):
 func get_player_scene():
 	return load("res://client/game/ClientPlayer.tscn")
 
+func get_client_player() -> Node2D:
+	return get_player(GameData.clientPlayerId)
+
 func single_attack():
 	rpc_id(1, "single_attacked")
 
@@ -38,3 +44,8 @@ func auto_attack(start : bool):
 
 func load_lobby():
 	get_tree().change_scene("res://client/lobby/ClientLobby.tscn")
+
+remote func resource_amount_changed(resources):
+	get_client_player().resources = resources
+	# update UI
+	get_ui().set_resources(resources)

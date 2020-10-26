@@ -164,6 +164,12 @@ remotesync func on_projectile_hit(projectileId):
 remotesync func on_flag_captured(playerId):
 	get_player(playerId).flag_captured()
 
+remotesync func resources_picked_up(resourceSpawnerId: String):
+	$Level.get_resource_spawner(resourceSpawnerId).on_pickup()
+
+remotesync func resource_spawned(resourceSpawnerId: String):
+	$Level.get_resource_spawner(resourceSpawnerId).on_spawn_resource()
+
 remote func end_game():
 	print("sender is: " + str(get_tree().get_rpc_sender_id()))
 	if get_tree().get_rpc_sender_id() == 1 or get_tree().is_network_server():

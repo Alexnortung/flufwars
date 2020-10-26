@@ -13,7 +13,7 @@ func _ready():
 	flag = $Flag
 
 func get_resource_spawners():
-	return $ResourceSpawners.children()
+	return $ResourceSpawners.get_children()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

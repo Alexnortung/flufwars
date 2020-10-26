@@ -26,8 +26,8 @@ position = Vector2( 876.905, 11.3393 )
 [node name="ResourceSpawners" type="Node2D" parent="Team1"]
 
 [node name="BaseResourceSpawner" parent="Team1/ResourceSpawners" instance=ExtResource( 6 )]
-id = 7209184b-8413-46ed-91ab-772f9166a2a3
-position = Vector2( 1053.19, 14.6832 )
+position = Vector2( 1077.22, 37.3755 )
+id = "beb02042-2c4b-41e2-b3b4-248e613ddf8b"
 
 [node name="Team2" parent="." instance=ExtResource( 3 )]
 
@@ -45,8 +45,8 @@ position = Vector2( 830.287, 463.651 )
 [node name="ResourceSpawners" type="Node2D" parent="Team2"]
 
 [node name="BaseResourceSpawner" parent="Team2/ResourceSpawners" instance=ExtResource( 6 )]
-id = 5cc7e3c2-7e1f-46b5-8f8e-f9aea06e1f22
-position = Vector2( 1026.49, 541.945 )
+position = Vector2( 1055.86, 543.28 )
+id = "fd065fcb-9a9f-4fcb-90a5-c131c874e9a9"
 
 [node name="Team3" parent="." instance=ExtResource( 3 )]
 
@@ -64,8 +64,8 @@ position = Vector2( 225.526, 440.972 )
 [node name="ResourceSpawners" type="Node2D" parent="Team3"]
 
 [node name="BaseResourceSpawner" parent="Team3/ResourceSpawners" instance=ExtResource( 6 )]
-id = 724b6ee9-1569-4c30-8a33-d0161d1ce2d9
-position = Vector2( 35.6733, 447.361 )
+position = Vector2( 8.00903, 452.511 )
+id = "ac8357cb-d2a6-4aa1-9ca6-d5db76a3385b"
 
 [node name="Team4" parent="." instance=ExtResource( 3 )]
 
@@ -83,5 +83,7 @@ position = Vector2( 22.6786, 168.829 )
 [node name="ResourceSpawners" type="Node2D" parent="Team4"]
 
 [node name="BaseResourceSpawner" parent="Team4/ResourceSpawners" instance=ExtResource( 6 )]
-id = 014b7bfe-a775-4cda-b5ed-6faa1f5a5d16
-position = Vector2( -16.379, -13.8591 )
+position = Vector2( -129.48, -10.6787 )
+id = "e7b3597d-600a-42f4-ad60-f680791b15a4"
+
+[node name="ResourceSpawners" type="Node2D" parent="."]
