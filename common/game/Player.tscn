@@ -2,7 +2,7 @@
 
 [ext_resource path="res://common/game/Player.gd" type="Script" id=1]
 [ext_resource path="res://common/game/WeaponListener.gd" type="Script" id=2]
-[ext_resource path="res://common/game/weapons/BaseGun.tscn" type="PackedScene" id=3]
+[ext_resource path="res://common/game/weapons/Pistol.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/players/green_player.tres" type="SpriteFrames" id=5]
 
 [sub_resource type="CapsuleShape2D" id=1]
@@ -32,8 +32,6 @@ __meta__ = {
 [node name="Weapon" type="Node2D" parent="."]
 script = ExtResource( 2 )
 
-[node name="Weapon" parent="Weapon" instance=ExtResource( 3 )]
-
 [node name="ColorRect" type="ColorRect" parent="Weapon"]
 visible = false
 margin_left = -5.0
@@ -44,6 +42,8 @@ color = Color( 1, 0.890196, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Weapon" parent="Weapon" instance=ExtResource( 3 )]
 
 [node name="RespawnTimer" type="Timer" parent="."]
 one_shot = true

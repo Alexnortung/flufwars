@@ -13,11 +13,14 @@ var lastFramePressed = false
 var isPressed = false
 
 var attackType = ATTACK_TYPE_AUTO
-var cooldown = 0.5
+export var cooldown : float = 0.5
 var isAttacking = false
 var isReady = true
+var ammo : int = INF # Infinite ammo for base weapon
+export var maxAmmo : int = INF
 
 func _ready():
+	ammo = maxAmmo
 	$CooldownTimer.connect("timeout", self, "on_cooldown_finished")
 
 func _physics_process(delta):
@@ -81,3 +84,4 @@ func on_attack():
 	$CooldownTimer.start(cooldown)
 	# print("cooldown timer started")
 	isReady = false
+	ammo -= 1
