@@ -68,6 +68,7 @@ func weapon_auto_attack(player):
 	var position = player.get_projectile_spawn_position()
 	var direction = player.get_direction()
 	rpc("on_spawn_projectile", position, direction, weapon.projectile, UUID.v4())
+	rpc_id(playerId, "on_ammo_changed", weapon.ammo)
 
 remote func single_attacked():
 	var playerId = get_tree().get_rpc_sender_id()
@@ -80,6 +81,7 @@ remote func single_attacked():
 	var position = player.get_projectile_spawn_position()
 	var direction = player.get_direction()
 	rpc("on_spawn_projectile", position, direction, weapon.projectile, UUID.v4())
+	rpc_id(playerId, "on_ammo_changed", weapon.ammo)
 
 remote func auto_attacked(start):
 	var playerId = get_tree().get_rpc_sender_id()

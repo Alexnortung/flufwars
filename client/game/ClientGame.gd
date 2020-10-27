@@ -49,3 +49,9 @@ remote func resource_amount_changed(resources):
 	get_client_player().resources = resources
 	# update UI
 	get_ui().set_resources(resources)
+
+remote func on_ammo_changed(amount: int):
+	# update weapon
+	get_client_player().get_weapon().ammo = amount
+	# update ui
+	get_ui().set_ammo(amount)
