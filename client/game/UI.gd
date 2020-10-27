@@ -1,8 +1,35 @@
 extends CanvasLayer
 
-func set_ammo(amount):
-	$AmmoPanel/Label.text = str(amount)
+const _infinityChar = "∞"
 
+var _ammo = 0
+var _reloads = INF
+
+func set_ammo(amount):
+	_ammo = amount
+	_set_ammo_label()
+
+func set_reloads(amount):
+	_reloads = amount
+	_set_ammo_label()
+
+func _set_ammo_label():
+	var updatedLabel = _generate_ammo_label()
+	$AmmoPanel/Label.text = updatedLabel
+
+func _generate_ammo_label():
+	var updatedLabel = ""
+	if _ammo == INF:
+		updatedLabel = _infinityChar
+		return updatedLabel
+	updatedLabel += str(_ammo) + "/"
+	print(str(_reloads))
+	print(str(_reloads == INF))
+	if _reloads == INF:
+		updatedLabel += _infinityChar
+	else:
+		updatedLabel += str(_reloads)
+	return updatedLabel
 
 func _get_resource_container():
 	return $ResourcesPanel/HBoxContainer

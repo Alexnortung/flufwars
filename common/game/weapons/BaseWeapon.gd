@@ -18,6 +18,7 @@ var isAttacking = false
 var isReady = true
 var ammo : int = INF # Infinite ammo for base weapon
 export var maxAmmo : int = INF
+export var reloads : int = INF
 
 func _ready():
 	ammo = maxAmmo
@@ -76,8 +77,8 @@ func stop_cooldown():
 func start_auto_attack():
 	# emit auto attack
 	# print("auto fired weapon")
-	emit_signal("weapon_auto_attack")
 	on_attack()
+	emit_signal("weapon_auto_attack")
 
 func on_attack():
 	# reset timer
