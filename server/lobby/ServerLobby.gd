@@ -29,5 +29,7 @@ remote func join_team(teamIndex: int):
 		GameData.assign_player_to_team(teamIndex, playerId)
 		rpc("assign_player_to_team", playerId, teamIndex)
 		print("Player " + str(playerId) + " joined team " + str(teamIndex))
-	# TODO:create error no space on the team
-#	emit_signal("assign_player_to_team", teamIndex, playerId)
+	else:
+		rpc_id(playerId, "display_team_full_error")
+	
+		# TODO:create error no space on the team

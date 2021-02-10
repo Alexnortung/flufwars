@@ -4,6 +4,7 @@ var clientPlayerId: int
 var players = {}
 var teams = []
 var map_info
+var restarted = false
 
 const PLAYER_ID = "id"
 const PLAYER_NAME = "name"
@@ -21,6 +22,8 @@ func add_player(playerId: int, playerName: String):
 
 func generate_team_structure():
 	#var teamColors = map_info.teamColors
+	print("Teams in the level selceted:")
+	print(map_info.teamsInLevel)
 	var teamsInLevel = map_info.teamsInLevel
 	var playersPerTeam = map_info.playersPerTeam
 	teams = []
@@ -42,10 +45,7 @@ func assign_player_to_team(teamIndex: int, playerId):
 
 func remove_player_from_team(team, player):
 	print("removing from team")
-	#print(team)
 	var newPlayers = teams[team.index].players.erase(player.id)
-	#print(team)
-	#print(newPlayers)
 
 
 func write_team_dump():
@@ -63,6 +63,7 @@ func write_player_dump():
 
 func reset():
 	self.players = {}
+	print(GameData.write_player_dump())
 	
 func set_map_info(obj):
 	map_info = obj

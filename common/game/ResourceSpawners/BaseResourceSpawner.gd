@@ -43,8 +43,9 @@ func body_exited(body):
 # called on timer timeout - handled by server
 func spawn_resource():
 	if playersInside.size() > 0:
-		# split resources
-		emit_signal("split_resources")
+		# split resource
+		# TODO: what is this, it shouildnt exists
+		#emit_signal("split_resources")
 		return
 	emit_signal("spawn_resource")
 

@@ -6,8 +6,11 @@ func _ready():
 	ClientNetwork.connect("assign_player_to_team", self, "assign_player_to_team")
 
 	GameData.set_map_info({teamColors = Level1Data.teamColors, teamsInLevel = Level1Data.teamsInLevel, playersPerTeam = Level1Data.playersPerTeam})
+	GameData.reset()
 
+	print(GameData.write_player_dump())
 	generate_team_visual_structure()
+	print(GameData.write_player_dump())
 
 func create_player(playerId: int):
 	print("Creating player in lobby")
@@ -57,13 +60,13 @@ remote func assign_player_to_team(playerId, teamIndex, firstTime = false):
 
 
 func generate_team_visual_structure():
-	print(GameData.write_team_dump())
 	var teams = GameData.teams
 
 	var teamScene = load("res://common/lobby/LobbyTeam.tscn")
 	var namePlateScene = preload("res://common/lobby/NamePlate.tscn")
 	var i = 0
 	for team in teams:
+		print("creating team")
 		var teamNode = teamScene.instance()
 		$Teams.add_child(teamNode)
 		teamNode.set_name("Team_" + str(i))
@@ -73,8 +76,9 @@ func generate_team_visual_structure():
 		teamNode.get_node("JoinButton").text = "Join " + Level1Data.colorDic[i].color + " team"
 		teamNode.get_node("JoinButton").connect("pressed", self, "assign_client_to_team", [i])
 
-		for player in team.players:
-			var nameplate = namePlateScene.instance()
-			nameplate.get_node("Name").text = player[GameData.name]
-			teamNode.get_node("Players").add_child(nameplate)
+		#for player in team.players:
+		#	print("player is in team")
+		#	var nameplate = namePlateScene.instance()
+		#	nameplate.get_node("Name").text = player[GameData.name]
+		#	teamNode.get_node("Players").add_child(nameplate)
 		i += 1

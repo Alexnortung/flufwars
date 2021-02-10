@@ -33,3 +33,13 @@ margin_bottom = 40.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="DisplayErrors" type="Label" parent="."]
+margin_left = 1.05609
+margin_top = 550.301
+margin_right = 1026.06
+margin_bottom = 594.301
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
