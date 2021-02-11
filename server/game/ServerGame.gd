@@ -25,7 +25,8 @@ remote func on_client_ready(playerId):
 	# All clients are done, unpause the game
 	if unreadyPlayers.empty():
 		print("Starting the game")
-		rpc("on_pre_configure_complete")
+		on_pre_configure_complete()
+		rpc("remote_on_pre_configure_complete")
 
 
 func remove_player(playerId: int):
@@ -52,11 +53,13 @@ func handle_spawn_flag(flag):
 
 func flag_picked_up(flag : Node2D, player : Node2D):
 	print("telling clients, flag was picked up")
-	rpc("on_flag_picked_up", flag.teamIndex, player.id)
+	on_flag_picked_up(flag.teamIndex, player.id)
+	rpc("remote_on_flag_picked_up", flag.teamIndex, player.id)
 	print("ServerGame: Flag ID: " + str(flag.teamIndex) + " PlayerId: " + str(player.id))
 
 func damage_taken(playerId: int, newHealth: int):
-	rpc("on_take_damage", playerId, newHealth)
+	on_take_damage(playerId, newHealth)
+	rpc("remote_on_take_damage", playerId, newHealth)
 
 func weapon_auto_attack(player):
 	#print("Player: weapon auto attack")
@@ -65,7 +68,8 @@ func weapon_auto_attack(player):
 	# spawn projectile or other attack logic
 	var position = player.get_projectile_spawn_position()
 	var direction = player.get_direction()
-	rpc("on_spawn_projectile", position, direction, weapon.projectile, UUID.v4())
+	on_spawn_projectile(position, direction, weapon.projectile, UUID.v4())
+	rpc("remote_on_spawn_projectile", position, direction, weapon.projectile, UUID.v4())
 
 remote func single_attacked():
 	var playerId = get_tree().get_rpc_sender_id()
@@ -77,7 +81,8 @@ remote func single_attacked():
 		return
 	var position = player.get_projectile_spawn_position()
 	var direction = player.get_direction()
-	rpc("on_spawn_projectile", position, direction, weapon.projectile, UUID.v4())
+	on_spawn_projectile(position, direction, weapon.projectile, UUID.v4())
+	rpc("remote_on_spawn_projectile", position, direction, weapon.projectile, UUID.v4())
 
 remote func auto_attacked(start):
 	var playerId = get_tree().get_rpc_sender_id()
@@ -94,7 +99,8 @@ func respawn_player(playerId: int):
 		end_game()
 
 	if !is_flag_taken(player.teamIndex):
-		rpc("on_respawn_player", playerId)
+		on_respawn_player(playerId)
+		rpc("remote_on_respawn_player", playerId)
 		print("respawn player")
 
 func get_alive_teams():

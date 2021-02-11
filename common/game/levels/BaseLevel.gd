@@ -12,7 +12,7 @@ func _ready():
 		teamNode.teamIndex = teamIndex
 		flagNode.teamIndex = teamIndex
 		teamIndex += 1
-		connect_resource_spawners(teamNode.get_resource_spawners())
+		#connect_resource_spawners(teamNode.get_resource_spawners())
 
 func flag_picked_up(flag, player):
 	print("BaseLevel: flag picked up")

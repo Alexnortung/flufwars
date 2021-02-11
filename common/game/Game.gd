@@ -115,20 +115,20 @@ func is_flag_taken(teamIndex):
 		return true
 	return false
 
-remotesync func on_pre_configure_complete():
+func on_pre_configure_complete():
 	print("All clients are configured. Starting the game.")
 	get_tree().paused = false
 
-remotesync func on_flag_picked_up(teamIndex : int, playerId : int):
+func on_flag_picked_up(teamIndex : int, playerId : int):
 	var flag = get_flag(teamIndex)
 	var player = get_player(playerId)
 	flag.picked_up(flag, player)
 	print("Game remote: picking up the flag. Teamindex: " + str(teamIndex) + " playerId: " + str(playerId))
 
-remotesync func on_take_damage(playerId: int, newHealth: int):
+func on_take_damage(playerId: int, newHealth: int):
 	get_player(playerId).update_health(newHealth)
 
-remotesync func on_spawn_projectile(position: Vector2, direction: Vector2, projectileType: String, projectileId: String):
+func on_spawn_projectile(position: Vector2, direction: Vector2, projectileType: String, projectileId: String):
 	# print("spawning projectile")
 	var projectileLoad = projectileTypes[projectileType]
 	var projectile = projectileLoad.instance()
@@ -137,17 +137,18 @@ remotesync func on_spawn_projectile(position: Vector2, direction: Vector2, proje
 	projectiles[projectileId] = projectile
 	emit_signal("spawn_projectile", projectile)
 
-remotesync func on_respawn_player(playerId: int):
+func on_respawn_player(playerId: int):
 	var player = get_player(playerId)
 	player.position = player.playerSpawn.position
 	player.health = player.initHealth
 	player.kill_player(false)
 
-remotesync func on_player_dead(playerId):
+func on_player_dead(playerId):
 	get_player(playerId).kill_player(true)
 
 func player_dies(playerId: int):
-	rpc("on_player_dead", playerId)
+	on_player_dead(playerId)
+	rpc("remote_on_player_dead", playerId)
 
 func respawn_player(playerId: int):
 	pass

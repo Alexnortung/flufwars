@@ -5,7 +5,7 @@ func _ready():
 	clientPlayer.connect("single_attack", self, "single_attack")
 	clientPlayer.connect("auto_attack", self, "auto_attack")
 
-remotesync func on_pre_configure_complete():
+func on_pre_configure_complete():
 	print("All clients are configured. Starting the game.")
 	get_tree().paused = false
 
@@ -32,3 +32,21 @@ func auto_attack(start : bool):
 
 func load_lobby():
 	get_tree().change_scene("res://client/lobby/ClientLobby.tscn")
+
+remote func remote_on_pre_configure_complete():
+	on_pre_configure_complete()
+
+remote func remote_on_flag_picked_up(teamIndex : int, playerId : int):
+	on_flag_picked_up(teamIndex, playerId)
+
+remote func remote_on_take_damage(playerId: int, newHealth: int):
+	on_take_damage(playerId, newHealth)
+
+remote func remote_on_spawn_projectile(position: Vector2, direction: Vector2, projectileType: String, projectileId: String):
+	on_spawn_projectile(position, direction, projectileType, projectileId)
+
+remote func remote_on_respawn_player(playerId: int):
+	on_respawn_player(playerId)
+
+remote func remote_on_player_dead(playerId: int):
+	on_player_dead(playerId)
