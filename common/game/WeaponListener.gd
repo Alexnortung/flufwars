@@ -14,7 +14,7 @@ func update_weapon(weapon: Node2D):
 	connect_weapons()
 
 func connect_weapons():
-	$Weapon.connect("single_attack", self, "single_attack")
+	# $Weapon.connect("single_attack", self, "single_attack")
 	$Weapon.connect("auto_attack", self, "auto_attack")
 	$Weapon.connect("weapon_auto_attack", self, "weapon_auto_attack")
 
