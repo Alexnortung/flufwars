@@ -4,6 +4,7 @@ func _ready():
 	var clientPlayer = get_client_player()
 	clientPlayer.connect("single_attack", self, "single_attack")
 	clientPlayer.connect("auto_attack", self, "auto_attack")
+	$DebugUI.connect("debug_command", self, "debug_command")
 
 func get_ui():
 	return $UI
@@ -55,3 +56,12 @@ remote func on_ammo_changed(amount: int):
 	get_client_player().get_weapon().ammo = amount
 	# update ui
 	get_ui().set_ammo(amount)
+
+remote func on_spawn_weapon(weaponType : String, id : String = UUID.v4(), position : Vector2 = Vector2.ZERO):
+	# Create weapon with id
+	print("got spawn weapon from server")
+	spawn_weapon(weaponType, id, position)
+
+func debug_command(command, args):
+	print("sending debug command")
+	rpc_id(1, "debug_command", command, args)

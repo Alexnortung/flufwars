@@ -5,8 +5,15 @@ signal spawn_projectile
 
 var players = {}
 var projectiles = {}
+# Entities are other Nodes with ids
+var entities = {}
 const projectileTypes = {
 	base_projectile = preload("res://common/game/projectiles/BaseProjectile.tscn"), # 0
+}
+
+const weaponTypes = {
+	# BaseWeapon is abstract so we should not use it here
+	pistol = preload("res://common/game/weapons/Pistol.tscn"),
 }
 
 func _ready():
@@ -176,3 +183,9 @@ remote func end_game():
 		print("sent from server")
 		GameData.teams = []
 		load_lobby()
+
+func spawn_weapon(weaponType : String, id : String, position : Vector2):
+	var weapon = weaponTypes[weaponType].instance()
+	weapon.init(id, position)
+	entities[id] = weapon
+	add_child(weapon)

@@ -1,9 +1,14 @@
 extends CanvasLayer
 
+signal debug_command
+
 const _infinityChar = "∞"
 
 var _ammo = 0
 var _reloads = INF
+
+func _ready():
+	pass
 
 func set_ammo(amount):
 	_ammo = amount

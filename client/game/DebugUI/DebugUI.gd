@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+signal debug_command
+
 var buttons : Array
 
 # Called when the node enters the scene tree for the first time.
@@ -31,4 +33,4 @@ func close():
 	$Menu.hide()
 
 func spawn_pistol():
-	print("spawning pistol")
+	emit_signal("debug_command", "spawn_pistol", [])

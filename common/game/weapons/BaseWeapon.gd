@@ -1,8 +1,14 @@
+# Abstract "class" should not be instantiated :)
+
 extends Node2D
 # This signal will tell whether the player is currently attacking or not.
 signal auto_attack
+
 # This signal will tell that the weapon has attacked (Used by server to spawn projectiles and update state)
 signal weapon_auto_attack
+
+# This signal will help the server to tell the clients that the player is reloading
+# signal start_reload
 
 enum {
 	ATTACK_TYPE_SINGLE,
@@ -14,12 +20,19 @@ var isPressed = false
 
 var attackType = ATTACK_TYPE_AUTO
 export var cooldown : float = 0.5
+export var reloadTime: float = 1.5
 var isAttacking = false
 var isReady = true # Is true when the cooldown is stopped
 var ammo : int = INF # Infinite ammo for base weapon
 var isReloading : bool = false
 export var maxAmmo : int = INF
 export var reloads : int = INF
+var id : String
+
+# Constructor
+func init(id = UUID.v4(), position : Vector2 = Vector2.ZERO):
+	self.id = id
+	self.position = position
 
 ### Private functions ###
 func _ready():
@@ -48,6 +61,9 @@ func try_attack():
 	on_attack()
 	return true
 
+func start_reload():
+	$ReloadTimer.start(reloadTime)
+
 ### Helper functions ###
 func stop_cooldown():
 	$CooldownTimer.stop()
@@ -59,10 +75,13 @@ func stop_cooldown():
 
 func on_reload_finish():
 	isReloading = false
+	$ReloadTimer.stop()
 	try_attack()
 
 func on_cooldown_finish():
 	isReady = true
+	if !isAttacking:
+		stop_cooldown()
 	try_attack()
 
 # called when the weapon is ready to attack, the weapon is firing and the cooldown has timed out.
@@ -73,3 +92,11 @@ func on_attack():
 	isReady = false
 	ammo -= 1
 	emit_signal("weapon_auto_attack")
+	if ammo <= 0:
+		start_reload()
+
+# Called on server side to help determine the try_attack function
+func set_attacking(active : bool):
+	isAttacking = active
+	if active:
+		try_attack()

@@ -5,11 +5,14 @@ signal weapon_auto_attack
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if get_child_count() > 0:
+	if has_node("Weapon"):
 		connect_weapons()
 
 func update_weapon(weapon: Node2D):
-	$Weapon.replace_by(weapon)
+	if has_node("Weapon"):
+		$Weapon.replace_by(weapon)
+	else:
+		add_child(weapon)
 	weapon.set_name("Weapon")
 	connect_weapons()
 

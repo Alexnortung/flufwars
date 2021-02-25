@@ -148,6 +148,8 @@ func animate_sprite():
 		$PlayerAnim.play("walk_left")
 		
 func animate_weapon():
+	if !has_weapon():
+		return
 	var look_direction_x = $Weapon.position.x 
 	if look_direction_x <= 0:
 		$Weapon/Weapon/AnimatedSprite.play("left")
@@ -211,3 +213,6 @@ func resource_collected(key, amount: int):
 
 func resource_spent(key, amount: int):
 	resources[key] -= amount
+
+func has_weapon():
+	return has_node("Weapon/Weapon")

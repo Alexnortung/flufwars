@@ -70,18 +70,18 @@ func weapon_auto_attack(player):
 	rpc("on_spawn_projectile", position, direction, weapon.projectile, UUID.v4())
 	rpc_id(playerId, "on_ammo_changed", weapon.ammo)
 
-remote func single_attacked():
-	var playerId = get_tree().get_rpc_sender_id()
-	print("Got gun_fired from: " + str(playerId))
-	var player = get_player(playerId)
-	var weapon = player.get_weapon()
-	if weapon == null:
-		print("no weapon")
-		return
-	var position = player.get_projectile_spawn_position()
-	var direction = player.get_direction()
-	rpc("on_spawn_projectile", position, direction, weapon.projectile, UUID.v4())
-	rpc_id(playerId, "on_ammo_changed", weapon.ammo)
+# remote func single_attacked():
+# 	var playerId = get_tree().get_rpc_sender_id()
+# 	print("Got gun_fired from: " + str(playerId))
+# 	var player = get_player(playerId)
+# 	var weapon = player.get_weapon()
+# 	if weapon == null:
+# 		print("no weapon")
+# 		return
+# 	var position = player.get_projectile_spawn_position()
+# 	var direction = player.get_direction()
+# 	rpc("on_spawn_projectile", position, direction, weapon.projectile, UUID.v4())
+# 	rpc_id(playerId, "on_ammo_changed", weapon.ammo)
 
 remote func auto_attacked(start):
 	var playerId = get_tree().get_rpc_sender_id()
@@ -149,3 +149,17 @@ func split_resources(resourceSpawner: Node2D):
 	# rpc call that the resource spawner is now empty
 	# call this after telling the players that they picked up the resources
 	rpc("resources_picked_up", resourceSpawner.id)
+
+func server_spawn_weapon(weaponType : String, position : Vector2 = Vector2.ZERO, id : String = UUID.v4()):
+	print("server spawn weapon called")
+	rpc("on_spawn_weapon", weaponType, id, position)
+	spawn_weapon(weaponType, id, position)
+
+func update_weapon_on_player(weaponInstance: Node2D, playerId):
+	pass
+	# rpc("on_update_weapon_on_player", )
+
+remote func debug_command(command : String, args : Array = []):
+	print("debug_command was called")
+	if has_node("DebugScript"):
+		$DebugScript.command(command, args)

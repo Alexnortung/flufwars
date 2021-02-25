@@ -7,7 +7,7 @@ signal assign_player_to_team
 var localPlayerName: String
 
 func join_game(serverIp: String, playerName: String) -> bool:
-	get_tree().connect('connected_to_server', self, 'on_connectd= _to_server')
+	get_tree().connect('connected_to_server', self, 'on_connected_to_server')
 	
 	self.localPlayerName = playerName
 	

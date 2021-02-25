@@ -6,7 +6,7 @@ var damage = 50
 var speed = 100
 var direction = Vector2.ZERO
 var velocity = Vector2.ZERO
-var id
+var id : String
 var _should_emit = true
 
 func init(position : Vector2, direction : Vector2, id = UUID.v4()):

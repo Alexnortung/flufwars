@@ -24,7 +24,7 @@ __meta__ = {
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 50.0
-margin_bottom = 24.0
+margin_bottom = 30.0
 grow_horizontal = 0
 grow_vertical = 0
 __meta__ = {
@@ -33,19 +33,19 @@ __meta__ = {
 
 [node name="Label" type="Label" parent="ResourcesPanel/HBoxContainer"]
 margin_right = 8.0
-margin_bottom = 14.0
+margin_bottom = 20.0
 text = "0"
 
 [node name="Label2" type="Label" parent="ResourcesPanel/HBoxContainer"]
 margin_left = 12.0
 margin_right = 20.0
-margin_bottom = 14.0
+margin_bottom = 20.0
 text = "0"
 
 [node name="Label3" type="Label" parent="ResourcesPanel/HBoxContainer"]
 margin_left = 24.0
 margin_right = 40.0
-margin_bottom = 14.0
+margin_bottom = 20.0
 text = "10"
 
 [node name="AmmoPanel" type="PanelContainer" parent="."]
@@ -60,7 +60,7 @@ __meta__ = {
 
 [node name="Label" type="Label" parent="AmmoPanel"]
 margin_left = 10.0
-margin_top = 14.0
-margin_right = 19.0
-margin_bottom = 28.0
+margin_top = 10.0
+margin_right = 18.0
+margin_bottom = 30.0
 text = "0"
