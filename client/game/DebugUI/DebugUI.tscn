@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://client/game/UIStyleBox.tres" type="StyleBox" id=1]
+[ext_resource path="res://client/game/DebugUI/DebugUI.gd" type="Script" id=2]
+[ext_resource path="res://client/game/DebugUI/ToggleButton.gd" type="Script" id=3]
+
+[node name="DebugUI" type="CanvasLayer"]
+script = ExtResource( 2 )
+
+[node name="ToggleButton" type="PanelContainer" parent="."]
+margin_right = 82.0
+margin_bottom = 40.0
+custom_styles/panel = ExtResource( 1 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ToggleButton"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 72.0
+margin_bottom = 30.0
+
+[node name="ToggleText" type="Label" parent="ToggleButton/HBoxContainer"]
+margin_right = 50.0
+margin_bottom = 20.0
+text = "Expand"
+
+[node name="ToggleIcon" type="Label" parent="ToggleButton/HBoxContainer"]
+margin_left = 54.0
+margin_right = 62.0
+margin_bottom = 20.0
+text = "+"
+
+[node name="Menu" type="GridContainer" parent="."]
+visible = false
+anchor_right = 0.527
+anchor_bottom = 0.538
+margin_top = 40.0
+margin_right = 40.0
+margin_bottom = 80.0
+custom_constants/vseparation = 10
+custom_constants/hseparation = 3
+columns = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
