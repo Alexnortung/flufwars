@@ -83,7 +83,7 @@ func on_reload_finish():
 	$ReloadTimer.stop()
 	try_attack()
 
-func on_cooldown_finish():
+func on_cooldown_finished():
 	isReady = true
 	if !isAttacking:
 		stop_cooldown()
