@@ -167,4 +167,8 @@ remote func debug_command(command : String, args : Array = []):
 
 func player_picked_up_weapon(weapon, player):
 	player.on_pickup_weapon(weapon)
-	rpc("on_player_pickup_weapon", player.id, weapon.id)
+	var weaponData = {
+		ammo = weapon.ammo,
+		reloads = weapon.reloads,
+	}
+	rpc("on_player_pickup_weapon", player.id, weapon.id, weaponData)

@@ -76,6 +76,10 @@ func stop_cooldown():
 
 ### Public functions ###
 
+func update_from_weapon_data(weaponData: Dictionary):
+	self.ammo = weaponData.ammo
+	self.reloads = weaponData.reloads
+
 ### On events ###
 
 func on_reload_finish():

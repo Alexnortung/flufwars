@@ -62,9 +62,12 @@ remote func on_spawn_weapon(weaponType : String, id : String = UUID.v4(), positi
 	print("got spawn weapon from server")
 	spawn_weapon(weaponType, id, position)
 
-remote func on_player_pickup_weapon(playerId : int, weaponId : String):
+remote func on_player_pickup_weapon(playerId : int, weaponId : String, weaponData : Dictionary):
 	var weapon = entities[weaponId]
+	weapon.update_from_weapon_data(weaponData)
 	players[playerId].on_pickup_weapon(weapon)
+	# after updating the weapon, the ui should also be updated
+	on_ammo_changed(weaponData.ammo)
 
 func debug_command(command, args):
 	print("sending debug command")
