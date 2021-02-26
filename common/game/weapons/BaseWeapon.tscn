@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://common/game/weapons/BaseWeapon.gd" type="Script" id=1]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 30.0
 
 [node name="BaseWeapon" type="Node2D"]
 script = ExtResource( 1 )
@@ -9,3 +12,10 @@ script = ExtResource( 1 )
 wait_time = 0.5
 
 [node name="ReloadTimer" type="Timer" parent="."]
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 1 )
+
+[node name="DropTimer" type="Timer" parent="."]

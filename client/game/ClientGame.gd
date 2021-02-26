@@ -62,6 +62,10 @@ remote func on_spawn_weapon(weaponType : String, id : String = UUID.v4(), positi
 	print("got spawn weapon from server")
 	spawn_weapon(weaponType, id, position)
 
+remote func on_player_pickup_weapon(playerId : int, weaponId : String):
+	var weapon = entities[weaponId]
+	players[playerId].on_pickup_weapon(weapon)
+
 func debug_command(command, args):
 	print("sending debug command")
 	rpc_id(1, "debug_command", command, args)

@@ -18,6 +18,7 @@ func _ready():
 		player.connect("take_damage", self, "damage_taken")
 		player.connect("weapon_auto_attack", self, "weapon_auto_attack", [ player ])
 		player.connect("flag_captured", self, "player_captured_flag", [ playerId ])
+		player.connect("pickup_weapon", self, "player_picked_up_weapon", [ player ])
 
 remote func on_client_ready(playerId):
 	print("client ready: %s" % playerId)
@@ -163,3 +164,7 @@ remote func debug_command(command : String, args : Array = []):
 	print("debug_command was called")
 	if has_node("DebugScript"):
 		$DebugScript.command(command, args)
+
+func player_picked_up_weapon(weapon, player):
+	player.on_pickup_weapon(weapon)
+	rpc("on_player_pickup_weapon", player.id, weapon.id)

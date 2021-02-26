@@ -25,6 +25,7 @@ signal weapon_auto_attack # there should be spawned a projectile
 signal player_dead # server signal
 signal flag_captured #server signal
 signal pickup_resource #server signal
+signal pickup_weapon # server signal
 signal timeout
 
 var resources = [
@@ -214,5 +215,19 @@ func resource_collected(key, amount: int):
 func resource_spent(key, amount: int):
 	resources[key] -= amount
 
-func has_weapon():
+func has_weapon() -> bool:
 	return has_node("Weapon/Weapon")
+
+func try_pickup_weapon(weapon : Node2D):
+	# called from BaseWeapon
+	# happens on client and server side
+	# should be redirected to server game with signal
+	if has_weapon():
+		return false
+	emit_signal("pickup_weapon", weapon)
+	return true
+
+# This is called on the server and client to sync the new weapon
+func on_pickup_weapon(weapon: Node2D):
+	$Weapon.update_weapon(weapon)
+	weapon.on_pickup(self)

@@ -28,6 +28,9 @@ var isReloading : bool = false
 export var maxAmmo : int = INF
 export var reloads : int = INF
 var id : String
+var lastHeldBy : int
+var isDropped : bool = true
+var recentlyDropped : bool = false
 
 # Constructor
 func init(id = UUID.v4(), position : Vector2 = Vector2.ZERO):
@@ -37,6 +40,8 @@ func init(id = UUID.v4(), position : Vector2 = Vector2.ZERO):
 ### Private functions ###
 func _ready():
 	ammo = maxAmmo
+	self.set_meta("tag", "weapon")
+	$Area2D.connect("body_entered", self, "on_enter") # TODO: make server connect this
 	$CooldownTimer.connect("timeout", self, "on_cooldown_finished")
 
 func _physics_process(delta):
@@ -100,3 +105,20 @@ func set_attacking(active : bool):
 	isAttacking = active
 	if active:
 		try_attack()
+
+### Drop/Pickup logic ###
+# This function should be called on the server side
+func on_enter(body: Node):
+	if !isDropped:
+		return
+	if body.get_meta("tag") == "player":
+		body.try_pickup_weapon(self)
+
+# Should only be called from player that picks this up
+func on_pickup(player: Node):
+	isDropped = false
+	lastHeldBy = player.id
+	recentlyDropped = false
+
+func on_drop_timer_finish():
+	recentlyDropped = false
