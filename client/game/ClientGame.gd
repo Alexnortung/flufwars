@@ -67,7 +67,7 @@ remote func on_player_pickup_weapon(playerId : int, weaponId : String, weaponDat
 	weapon.update_from_weapon_data(weaponData)
 	players[playerId].on_pickup_weapon(weapon)
 	# after updating the weapon, the ui should also be updated
-	on_ammo_changed(weaponData.ammo)
+	get_ui().set_ammo(weaponData.ammo)
 
 func debug_command(command, args):
 	print("sending debug command")

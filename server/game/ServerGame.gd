@@ -161,9 +161,11 @@ func update_weapon_on_player(weaponInstance: Node2D, playerId):
 	# rpc("on_update_weapon_on_player", )
 
 remote func debug_command(command : String, args : Array = []):
+	var playerId = get_tree().get_rpc_sender_id()
+	var player = get_player(playerId)
 	print("debug_command was called")
 	if has_node("DebugScript"):
-		$DebugScript.command(command, args)
+		$DebugScript.command(command, player, args)
 
 func player_picked_up_weapon(weapon, player):
 	player.on_pickup_weapon(weapon)

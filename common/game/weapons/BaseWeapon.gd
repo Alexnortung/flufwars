@@ -62,11 +62,11 @@ func auto_fire_logic():
 # Try attack should be called when the player tries to attack or the cooldown has run out.
 func try_attack():
 	# If conditions are met then fire
-	print("trying to attack:")
-	print("reloading:" + str(isReloading))
-	print("attacking:" + str(isAttacking))
-	print("isReady:" + str(isAttacking))
-	print("ammo:" + str(ammo))
+	# print("trying to attack:")
+	# print("reloading:" + str(isReloading))
+	# print("attacking:" + str(isAttacking))
+	# print("isReady:" + str(isAttacking))
+	# print("ammo:" + str(ammo))
 	if isReloading || !isAttacking || !isReady || ammo <= 0:
 		return false
 	on_attack()
@@ -131,6 +131,7 @@ func on_pickup(player: Node):
 	isDropped = false
 	lastHeldBy = player.id
 	recentlyDropped = false
+	self.position = Vector2.ZERO
 
 func on_drop_timer_finish():
 	recentlyDropped = false
