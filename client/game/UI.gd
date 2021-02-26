@@ -28,8 +28,6 @@ func _generate_ammo_label():
 		updatedLabel = _infinityChar
 		return updatedLabel
 	updatedLabel += str(_ammo) + "/"
-	print(str(_reloads))
-	print(str(_reloads == INF))
 	if _reloads == INF:
 		updatedLabel += _infinityChar
 	else:

@@ -20,7 +20,7 @@ var isPressed = false
 
 var attackType = ATTACK_TYPE_AUTO
 export var cooldown : float = 0.5
-export var reloadTime: float = 1.5
+export var reloadTime: float = 2
 var isAttacking = false
 var isReady = true # Is true when the cooldown is stopped
 var ammo : int = INF # Infinite ammo for base weapon
@@ -43,6 +43,7 @@ func _ready():
 	self.set_meta("tag", "weapon")
 	$Area2D.connect("body_entered", self, "on_enter") # TODO: make server connect this
 	$CooldownTimer.connect("timeout", self, "on_cooldown_finished")
+	$ReloadTimer.connect("timeout", self, "on_reload_finish")
 
 func _physics_process(delta):
 	isPressed = Input.is_action_pressed("fire")
@@ -61,12 +62,18 @@ func auto_fire_logic():
 # Try attack should be called when the player tries to attack or the cooldown has run out.
 func try_attack():
 	# If conditions are met then fire
-	if isReloading || !isAttacking || !isReady:
+	print("trying to attack:")
+	print("reloading:" + str(isReloading))
+	print("attacking:" + str(isAttacking))
+	print("isReady:" + str(isAttacking))
+	print("ammo:" + str(ammo))
+	if isReloading || !isAttacking || !isReady || ammo <= 0:
 		return false
 	on_attack()
 	return true
 
 func start_reload():
+	isReloading = true
 	$ReloadTimer.start(reloadTime)
 
 ### Helper functions ###
@@ -84,6 +91,7 @@ func update_from_weapon_data(weaponData: Dictionary):
 
 func on_reload_finish():
 	isReloading = false
+	ammo = maxAmmo
 	$ReloadTimer.stop()
 	try_attack()
 

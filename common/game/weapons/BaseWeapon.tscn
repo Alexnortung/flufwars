@@ -12,6 +12,7 @@ script = ExtResource( 1 )
 wait_time = 0.5
 
 [node name="ReloadTimer" type="Timer" parent="."]
+wait_time = 2.0
 
 [node name="Area2D" type="Area2D" parent="."]
 
