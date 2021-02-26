@@ -6,7 +6,7 @@ func _init():
 	self.connect("spawn_flag", self, "handle_spawn_flag")
 
 func _ready():
-	ClientNetwork.connect("remove_player", self, "remove_player")
+	# ClientNetwork.connect("remove_player", self, "remove_player") # already in game.gd
 	self.connect("spawn_projectile", self, "set_projectile_connection")
 	$Level.connect("flag_picked_up", self, "flag_picked_up")
 	$Level.connect("spawn_resource", self, "spawn_resource")
