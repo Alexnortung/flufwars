@@ -2,6 +2,8 @@ extends "res://common/game/Game.gd"
 
 func _ready():
 	var clientPlayer = get_client_player()
+	$Countdown.connect("countdown_updated", get_ui(), "countdown_updated")
+	$Countdown.connect("countdown_finished", get_ui(), "countdown_finished")
 	clientPlayer.connect("single_attack", self, "single_attack")
 	clientPlayer.connect("auto_attack", self, "auto_attack")
 	$DebugUI.connect("debug_command", self, "debug_command")
@@ -9,9 +11,8 @@ func _ready():
 func get_ui():
 	return $UI
 
-remotesync func on_pre_configure_complete():
-	print("All clients are configured. Starting the game.")
-	get_tree().paused = false
+remote func on_pre_configure_complete():
+	.on_pre_configure_complete()
 
 remote func update_player_position(arr):
 	for playerpos in arr:

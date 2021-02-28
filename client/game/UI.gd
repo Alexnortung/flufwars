@@ -8,7 +8,7 @@ var _ammo = 0
 var _reloads = INF
 
 func _ready():
-	pass
+	$MiddleText.get_node("Timer").connect("timeout", self, "on_middle_text_timeout")
 
 func set_ammo(amount):
 	_ammo = amount
@@ -48,3 +48,21 @@ func set_resources(arr: Array):
 	set_resource1(arr[0])
 	set_resource2(arr[1])
 	set_resource3(arr[2])
+
+func countdown_finished():
+	show_middle_message("FLUF!", 2)
+
+func countdown_updated(timeLeft):
+	$MiddleText.show()
+	if timeLeft <= 0:
+		return
+	$MiddleText.text = str(timeLeft)
+
+func show_middle_message(message : String, time : float = 2.0):
+	$MiddleText.text = message
+	$MiddleText.show()
+	$MiddleText.get_node("Timer").start(time)
+
+func on_middle_text_timeout():
+	$MiddleText.hide()
+	$MiddleText.get_node("Timer").stop()

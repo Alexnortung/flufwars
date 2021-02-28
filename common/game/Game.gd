@@ -3,6 +3,8 @@ extends Node2D
 signal spawn_flag
 signal spawn_projectile
 
+var gameStarted : bool = false
+var gameStartCountdownTime = 3
 var players = {}
 var projectiles = {}
 # Entities are other Nodes with ids
@@ -17,6 +19,7 @@ const weaponTypes = {
 }
 
 func _ready():
+	$Countdown.connect("countdown_finished", self, "on_start_game_countdown_finish")
 	print("Entering game")
 	get_tree().paused = true
 	
@@ -127,9 +130,9 @@ func is_flag_taken(teamIndex):
 		return true
 	return false
 
-remotesync func on_pre_configure_complete():
+func on_pre_configure_complete():
 	print("All clients are configured. Starting the game.")
-	get_tree().paused = false
+	start_game_countdown()
 
 remotesync func on_flag_picked_up(teamIndex : int, playerId : int):
 	var flag = get_flag(teamIndex)
@@ -189,3 +192,11 @@ func spawn_weapon(weaponType : String, id : String, position : Vector2):
 	weapon.init(id, position)
 	entities[id] = weapon
 	add_child(weapon)
+
+func start_game_countdown():
+	print("countdown started")
+	$Countdown.start(gameStartCountdownTime)
+
+func on_start_game_countdown_finish():
+	print("countdown finisehd")
+	get_tree().paused = false
