@@ -31,6 +31,12 @@ remote func on_client_ready(playerId):
 		# start countdown timer
 		on_pre_configure_complete()
 
+func on_pre_configure_complete():
+	# spawn pistols for all players
+	for player in players.values():
+		var weapon = server_spawn_weapon("pistol")
+		player_picked_up_weapon(weapon, player)
+	.on_pre_configure_complete()
 
 func remove_player(playerId: int):
 	# If all players are gone, return to lobby
@@ -155,7 +161,8 @@ func split_resources(resourceSpawner: Node2D):
 func server_spawn_weapon(weaponType : String, position : Vector2 = Vector2.ZERO, id : String = UUID.v4()):
 	print("server spawn weapon called")
 	rpc("on_spawn_weapon", weaponType, id, position)
-	spawn_weapon(weaponType, id, position)
+	var weapon = spawn_weapon(weaponType, id, position)
+	return weapon
 
 func update_weapon_on_player(weaponInstance: Node2D, playerId):
 	pass

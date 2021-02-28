@@ -10,7 +10,7 @@ func _physics_process(delta):
 		rpc_unreliable_id(1, "network_update", axis)
 
 		var normalizedDirection = get_normalized_direction()
-		$Weapon.position = normalizedDirection * lookDirectionOffset
+		set_look_direction(normalizedDirection)
 		rpc_unreliable_id(1, "on_player_change_direction", normalizedDirection)
 
 func update_health(newHealth: int):

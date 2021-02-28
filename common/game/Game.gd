@@ -192,6 +192,7 @@ func spawn_weapon(weaponType : String, id : String, position : Vector2):
 	weapon.init(id, position)
 	entities[id] = weapon
 	add_child(weapon)
+	return weapon
 
 func start_game_countdown():
 	print("countdown started")
