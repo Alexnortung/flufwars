@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="10">
+ <tileset firstgid="1" name="beams" tilewidth="32" tileheight="32" tilecount="64" columns="8">
+  <image source="../tilesets/tileset-beams.png" width="256" height="256"/>
+ </tileset>
+ <layer id="1" name="Tile Layer 1" width="50" height="50">
+  <data encoding="base64" compression="zlib">
+   eJztmVsOgyAQRRuKj1RrTdwgS2MpLK2XRJJmghZs0amdm5wfo4UjAQZ7uXwvClQJXL/YZoloMCRQH9XBxIgHr5zF4wb6F1pwBw253h3VwY3x4+M9uL//dxEPXhEPXuHskVpDeUYwgUfGM1i73R4eaMtMc/9KgN+34iEe4iEeseCMaWoC6lHD0QNrstUENd/v+zUQ+gQPWou3O3igHTsQqg896B6txaOYRxOZM4FHYY8xMgcCbabHfYXQXikPD9qxS+R4wNvoBcbC44HxtvUCzZ/Oj3/yoGeKcNY4ykNF5sCN6X7eRebMdeX+tXCtr8RDPMRDPGiwzrkqEewxzvdtzHhG7fT9KidY3x1qO6cZ9i0n4sEr4sErv+qBetT1LzSzR0uu7/XfwNb49z8kwH18xINXzuKRWntxrKG45AmPPPAR
+  </data>
+ </layer>
+ <objectgroup id="2" name="Object Layer 1">
+  <object id="4" name="Spawn1" x="112" y="784">
+   <point/>
+  </object>
+  <object id="5" name="Spawn2" x="80" y="848">
+   <point/>
+  </object>
+  <object id="6" name="Spawn3" x="80" y="720">
+   <point/>
+  </object>
+  <object id="9" name="TeamResourceSpawner" x="48" y="624" width="96" height="48"/>
+ </objectgroup>
+</map>
