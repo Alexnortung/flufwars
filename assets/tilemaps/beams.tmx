@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="10">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="34">
  <tileset firstgid="1" name="beams" tilewidth="32" tileheight="32" tilecount="64" columns="8">
   <image source="../tilesets/tileset-beams.png" width="256" height="256"/>
  </tileset>
- <layer id="1" name="Tile Layer 1" width="50" height="50">
+ <layer id="1" name="TileLayer1" width="50" height="50">
   <data encoding="base64" compression="zlib">
-   eJztmVsOgyAQRRuKj1RrTdwgS2MpLK2XRJJmghZs0amdm5wfo4UjAQZ7uXwvClQJXL/YZoloMCRQH9XBxIgHr5zF4wb6F1pwBw253h3VwY3x4+M9uL//dxEPXhEPXuHskVpDeUYwgUfGM1i73R4eaMtMc/9KgN+34iEe4iEeseCMaWoC6lHD0QNrstUENd/v+zUQ+gQPWou3O3igHTsQqg896B6txaOYRxOZM4FHYY8xMgcCbabHfYXQXikPD9qxS+R4wNvoBcbC44HxtvUCzZ/Oj3/yoGeKcNY4ykNF5sCN6X7eRebMdeX+tXCtr8RDPMRDPGiwzrkqEewxzvdtzHhG7fT9KidY3x1qO6cZ9i0n4sEr4sErv+qBetT1LzSzR0uu7/XfwNb49z8kwH18xINXzuKRWntxrKG45AmPPPAR
+   eJztmVGugjAQRQ0WaBDRxA2ytC6lS/M2DxPTV8qUUhx0bnJ+CIU5FMqgp9N2qUBN4LzhOUtEgYFA86kCiREPXvkWjw70b2hwBa23/fKpAlfGzY/z4H79lyIevCIevMLZg9pDOe7gAW4JY7B22z08cK7xMdVXAhzfiMd2HriHTBMB73ZzBI+lOnrx2DRcPfCNOTYe6EfHtR5Ya42KoDM8usDxqml/V9fg0RM8/F5cR2oLMTc+5uHmcvCoMz38d7RK9JgbLx7/PdrAM/PiVtgj9nzpRI9rhKU6cj0cOI+ZI8UD3qOa4V54PmL9QPujz8cvefjfFK9vDSpz49d6VIFnoMt4n5fsdy+B450j+8fCtb9KjXj85SgeJfvdPT1yEY+0YJ2zNRGswXa618hjqp1+v0oJ1neL3s4qhrWlRDx4RTx45age6Edt/0Y7eWhv+17/DayNu/4DAe7zIx688i0e1N6LYw/FJU86xgYQ
   </data>
  </layer>
- <objectgroup id="2" name="Object Layer 1">
+ <objectgroup color="#ff0000" id="2" name="Team1" tintcolor="#000000">
   <object id="4" name="Spawn1" x="112" y="784">
    <point/>
   </object>
@@ -19,5 +19,48 @@
    <point/>
   </object>
   <object id="9" name="TeamResourceSpawner" x="48" y="624" width="96" height="48"/>
+ </objectgroup>
+ <objectgroup color="#00ff00" id="5" name="Team2">
+  <object id="17" name="TeamResourceSpawner" x="896" y="48" width="48" height="96"/>
+  <object id="18" name="Spawn1" x="786" y="112">
+   <point/>
+  </object>
+  <object id="19" name="Spawn2" x="720" y="80">
+   <point/>
+  </object>
+  <object id="20" name="Spawn3" x="848" y="80">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#0000ff" id="6" name="Team3">
+  <object id="22" name="TeamResourceSpawner" x="1424" y="896" width="96" height="48"/>
+  <object id="23" name="Spawn1" x="1456" y="784">
+   <point/>
+  </object>
+  <object id="24" name="Spawn2" x="1488" y="720">
+   <point/>
+  </object>
+  <object id="25" name="Spawn3" x="1488" y="848">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#ff7f00" id="7" name="Team4">
+  <object id="26" name="Spawn1" x="784" y="1456">
+   <point/>
+  </object>
+  <object id="27" name="Spawn3" x="720" y="1488">
+   <point/>
+  </object>
+  <object id="28" name="Spawn2" x="848" y="1488">
+   <point/>
+  </object>
+  <object id="29" x="624" y="1424" width="48" height="96"/>
+ </objectgroup>
+ <objectgroup color="#7f00ff" id="4" name="LevelObejects">
+  <object id="14" name="R3Spawner1" x="742" y="742" width="64" height="64"/>
+  <object id="30" name="R2Spawner1" x="416" y="1088" width="64" height="64"/>
+  <object id="31" name="R2Spawner2" x="416" y="416" width="64" height="64"/>
+  <object id="32" name="R2Spawner3" x="1088" y="416" width="64" height="64"/>
+  <object id="33" name="R2Spawner4" x="1088" y="1088" width="64" height="64"/>
  </objectgroup>
 </map>
