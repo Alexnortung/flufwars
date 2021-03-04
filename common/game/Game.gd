@@ -45,7 +45,7 @@ func pre_configure():
 	sortedPlayers.sort()
 	# var i = 0
 
-	var teamNodes = $Level.get_children()
+	var teamNodes = $Level.get_node("Teams").get_children()
 	var teamIndex = 0
 	for teamData in GameData.teams:
 		# print("Team data")
@@ -70,7 +70,7 @@ func pre_configure():
 		rpc_id(ServerNetwork.SERVER_ID, "on_client_ready", get_tree().get_network_unique_id())
 
 func loadLevel():
-	var levelScene = load("res://common/game/levels/level1/Level1.tscn")
+	var levelScene = load("res://common/game/levels/Beams/Beams.tscn")
 	var levelNode = levelScene.instance()
 	levelNode.set_name("Level")
 	add_child(levelNode)

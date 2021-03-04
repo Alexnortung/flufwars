@@ -10,80 +10,82 @@
 [node name="Level1" type="Node2D"]
 script = ExtResource( 1 )
 
-[node name="Team1" parent="." instance=ExtResource( 3 )]
+[node name="ResourceSpawners" type="Node2D" parent="."]
 
-[node name="Flag" parent="Team1" instance=ExtResource( 4 )]
+[node name="Teams" type="Node2D" parent="."]
+
+[node name="Team1" parent="Teams" instance=ExtResource( 3 )]
+
+[node name="Flag" parent="Teams/Team1" instance=ExtResource( 4 )]
 position = Vector2( 855.159, 120.159 )
 
-[node name="PlayerSpawns" type="Node2D" parent="Team1"]
+[node name="PlayerSpawns" type="Node2D" parent="Teams/Team1"]
 
-[node name="PlayerSpawn" parent="Team1/PlayerSpawns" instance=ExtResource( 2 )]
+[node name="PlayerSpawn" parent="Teams/Team1/PlayerSpawns" instance=ExtResource( 2 )]
 position = Vector2( 942.421, 114.653 )
 
-[node name="FlagCapturePoint" parent="Team1" instance=ExtResource( 5 )]
+[node name="FlagCapturePoint" parent="Teams/Team1" instance=ExtResource( 5 )]
 position = Vector2( 876.905, 11.3393 )
 
-[node name="ResourceSpawners" type="Node2D" parent="Team1"]
+[node name="ResourceSpawners" type="Node2D" parent="Teams/Team1"]
 
-[node name="BaseResourceSpawner" parent="Team1/ResourceSpawners" instance=ExtResource( 6 )]
+[node name="BaseResourceSpawner" parent="Teams/Team1/ResourceSpawners" instance=ExtResource( 6 )]
 position = Vector2( 1077.22, 37.3755 )
 id = "beb02042-2c4b-41e2-b3b4-248e613ddf8b"
 
-[node name="Team2" parent="." instance=ExtResource( 3 )]
+[node name="Team2" parent="Teams" instance=ExtResource( 3 )]
 
-[node name="Flag" parent="Team2" instance=ExtResource( 4 )]
+[node name="Flag" parent="Teams/Team2" instance=ExtResource( 4 )]
 position = Vector2( 848.393, 306.161 )
 
-[node name="PlayerSpawns" type="Node2D" parent="Team2"]
+[node name="PlayerSpawns" type="Node2D" parent="Teams/Team2"]
 
-[node name="PlayerSpawn" parent="Team2/PlayerSpawns" instance=ExtResource( 2 )]
+[node name="PlayerSpawn" parent="Teams/Team2/PlayerSpawns" instance=ExtResource( 2 )]
 position = Vector2( 930.662, 392.326 )
 
-[node name="FlagCapturePoint" parent="Team2" instance=ExtResource( 5 )]
+[node name="FlagCapturePoint" parent="Teams/Team2" instance=ExtResource( 5 )]
 position = Vector2( 830.287, 463.651 )
 
-[node name="ResourceSpawners" type="Node2D" parent="Team2"]
+[node name="ResourceSpawners" type="Node2D" parent="Teams/Team2"]
 
-[node name="BaseResourceSpawner" parent="Team2/ResourceSpawners" instance=ExtResource( 6 )]
+[node name="BaseResourceSpawner" parent="Teams/Team2/ResourceSpawners" instance=ExtResource( 6 )]
 position = Vector2( 1055.86, 543.28 )
 id = "fd065fcb-9a9f-4fcb-90a5-c131c874e9a9"
 
-[node name="Team3" parent="." instance=ExtResource( 3 )]
+[node name="Team3" parent="Teams" instance=ExtResource( 3 )]
 
-[node name="Flag" parent="Team3" instance=ExtResource( 4 )]
+[node name="Flag" parent="Teams/Team3" instance=ExtResource( 4 )]
 position = Vector2( 197.014, 294.821 )
 
-[node name="PlayerSpawns" type="Node2D" parent="Team3"]
+[node name="PlayerSpawns" type="Node2D" parent="Teams/Team3"]
 
-[node name="PlayerSpawn" parent="Team3/PlayerSpawns" instance=ExtResource( 2 )]
+[node name="PlayerSpawn" parent="Teams/Team3/PlayerSpawns" instance=ExtResource( 2 )]
 position = Vector2( 151.191, 355.372 )
 
-[node name="FlagCapturePoint" parent="Team3" instance=ExtResource( 5 )]
+[node name="FlagCapturePoint" parent="Teams/Team3" instance=ExtResource( 5 )]
 position = Vector2( 225.526, 440.972 )
 
-[node name="ResourceSpawners" type="Node2D" parent="Team3"]
+[node name="ResourceSpawners" type="Node2D" parent="Teams/Team3"]
 
-[node name="BaseResourceSpawner" parent="Team3/ResourceSpawners" instance=ExtResource( 6 )]
+[node name="BaseResourceSpawner" parent="Teams/Team3/ResourceSpawners" instance=ExtResource( 6 )]
 position = Vector2( 8.00903, 452.511 )
 id = "ac8357cb-d2a6-4aa1-9ca6-d5db76a3385b"
 
-[node name="Team4" parent="." instance=ExtResource( 3 )]
+[node name="Team4" parent="Teams" instance=ExtResource( 3 )]
 
-[node name="Flag" parent="Team4" instance=ExtResource( 4 )]
+[node name="Flag" parent="Teams/Team4" instance=ExtResource( 4 )]
 position = Vector2( 94.494, 108.353 )
 
-[node name="PlayerSpawns" type="Node2D" parent="Team4"]
+[node name="PlayerSpawns" type="Node2D" parent="Teams/Team4"]
 
-[node name="PlayerSpawn" parent="Team4/PlayerSpawns" instance=ExtResource( 2 )]
+[node name="PlayerSpawn" parent="Teams/Team4/PlayerSpawns" instance=ExtResource( 2 )]
 position = Vector2( 171.771, 62.52 )
 
-[node name="FlagCapturePoint" parent="Team4" instance=ExtResource( 5 )]
+[node name="FlagCapturePoint" parent="Teams/Team4" instance=ExtResource( 5 )]
 position = Vector2( 22.6786, 168.829 )
 
-[node name="ResourceSpawners" type="Node2D" parent="Team4"]
+[node name="ResourceSpawners" type="Node2D" parent="Teams/Team4"]
 
-[node name="BaseResourceSpawner" parent="Team4/ResourceSpawners" instance=ExtResource( 6 )]
+[node name="BaseResourceSpawner" parent="Teams/Team4/ResourceSpawners" instance=ExtResource( 6 )]
 position = Vector2( -129.48, -10.6787 )
 id = "e7b3597d-600a-42f4-ad60-f680791b15a4"
-
-[node name="ResourceSpawners" type="Node2D" parent="."]
