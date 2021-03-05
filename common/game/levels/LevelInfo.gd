@@ -5,6 +5,7 @@ var colorDic = {}
 var teamColors = 0
 var playersPerTeam = 0
 var teamsInLevel = 0
+var levelScenePath : String
 
 func createTeamColor(colorName, colorCode):
 	# print("###### COLOR NAME ####")

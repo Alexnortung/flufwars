@@ -5,7 +5,7 @@
 [ext_resource path="res://common/game/PlayerSpawn.tscn" type="PackedScene" id=3]
 [ext_resource path="res://common/game/ResourceSpawners/CashSpawner.tscn" type="PackedScene" id=4]
 [ext_resource path="res://common/game/FlagCapturePoint.tscn" type="PackedScene" id=5]
-[ext_resource path="res://common/game/levels/Beams/Beams.gd" type="Script" id=6]
+[ext_resource path="res://common/game/levels/BaseLevel.gd" type="Script" id=6]
 [ext_resource path="res://common/game/Team.tscn" type="PackedScene" id=7]
 
 [sub_resource type="TileSet" id=1]
@@ -29,14 +29,8 @@
 0/shape_offset = Vector2( 0, 0 )
 0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 0/shape_one_way = false
-0/shape_one_way_margin = 1.0
-0/shapes = [ {
-"autotile_coord": Vector2( 0, 0 ),
-"one_way": false,
-"one_way_margin": 1.0,
-"shape": null,
-"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
-} ]
+0/shape_one_way_margin = 0.0
+0/shapes = [  ]
 0/z_index = 0
 
 [node name="Beams" type="Node2D"]
@@ -70,6 +64,7 @@ position = Vector2( -624, 656 )
 
 [node name="CashSpawner" parent="Teams/Team1/ResourceSpawners" instance=ExtResource( 4 )]
 position = Vector2( -744, 504 )
+id = "a8cc75ff-0339-47a6-b7c8-411b21cf4c95"
 
 [node name="FlagCapturePoint" parent="Teams/Team1" instance=ExtResource( 5 )]
 position = Vector2( -784, 752 )
@@ -94,6 +89,7 @@ position = Vector2( 1680, 656 )
 
 [node name="CashSpawner" parent="Teams/Team2/ResourceSpawners" instance=ExtResource( 4 )]
 position = Vector2( 1808, 1008 )
+id = "0c0d543c-a584-4f1c-a2a9-049df484c2c3"
 
 [node name="FlagCapturePoint" parent="Teams/Team2" instance=ExtResource( 5 )]
 position = Vector2( 1840, 752 )
@@ -118,6 +114,7 @@ position = Vector2( 656, -432 )
 
 [node name="CashSpawner" parent="Teams/Team3/ResourceSpawners" instance=ExtResource( 4 )]
 position = Vector2( 816, -560 )
+id = "a54f4c67-ddac-4246-8398-1d8462bea5bc"
 
 [node name="FlagCapturePoint" parent="Teams/Team3" instance=ExtResource( 5 )]
 position = Vector2( 560, -616 )
@@ -142,6 +139,7 @@ position = Vector2( 656, 1936 )
 
 [node name="CashSpawner" parent="Teams/Team4/ResourceSpawners" instance=ExtResource( 4 )]
 position = Vector2( 320, 2048 )
+id = "6b7e885f-acad-4247-bca0-61d94f91ed28"
 
 [node name="FlagCapturePoint" parent="Teams/Team4" instance=ExtResource( 5 )]
 position = Vector2( 560, 2096 )

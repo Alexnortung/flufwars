@@ -57,7 +57,6 @@ remote func assign_player_to_team(playerId, teamIndex, firstTime = false):
 
 
 func generate_team_visual_structure():
-	print(GameData.teams)
 	var teams = GameData.teams
 
 	var teamScene = load("res://common/lobby/LobbyTeam.tscn")
@@ -72,9 +71,9 @@ func generate_team_visual_structure():
 		teamNode.get_node("TeamFlag").texture = GameData.mapInfo.colorDic[i].flagImage
 		teamNode.get_node("JoinButton").text = "Join " + GameData.mapInfo.colorDic[i].color + " team"
 		teamNode.get_node("JoinButton").connect("pressed", self, "assign_client_to_team", [i])
-		print(team)
 
-		for player in team.players:
+		for playerId in team.players:
+			var player = team.players[playerId]
 			var nameplate = namePlateScene.instance()
 			nameplate.get_node("Name").text = player[(GameData.PLAYER_NAME)]
 			teamNode.get_node("Players").add_child(nameplate)

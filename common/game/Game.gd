@@ -71,7 +71,9 @@ func pre_configure():
 		rpc_id(ServerNetwork.SERVER_ID, "on_client_ready", get_tree().get_network_unique_id())
 
 func loadLevel():
-	var levelScene = load("res://common/game/levels/level1/Level1.tscn")
+	print("SCENE PATH")
+	print(GameData.mapInfo.levelScenePath)
+	var levelScene = load(GameData.mapInfo.levelScenePath)
 	levelNode = levelScene.instance()
 	levelNode.set_name("Level")
 	add_child(levelNode)

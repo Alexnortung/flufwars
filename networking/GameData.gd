@@ -5,6 +5,8 @@ var players = {}
 var teams = []
 var mapInfo
 
+var defaultMap = "beams"
+
 var mapsAvailable = {
 	beams = "res://common/game/levels/Beams/Beams.gd",
 	level1 = "res://common/game/levels/level1/Level1.gd",
@@ -15,7 +17,7 @@ const PLAYER_NAME = "name"
 
 func _init():
 	# Set default level data
-	var selectedMapDataPath = mapsAvailable[mapsAvailable.keys()[0]]
+	var selectedMapDataPath = mapsAvailable[defaultMap]
 	set_map_info(selectedMapDataPath)
 
 func create_new_player(playerId: int, playerName: String) -> Dictionary:

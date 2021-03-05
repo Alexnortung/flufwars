@@ -9,9 +9,7 @@ signal split_resources
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var teamIndex = 0
-	print("teams in level: " + str(GameData.mapInfo.teamsInLevel))
 	for i in range(GameData.mapInfo.teamsInLevel):
-		print("teamindex: "+ str(teamIndex))
 		var teamNode = get_team(i)
 		# if teamNode.get_meta("tag") != "team_node":
 		# 	continue

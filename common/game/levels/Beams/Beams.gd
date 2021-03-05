@@ -5,6 +5,7 @@ func _init():
 	colorDic[1] = createTeamColor("green", "40883C")
 	colorDic[2] = createTeamColor("blue", "3F28A7")
 	colorDic[3] = createTeamColor("orange", "B75923")
+	levelScenePath = "res://common/game/levels/Beams/Beams.tscn"
 
 	playersPerTeam = 3
 	teamsInLevel = 4
