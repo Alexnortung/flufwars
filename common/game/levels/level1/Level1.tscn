@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://common/game/levels/level1/Level1.gd" type="Script" id=1]
+[ext_resource path="res://common/game/levels/BaseLevel.gd" type="Script" id=1]
 [ext_resource path="res://common/game/PlayerSpawn.tscn" type="PackedScene" id=2]
 [ext_resource path="res://common/game/Team.tscn" type="PackedScene" id=3]
 [ext_resource path="res://common/game/Flag.tscn" type="PackedScene" id=4]

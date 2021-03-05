@@ -51,7 +51,7 @@ func picked_up(flag, player):
 
 
 func _on_Flag_draw():
-	$FlagShape/FlagSprite.texture = Level1Data.colorDic[teamIndex].flagImage
+	$FlagShape/FlagSprite.texture = GameData.mapInfo.colorDic[teamIndex].flagImage
 
 func on_flag_drop():
 	$RespawnBar.set_visible(true)

@@ -25,7 +25,7 @@ remote func join_team(teamIndex: int):
 			return
 		GameData.remove_player_from_team(GameData.teams[teamIndex], GameData.players[playerId])
 
-	if GameData.teams[teamIndex].players.size() < Level1Data.playersPerTeam:
+	if GameData.teams[teamIndex].players.size() < GameData.mapInfo.playersPerTeam:
 		GameData.assign_player_to_team(teamIndex, playerId)
 		rpc("assign_player_to_team", playerId, teamIndex)
 		print("Player " + str(playerId) + " joined team " + str(teamIndex))

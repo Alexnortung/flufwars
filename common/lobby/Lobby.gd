@@ -5,7 +5,7 @@ func _ready():
 	ClientNetwork.connect("remove_player", self, "remove_player")
 	ClientNetwork.connect("assign_player_to_team", self, "assign_player_to_team")
 
-	GameData.set_map_info({teamColors = Level1Data.teamColors, teamsInLevel = Level1Data.teamsInLevel, playersPerTeam = Level1Data.playersPerTeam})
+	# print(GameData.mapInfo.colorDic)
 
 	generate_team_visual_structure()
 
@@ -69,12 +69,13 @@ func generate_team_visual_structure():
 		teamNode.set_name("Team_" + str(i))
 		var rect = teamNode.get_rect()
 		teamNode.rect_position = Vector2(i * (rect.size.x + 50), 25)
-		teamNode.get_node("TeamFlag").texture = Level1Data.colorDic[i].flagImage
-		teamNode.get_node("JoinButton").text = "Join " + Level1Data.colorDic[i].color + " team"
+		teamNode.get_node("TeamFlag").texture = GameData.mapInfo.colorDic[i].flagImage
+		teamNode.get_node("JoinButton").text = "Join " + GameData.mapInfo.colorDic[i].color + " team"
 		teamNode.get_node("JoinButton").connect("pressed", self, "assign_client_to_team", [i])
+		print(team)
 
 		for player in team.players:
 			var nameplate = namePlateScene.instance()
-			nameplate.get_node("Name").text = player[GameData.name]
+			nameplate.get_node("Name").text = player[(GameData.PLAYER_NAME)]
 			teamNode.get_node("Players").add_child(nameplate)
 		i += 1

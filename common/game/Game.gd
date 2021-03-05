@@ -5,6 +5,7 @@ signal spawn_projectile
 
 var gameStarted : bool = false
 var gameStartCountdownTime = 3
+var levelNode : Node2D
 var players = {}
 var projectiles = {}
 # Entities are other Nodes with ids
@@ -70,8 +71,8 @@ func pre_configure():
 		rpc_id(ServerNetwork.SERVER_ID, "on_client_ready", get_tree().get_network_unique_id())
 
 func loadLevel():
-	var levelScene = load("res://common/game/levels/Beams/Beams.tscn")
-	var levelNode = levelScene.instance()
+	var levelScene = load("res://common/game/levels/level1/Level1.tscn")
+	levelNode = levelScene.instance()
 	levelNode.set_name("Level")
 	add_child(levelNode)
 
@@ -99,7 +100,7 @@ func spawn_player(playerId, teamNode, spawnNode):
 	add_camera_to_player(playerId, playerNode)
 	
 	playerNode.get_node("NameLabel").text = playerName
-	playerNode.get_node("PlayerAnim").set_sprite_frames(Level1Data.colorDic[teamIndex].playerAnim)
+	playerNode.get_node("PlayerAnim").set_sprite_frames(GameData.mapInfo.colorDic[teamIndex].playerAnim)
 	teamNode.get_node("Players").add_child(playerNode)
 	spawnNode.playerNode = playerNode
 	players[playerId] = playerNode

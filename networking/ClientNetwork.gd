@@ -43,8 +43,8 @@ remote func on_register_player(playerId: int, playerName: String, curPlayerTeam:
 	#print("Total players: %d" % GameData.players.size())
 
 func start_game():
-	rpc("on_start_game")
+	rpc("on_start_game") # TODO: Move this to Main menu
 
 
 remotesync func on_start_game():
-	emit_signal("start_game")
+	emit_signal("start_game") #TODO: Move this

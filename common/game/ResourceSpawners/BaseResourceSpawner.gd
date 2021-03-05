@@ -5,7 +5,7 @@ var maxResources = 32
 var resourceAmount = 10
 var resourceSpawnTime : float = 2.0
 var resourceType = 0
-export var id : String = "" # Always set this when creating a new resource spawner
+export var id : String = UUID.v4() # Always set this when creating a new resource spawner
 
 signal spawn_resource
 signal split_resources
