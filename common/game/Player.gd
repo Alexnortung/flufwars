@@ -113,7 +113,7 @@ func single_attack():
 	emit_signal("single_attack")
 
 func get_weapon():
-	return $Weapon.get_node("Weapon")
+	return $Weapon.get_node_or_null("Weapon")
 
 func auto_attack(start):
 	print("Player: auto_attack: " + str(start))

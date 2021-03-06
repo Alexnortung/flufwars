@@ -41,3 +41,10 @@ remote func on_player_change_direction(normalized_direction):
 
 func get_direction():
 	return server_direction.normalized()
+
+func get_projectile_direction():
+	var weapon = get_weapon()
+	var dir = get_direction()
+	if weapon == null:
+		return dir
+	return weapon.add_random_accuracy(dir)

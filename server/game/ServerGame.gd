@@ -74,7 +74,7 @@ func weapon_auto_attack(player):
 	var weapon = player.get_weapon()
 	# spawn projectile or other attack logic
 	var position = player.get_projectile_spawn_position()
-	var direction = player.get_direction()
+	var direction = player.get_projectile_direction()
 	rpc("on_spawn_projectile", position, direction, weapon.projectile, UUID.v4())
 	rpc_id(playerId, "on_ammo_changed", weapon.ammo)
 
