@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/tilesets/tileset-beams.png" type="Texture" id=1]
 [ext_resource path="res://common/game/Flag.tscn" type="PackedScene" id=2]
@@ -7,6 +7,8 @@
 [ext_resource path="res://common/game/FlagCapturePoint.tscn" type="PackedScene" id=5]
 [ext_resource path="res://common/game/levels/BaseLevel.gd" type="Script" id=6]
 [ext_resource path="res://common/game/Team.tscn" type="PackedScene" id=7]
+[ext_resource path="res://common/game/ResourceSpawners/GemSpawner.tscn" type="PackedScene" id=8]
+[ext_resource path="res://common/game/ResourceSpawners/MetalSpawner.tscn" type="PackedScene" id=9]
 
 [sub_resource type="TileSet" id=1]
 0/name = "beams"
@@ -35,6 +37,10 @@
 
 [node name="Beams" type="Node2D"]
 script = ExtResource( 6 )
+__meta__ = {
+"_edit_horizontal_guides_": [ 752.0 ],
+"_edit_vertical_guides_": [ 560.0 ]
+}
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource( 1 )
@@ -143,3 +149,25 @@ id = "6b7e885f-acad-4247-bca0-61d94f91ed28"
 
 [node name="FlagCapturePoint" parent="Teams/Team4" instance=ExtResource( 5 )]
 position = Vector2( 560, 2096 )
+
+[node name="ResourceSpawners" type="Node2D" parent="."]
+
+[node name="MetalSpawner" parent="ResourceSpawners" instance=ExtResource( 9 )]
+position = Vector2( 560, 752 )
+id = "c7fda203-a581-4df3-b370-6539749da2ee"
+
+[node name="GemSpawner3" parent="ResourceSpawners" instance=ExtResource( 8 )]
+position = Vector2( 1056, 1312 )
+id = "c806f244-9dd2-4c2e-88d5-cf8ef5e9e78d"
+
+[node name="GemSpawner2" parent="ResourceSpawners" instance=ExtResource( 8 )]
+position = Vector2( 0, 1312 )
+id = "9c5b1b47-3867-4d9d-a017-12ffb0d85c8d"
+
+[node name="GemSpawner" parent="ResourceSpawners" instance=ExtResource( 8 )]
+position = Vector2( 0, 192 )
+id = "acba55a6-2584-4ed5-9714-8e16c817b4e9"
+
+[node name="GemSpawner4" parent="ResourceSpawners" instance=ExtResource( 8 )]
+position = Vector2( 1056, 192 )
+id = "6e11380a-1836-4118-924d-266a8f36ec4c"

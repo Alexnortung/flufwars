@@ -1,7 +1,10 @@
 extends "res://common/game/ResourceSpawners/BaseResourceSpawner.gd"
 
 func _ready():
-	update_label()
+	resourceType = 1
+	resourceSpawnTime = 45.0
+	resourceAmount = 0
+	maxResources = 8
 
 func on_pickup():
 	.on_pickup()

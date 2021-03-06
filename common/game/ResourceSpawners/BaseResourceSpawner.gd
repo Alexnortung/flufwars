@@ -3,6 +3,7 @@ extends Area2D
 var playersInside = []
 var maxResources = 32
 var resourceAmount = 10
+var spawnAmount : int = 1
 var resourceSpawnTime : float = 2.0
 var resourceType = 0
 export var id : String = UUID.v4() # Always set this when creating a new resource spawner
@@ -54,7 +55,7 @@ func on_spawn_resource():
 	if resourceAmount >= maxResources:
 		# do nothing, no more capacity
 		return
-	resourceAmount += 1
+	resourceAmount += spawnAmount
 
 func on_pickup():
 	# do stuff

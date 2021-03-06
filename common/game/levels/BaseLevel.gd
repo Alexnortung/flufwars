@@ -20,7 +20,8 @@ func _ready():
 		# flagNode.levelNode = self
 		teamIndex += 1
 		connect_resource_spawners(teamNode.get_resource_spawners())
-	# connect_resource_spawners($ResourceSpawners.get_children())
+	connect_resource_spawners($ResourceSpawners.get_children())
+
 
 func flag_picked_up(flag, player):
 	print("BaseLevel: flag picked up")

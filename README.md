@@ -38,6 +38,16 @@ Linux:
 ./Client.x86_64
 ```
 
+# Development
+
+## Troubleshooting
+
+### SCRIPT ERROR: resource_spawned: Invalid call. Nonexistent function 'on_spawn_resource' in base 'Nil'.
+
+This error happens if a resource spawner that is in a level does not have an id set. This id needs to be the same on both the client and server, thus it must be set in the editor.
+
+Make sure to generate a uuid with `uuidgen` and add it to the resource spawner.
+
 # From GodotClientServer README
 
 **A project template for a Dedicated Server & Client within a single project.**

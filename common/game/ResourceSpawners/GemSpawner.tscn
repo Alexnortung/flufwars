@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://common/game/ResourceSpawners/BaseResourceSpawner.tscn" type="PackedScene" id=1]
+[ext_resource path="res://common/game/ResourceSpawners/GemSpawner.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 64, 64 )
+
+[node name="GemSpawner" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+shape = SubResource( 1 )
+
+[node name="ColorRect" type="ColorRect" parent="." index="2"]
+margin_left = -64.0
+margin_top = -64.0
+margin_right = 64.0
+margin_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color( 0, 0.203922, 1, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="." index="3"]
+margin_left = -56.1516
+margin_top = 63.5678
+margin_right = -16.1516
+margin_bottom = 83.5678
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
