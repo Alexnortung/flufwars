@@ -75,7 +75,9 @@ func weapon_auto_attack(player):
 	# spawn projectile or other attack logic
 	var position = player.get_projectile_spawn_position()
 	var direction = player.get_projectile_direction()
-	rpc("on_spawn_projectile", position, direction, weapon.projectile, UUID.v4())
+	var id = UUID.v4()
+	on_spawn_projectile(position, direction, weapon.projectile, id)
+	rpc("on_spawn_projectile", position, direction, weapon.projectile, id)
 	rpc_id(playerId, "on_ammo_changed", weapon.ammo)
 
 # remote func single_attacked():
@@ -128,6 +130,7 @@ func get_alive_teams():
 
 func set_projectile_connection(projectile: Node):
 	projectile.connect("hit", self, "projectile_hit")
+	projectile.connect("age_timeout", self, "despawn_projectile")
 
 func projectile_hit(projectile: Node2D, collider: Node2D):
 	var tag = collider.get_meta("tag")
@@ -182,3 +185,7 @@ func player_picked_up_weapon(weapon, player):
 		reloads = weapon.reloads,
 	}
 	rpc("on_player_pickup_weapon", player.id, weapon.id, weaponData)
+
+func despawn_projectile(projectile : Node2D):
+	.on_projectile_despawn(projectile.id)
+	rpc("on_projectile_despawn", projectile.id)

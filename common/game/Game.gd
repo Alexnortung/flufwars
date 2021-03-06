@@ -146,7 +146,7 @@ remotesync func on_flag_picked_up(teamIndex : int, playerId : int):
 remotesync func on_take_damage(playerId: int, newHealth: int):
 	get_player(playerId).update_health(newHealth)
 
-remotesync func on_spawn_projectile(position: Vector2, direction: Vector2, projectileType: String, projectileId: String):
+func on_spawn_projectile(position: Vector2, direction: Vector2, projectileType: String, projectileId: String):
 	# print("spawning projectile")
 	var projectileLoad = projectileTypes[projectileType]
 	var projectile = projectileLoad.instance()
@@ -154,6 +154,7 @@ remotesync func on_spawn_projectile(position: Vector2, direction: Vector2, proje
 	add_child(projectile)
 	projectiles[projectileId] = projectile
 	emit_signal("spawn_projectile", projectile)
+	return projectile
 
 remotesync func on_respawn_player(playerId: int):
 	var player = get_player(playerId)
@@ -170,7 +171,10 @@ func player_dies(playerId: int):
 func respawn_player(playerId: int):
 	pass
 
-remotesync func on_projectile_hit(projectileId):
+func on_projectile_hit(projectileId):
+	on_projectile_despawn(projectileId)
+
+func on_projectile_despawn(projectileId):
 	projectiles[projectileId].queue_free()
 	projectiles.erase(projectileId)
 

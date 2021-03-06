@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 signal hit
+signal age_timeout
 
 var damage = 50
 var speed = 100
@@ -19,6 +20,8 @@ func init(position : Vector2, direction : Vector2, id = UUID.v4()):
 func _ready():
 	self.set_meta("tag", "projectile")
 	$Area2D.connect("body_entered", self, "hit")
+	$AgeTimer.connect("timeout", self, "age_timeout")
+	$AgeTimer.start()
 
 func hit(body: Node):
 	if !_should_emit:
@@ -37,6 +40,5 @@ func _physics_process(delta):
 func dont_emit_hit():
 	_should_emit = false
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func age_timeout():
+	emit_signal("age_timeout", self)

@@ -70,6 +70,15 @@ remote func on_player_pickup_weapon(playerId : int, weaponId : String, weaponDat
 	# after updating the weapon, the ui should also be updated
 	get_ui().set_ammo(weaponData.ammo)
 
+remote func on_spawn_projectile(position: Vector2, direction: Vector2, projectileType: String, projectileId: String):
+	.on_spawn_projectile(position, direction, projectileType, projectileId)
+
+remote func on_projectile_hit(projectileId):
+	.on_projectile_hit(projectileId)
+
+remote func on_projectile_despawn(projectileId):
+	.on_projectile_despawn(projectileId)
+
 func debug_command(command, args):
 	print("sending debug command")
 	rpc_id(1, "debug_command", command, args)
