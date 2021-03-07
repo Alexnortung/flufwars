@@ -136,6 +136,7 @@ func projectile_hit(projectile: Node2D, collider: Node2D):
 	var tag = collider.get_meta("tag")
 	if tag == "player":
 		collider.take_damage(projectile.damage)
+	.on_projectile_hit(projectile.id)
 	rpc("on_projectile_hit", projectile.id)
 
 func player_captured_flag(playerId : int):

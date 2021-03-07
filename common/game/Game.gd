@@ -171,10 +171,10 @@ func player_dies(playerId: int):
 func respawn_player(playerId: int):
 	pass
 
-func on_projectile_hit(projectileId):
+func on_projectile_hit(projectileId : String):
 	on_projectile_despawn(projectileId)
 
-func on_projectile_despawn(projectileId):
+func on_projectile_despawn(projectileId : String):
 	projectiles[projectileId].queue_free()
 	projectiles.erase(projectileId)
 
