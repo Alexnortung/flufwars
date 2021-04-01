@@ -21,18 +21,18 @@ func create_player(playerId: int):
 	var player = GameData.players[playerId]
 	namePlateNode.get_node("Name").text = player[GameData.PLAYER_NAME]
 	
-	#playerNode.position.x = 100
-	#playerNode.position.y = 100
-	
 	$Players.add_child(namePlateNode)
 
 func remove_player(playerId: int):
-	var name = str(playerId)
-	for child in $Players.get_children():
-		if child.name == name:
-			print("Player removed")
-			$Players.remove_child(child)
-			break
+	var name = "PlayerId_" + str(playerId)
+	for child in $Teams.get_children():
+		var playersNode = child.get_node_or_null("Players")
+		if playersNode != null:
+			var playerNode = playersNode.get_node_or_null(name)
+			if playerNode != null:
+				print("Player removed")
+				playerNode.queue_free()
+				break
 
 func assign_client_to_team(teamIndex):
 	rpc_id(1, "join_team", teamIndex)

@@ -15,7 +15,7 @@ func _player_disconnected(id : int):
 
 	if GameData.players.size() == 0:
 		emit_signal("all_disconnected")
-	
+
 	emit_signal("remove_player", id)
 	print("Total players: %d" % GameData.players.size())
 
