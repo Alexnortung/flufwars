@@ -7,7 +7,7 @@ signal assign_player_to_team
 var localPlayerName: String
 
 func join_game(serverIp: String, playerName: String) -> bool:
-	#get_tree().connect('connected_to_server', self, 'on_connected_to_server')
+	get_tree().connect('connected_to_server', self, 'on_connected_to_server')
 	
 	self.localPlayerName = playerName
 	print("player_name" + self.localPlayerName)
@@ -37,10 +37,8 @@ remote func on_register_player(playerId: int, playerName: String, curPlayerTeam:
 	# TODO: they detect this as being on a team
 	print("on_register_player: " + str(playerId))
 	GameData.add_player(playerId, playerName)
+	#GameData.write_player_dump()
 	if curPlayerTeam != -1:
-		print(GameData.players[playerId])
-		print(GameData.write_team_dump())
-		print(GameData.write_player_dump())
 		GameData.assign_player_to_team(curPlayerTeam, playerId)
 		emit_signal("assign_player_to_team", playerId, curPlayerTeam, true)
 

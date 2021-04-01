@@ -39,7 +39,6 @@ func generate_team_structure():
 	print("Teams in the level selceted:")
 	print(mapInfo.teamsInLevel)
 	var teamsInLevel = mapInfo.teamsInLevel
-	var playersPerTeam = mapInfo.playersPerTeam
 	teams = []
 	for i in range(teamsInLevel):
 		var team = { players = {}, color = mapInfo.colorDic[i].code, index = i }
@@ -69,7 +68,6 @@ func write_team_dump():
 	print("############################################\n############################################")
 
 func write_player_dump():
-	print("printing player dump")
 	print("############################################\n############################################")
 	for player in players:
 		print(player)

@@ -8,9 +8,9 @@ func _ready():
 	# print(GameData.mapInfo.colorDic)
 	GameData.reset()
 
-	print(GameData.write_player_dump())
+	#print(GameData.write_player_dump())
 	generate_team_visual_structure()
-	print(GameData.write_player_dump())
+	#print(GameData.write_player_dump())
 
 func create_player(playerId: int):
 	print("Creating player in lobby")
@@ -76,9 +76,9 @@ func generate_team_visual_structure():
 		teamNode.get_node("JoinButton").text = "Join " + GameData.mapInfo.colorDic[i].color + " team"
 		teamNode.get_node("JoinButton").connect("pressed", self, "assign_client_to_team", [i])
 
-		for playerId in team.players:
-			var player = team.players[playerId]
-			var nameplate = namePlateScene.instance()
-			nameplate.get_node("Name").text = player[(GameData.PLAYER_NAME)]
-			teamNode.get_node("Players").add_child(nameplate)
+#		for playerId in team.players:
+#			var player = team.players[playerId]
+#			var nameplate = namePlateScene.instance()
+#			nameplate.get_node("Name").text = player[(GameData.PLAYER_NAME)]
+#			teamNode.get_node("Players").add_child(nameplate)
 		i += 1
