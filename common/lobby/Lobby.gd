@@ -6,8 +6,11 @@ func _ready():
 	ClientNetwork.connect("assign_player_to_team", self, "assign_player_to_team")
 
 	# print(GameData.mapInfo.colorDic)
+	GameData.reset()
 
+	print(GameData.write_player_dump())
 	generate_team_visual_structure()
+	print(GameData.write_player_dump())
 
 func create_player(playerId: int):
 	print("Creating player in lobby")
@@ -63,6 +66,7 @@ func generate_team_visual_structure():
 	var namePlateScene = preload("res://common/lobby/NamePlate.tscn")
 	var i = 0
 	for team in teams:
+		print("creating team")
 		var teamNode = teamScene.instance()
 		$Teams.add_child(teamNode)
 		teamNode.set_name("Team_" + str(i))

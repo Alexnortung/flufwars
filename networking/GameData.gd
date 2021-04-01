@@ -12,6 +12,8 @@ var mapsAvailable = {
 	level1 = "res://common/game/levels/level1/Level1.gd",
 }
 
+var restarted = false
+
 const PLAYER_ID = "id"
 const PLAYER_NAME = "name"
 
@@ -34,8 +36,10 @@ func add_player(playerId: int, playerName: String):
 
 func generate_team_structure():
 	#var teamColors = map_info.teamColors
+	print("Teams in the level selceted:")
+	print(mapInfo.teamsInLevel)
 	var teamsInLevel = mapInfo.teamsInLevel
-	# var playersPerTeam = mapInfo.playersPerTeam
+	var playersPerTeam = mapInfo.playersPerTeam
 	teams = []
 	for i in range(teamsInLevel):
 		var team = { players = {}, color = mapInfo.colorDic[i].code, index = i }
@@ -55,10 +59,7 @@ func assign_player_to_team(teamIndex: int, playerId):
 
 func remove_player_from_team(team, player):
 	print("removing from team")
-	print(team)
 	var newPlayers = teams[team.index].players.erase(player.id)
-	print(team)
-	print(newPlayers)
 
 
 func write_team_dump():
@@ -76,6 +77,7 @@ func write_player_dump():
 
 func reset():
 	self.players = {}
+	print(GameData.write_player_dump())
 	
 func set_map_info(path):
 	mapInfo = load(path).new()

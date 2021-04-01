@@ -24,12 +24,12 @@ func _ready():
 	print("Entering game")
 	get_tree().paused = true
 	
-	ClientNetwork.connect("remove_player", self, "remove_player")
+	ClientNetwork.connect("remove_player", self, "remove_game_player")
 	
 	pre_configure()
 
 
-func remove_player(playerId: int):
+func remove_game_player(playerId: int):
 	var playerNode = get_node(str(playerId))
 	playerNode.queue_free()
 
@@ -98,8 +98,6 @@ func spawn_player(playerId, teamNode, spawnNode):
 	playerNode.set_name(str(playerId))
 	
 	playerNode.position = spawnNode.position
-
-	add_camera_to_player(playerId, playerNode)
 	
 	playerNode.get_node("NameLabel").text = playerName
 	playerNode.get_node("PlayerAnim").set_sprite_frames(GameData.mapInfo.colorDic[teamIndex].playerAnim)
@@ -109,9 +107,6 @@ func spawn_player(playerId, teamNode, spawnNode):
 	playerNode.connect("player_dead", self, "player_dies")
 	playerNode.get_node("RespawnTimer").connect("timeout", self, "respawn_player", [playerId])
 	return playerNode
-
-func add_camera_to_player(playerId: int, playerNode: Node2D):
-	pass
 
 #virtual function
 func get_player_scene():
@@ -188,10 +183,7 @@ remotesync func resource_spawned(resourceSpawnerId: String):
 	$Level.get_resource_spawner(resourceSpawnerId).on_spawn_resource()
 
 remote func end_game():
-	print("sender is: " + str(get_tree().get_rpc_sender_id()))
 	if get_tree().get_rpc_sender_id() == 1 or get_tree().is_network_server():
-		print("sent from server")
-		GameData.teams = []
 		load_lobby()
 
 func spawn_weapon(weaponType : String, id : String, position : Vector2):

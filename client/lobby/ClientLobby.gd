@@ -19,3 +19,12 @@ func _on_Lobby_draw():
 	var team_rect_size = $Teams.get_child(0).get_rect().size.x
 	$Teams.rect_position = Vector2((screen_size.x/2)-((amount_teams*team_rect_size)/1.75), screen_size.y/10)
 	$StartButton.rect_global_position = screen_size-(screen_size/10)
+
+func display_error(errorText):
+	$DisplayErrors.text = "Error: %s" % [errorText]
+	#get the error text item
+	#write the text
+	# set timer for it to disappear
+
+remote func display_team_full_error():
+	display_error("Team is full")

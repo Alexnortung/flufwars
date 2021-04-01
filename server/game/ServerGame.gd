@@ -104,11 +104,8 @@ func respawn_player(playerId: int):
 	var aliveTeams = get_alive_teams()
 
 	if aliveTeams.size() < 2:
-		print("game_ended###############################################")
 		rpc("end_game")
-		print("game_ended###############################################")
 		end_game()
-		print("game_ended###############################################")
 
 	if !is_flag_taken(player.teamIndex):
 		rpc("on_respawn_player", playerId)
