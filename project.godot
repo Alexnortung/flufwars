@@ -35,6 +35,7 @@ UUID="*res://common/lib/uuid.gd"
 
 gdscript/warnings/unused_argument=false
 gdscript/warnings/return_value_discarded=false
+shapes/collision/shape_color=Color( 0.776471, 0.0901961, 0.941176, 0.501961 )
 
 [editor_plugins]
 
