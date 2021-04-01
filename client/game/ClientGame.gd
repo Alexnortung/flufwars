@@ -82,3 +82,7 @@ remote func on_projectile_despawn(projectileId):
 func debug_command(command, args):
 	print("sending debug command")
 	rpc_id(1, "debug_command", command, args)
+
+remote func end_game():
+	if get_tree().get_rpc_sender_id() == 1 or get_tree().is_network_server():
+		.end_game()

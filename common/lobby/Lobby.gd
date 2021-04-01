@@ -1,5 +1,5 @@
 extends Control
-
+# TODO: change so nameplates are removed when disconnecting from lobby.
 func _ready():
 	ClientNetwork.connect("create_player", self, "create_player")
 	ClientNetwork.connect("remove_player", self, "remove_player")
@@ -46,6 +46,8 @@ remote func assign_player_to_team(playerId, teamIndex, firstTime = false):
 
 	# Update game data
 	GameData.assign_player_to_team(teamIndex, playerId)
+
+	#TODO: move it out of functions
 	var namePlateScene = preload("res://common/lobby/NamePlate.tscn")
 
 	var namePlate = namePlateScene.instance()

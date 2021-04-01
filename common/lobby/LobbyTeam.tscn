@@ -9,14 +9,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Players" type="Control" parent="."]
+[node name="Players" type="VBoxContainer" parent="."]
 margin_left = 78.0
 margin_top = 11.0
 margin_right = 238.0
 margin_bottom = 220.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="JoinButton" type="Button" parent="."]
 margin_left = 9.64644

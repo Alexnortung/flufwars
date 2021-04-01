@@ -10,6 +10,9 @@ func _ready():
 	$Level.connect("flag_picked_up", self, "flag_picked_up")
 	$Level.connect("spawn_resource", self, "spawn_resource")
 	$Level.connect("split_resources", self, "split_resources")
+
+	ClientNetwork.connect("all_disconnected", self, "end_game")
+
 	for playerId in GameData.players:
 		unreadyPlayers[playerId] = playerId
 	for playerId in self.players:

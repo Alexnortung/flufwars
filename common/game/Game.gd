@@ -30,9 +30,8 @@ func _ready():
 
 
 func remove_game_player(playerId: int):
-	var playerNode = get_node(str(playerId))
-	playerNode.queue_free()
-
+	get_player(playerId).queue_free()
+	players.erase(playerId)
 
 func pre_configure():
 	var order := 0
@@ -182,9 +181,9 @@ remotesync func resources_picked_up(resourceSpawnerId: String):
 remotesync func resource_spawned(resourceSpawnerId: String):
 	$Level.get_resource_spawner(resourceSpawnerId).on_spawn_resource()
 
-remote func end_game():
-	if get_tree().get_rpc_sender_id() == 1 or get_tree().is_network_server():
-		load_lobby()
+
+func end_game():
+	load_lobby()
 
 func spawn_weapon(weaponType : String, id : String, position : Vector2):
 	var weapon = weaponTypes[weaponType].instance()

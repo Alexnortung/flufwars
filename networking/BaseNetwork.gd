@@ -1,6 +1,7 @@
 extends Node
 
 signal remove_player
+signal all_disconnected
 
 func _ready():
 	reset_network()
@@ -11,6 +12,9 @@ func _ready():
 func _player_disconnected(id):
 	print("Player disconnected: " + str(id))
 	GameData.players.erase(id)
+
+	if GameData.players.size() == 0:
+		emit_signal("all_disconnected")
 	
 	emit_signal("remove_player", id)
 	print("Total players: %d" % GameData.players.size())
