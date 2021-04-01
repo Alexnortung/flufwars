@@ -10,6 +10,7 @@ func join_game(serverIp: String, playerName: String) -> bool:
 	get_tree().connect('connected_to_server', self, 'on_connected_to_server')
 	
 	self.localPlayerName = playerName
+	print("player_name" + self.localPlayerName)
 	
 	var peer = NetworkedMultiplayerENet.new()
 	var result = peer.create_client(serverIp, ServerNetwork.SERVER_PORT)
@@ -33,14 +34,13 @@ func register_player(recipientId: int, playerId: int, playerName: String, curPla
 
 remote func on_register_player(playerId: int, playerName: String, curPlayerTeam: int):
 	#print(playerName)
+	# TODO: they detect this as being on a team
 	print("on_register_player: " + str(playerId))
 	GameData.add_player(playerId, playerName)
+	#GameData.write_player_dump()
 	if curPlayerTeam != -1:
 		GameData.assign_player_to_team(curPlayerTeam, playerId)
 		emit_signal("assign_player_to_team", playerId, curPlayerTeam, true)
-		
-	#GameData.write_player_dump()
-	#print("Total players: %d" % GameData.players.size())
 
 func start_game():
 	rpc("on_start_game") # TODO: Move this to Main menu
