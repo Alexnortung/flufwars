@@ -11,8 +11,6 @@ func _on_StartButton_pressed():
 	ClientNetwork.start_game()
 
 func on_start_game():
-	print(GameData.write_team_dump())
-	print(GameData.write_player_dump())
 	get_tree().change_scene("res://client/game/ClientGame.tscn")
 
 func _on_Lobby_draw():
@@ -22,11 +20,11 @@ func _on_Lobby_draw():
 	$Teams.rect_position = Vector2((screen_size.x/2)-((amount_teams*team_rect_size)/1.75), screen_size.y/10)
 	$StartButton.rect_global_position = screen_size-(screen_size/10)
 
-#func display_error(errorText):
-#	$DisplayErrors.text = "Error: %s" % [errorText]
+func display_error(errorText):
+	$DisplayErrors.text = "Error: %s" % [errorText]
 	#get the error text item
 	#write the text
 	# set timer for it to disappear
 
-#remote func display_team_full_error():
-#	display_error("Team is full")
+remote func display_team_full_error():
+	display_error("Team is full")

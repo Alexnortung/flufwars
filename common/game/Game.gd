@@ -49,16 +49,11 @@ func pre_configure():
 	var teamNodes = $Level.get_node("Teams").get_children()
 	var teamIndex = 0
 	for teamData in GameData.teams:
-		# print("Team data")
-		# print(teamData)
-		# var teamData = GameData.teams[teamIndex]
 		var teamNode = teamNodes[teamIndex]
 		var playerSpawnNodes = teamNode.get_node("PlayerSpawns").get_children()
 		var i = 0
 		for playerId in teamData.players:
 			var playerData = teamData.players[playerId]
-			print("player data")
-			print(playerData)
 			var spawnNode = playerSpawnNodes[i]
 			# create player node
 			var playerNode = spawn_player(playerData.id, teamNode, spawnNode)
@@ -148,7 +143,6 @@ remotesync func on_take_damage(playerId: int, newHealth: int):
 	get_player(playerId).update_health(newHealth)
 
 func on_spawn_projectile(position: Vector2, direction: Vector2, projectileType: String, projectileId: String):
-	# print("spawning projectile")
 	var projectileLoad = projectileTypes[projectileType]
 	var projectile = projectileLoad.instance()
 	projectile.init(position, direction, projectileId)

@@ -31,5 +31,3 @@ remote func join_team(teamIndex: int):
 		print("Player " + str(playerId) + " joined team " + str(teamIndex))
 	else:
 		rpc_id(playerId, "display_team_full_error")
-	
-		# TODO:create error no space on the team

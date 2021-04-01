@@ -33,11 +33,8 @@ func register_player(recipientId: int, playerId: int, playerName: String, curPla
 
 
 remote func on_register_player(playerId: int, playerName: String, curPlayerTeam: int):
-	#print(playerName)
-	# TODO: they detect this as being on a team
 	print("on_register_player: " + str(playerId))
 	GameData.add_player(playerId, playerName)
-	#GameData.write_player_dump()
 	if curPlayerTeam != -1:
 		GameData.assign_player_to_team(curPlayerTeam, playerId)
 		emit_signal("assign_player_to_team", playerId, curPlayerTeam, true)

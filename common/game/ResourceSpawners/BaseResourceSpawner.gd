@@ -31,15 +31,12 @@ func body_entered(body):
 	emit_signal("split_resources")
 
 func body_exited(body: Node2D):
-	# print("body exited of resource spawner")
 	if !validate_player(body):
 		return
 	var playerIndex = playersInside.find(body)
-	# print(playerIndex)
 	if playerIndex == -1:
 		return
 	playersInside.remove(playerIndex)
-	# print(playersInside)
 
 
 

@@ -62,11 +62,6 @@ func auto_fire_logic():
 # Try attack should be called when the player tries to attack or the cooldown has run out.
 func try_attack():
 	# If conditions are met then fire
-	# print("trying to attack:")
-	# print("reloading:" + str(isReloading))
-	# print("attacking:" + str(isAttacking))
-	# print("isReady:" + str(isAttacking))
-	# print("ammo:" + str(ammo))
 	if isReloading || !isAttacking || !isReady || ammo <= 0:
 		return false
 	on_attack()
@@ -105,7 +100,6 @@ func on_cooldown_finished():
 func on_attack():
 	# reset timer
 	$CooldownTimer.start(cooldown)
-	# print("cooldown timer started")
 	isReady = false
 	ammo -= 1
 	emit_signal("weapon_auto_attack")
