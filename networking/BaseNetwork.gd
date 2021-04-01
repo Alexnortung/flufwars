@@ -9,7 +9,7 @@ func _ready():
 	get_tree().connect("network_peer_disconnected", self, "_player_disconnected")
 
 # Every network peer needs to clean up the disconnected client
-func _player_disconnected(id):
+func _player_disconnected(id : int):
 	print("Player disconnected: " + str(id))
 	GameData.players.erase(id)
 
