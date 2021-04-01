@@ -92,7 +92,6 @@ func kill_player(is_dead):
 	self.call_deferred("set_collision", is_dead)
 	self.set_visible(!is_dead)
 	if has_flag():
-		print("dropping flag")
 		pickedUpFlag.on_flag_drop()
 	pickedUpFlag = null
 	spawn()
@@ -116,7 +115,6 @@ func get_weapon():
 	return $Weapon.get_node_or_null("Weapon")
 
 func auto_attack(start):
-	print("Player: auto_attack: " + str(start))
 	emit_signal("auto_attack", start)
 
 func set_attacking(start):
@@ -125,7 +123,6 @@ func set_attacking(start):
 func weapon_auto_attack():
 	if self.dead:
 		return
-	#print("Player: weapon auto attack")
 	emit_signal("weapon_auto_attack")
 
 func get_direction():
@@ -192,7 +189,7 @@ func stop_capture():
 func flag_capture():
 	kill_progress_bar(captureProgress)
 	captureProgress = null
-	print("flag capture timer finished")
+	print("Flag has been captured")
 	emit_signal("flag_captured")
 
 # called from remote / server
@@ -203,7 +200,6 @@ func flag_captured():
 	# destroy flag
 	pickedUpFlag.queue_free()
 	pickedUpFlag = null
-	#self.get_parent().get_parent().get_parent().get_parent().get_parent().print_tree()
 
 
 func resource_pickup(resourceSpawner: Node2D):

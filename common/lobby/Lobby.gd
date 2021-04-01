@@ -5,12 +5,9 @@ func _ready():
 	ClientNetwork.connect("remove_player", self, "remove_player")
 	ClientNetwork.connect("assign_player_to_team", self, "assign_player_to_team")
 
-	# print(GameData.mapInfo.colorDic)
 	GameData.reset()
 
-	#print(GameData.write_player_dump())
 	generate_team_visual_structure()
-	#print(GameData.write_player_dump())
 
 func create_player(playerId: int):
 	print("Creating player in lobby")
@@ -45,7 +42,6 @@ remote func assign_player_to_team(playerId, teamIndex, firstTime = false):
 		# remove player from old team
 		var oldTeamIndex = GameData.players[playerId].team.index
 		var oldPlayerNamePlates = $Teams.get_node("Team_" + str(oldTeamIndex)).get_node("Players")
-		print(oldPlayerNamePlates)
 		oldPlayerNamePlates.get_node("PlayerId_" + str(playerId)).queue_free()
 
 	# Update game data

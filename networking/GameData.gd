@@ -35,9 +35,7 @@ func add_player(playerId: int, playerName: String):
 	self.players[playerId] = newPlayer
 
 func generate_team_structure():
-	#var teamColors = map_info.teamColors
-	print("Teams in the level selceted:")
-	print(mapInfo.teamsInLevel)
+	print("Generating team structure")
 	var teamsInLevel = mapInfo.teamsInLevel
 	teams = []
 	for i in range(teamsInLevel):
@@ -48,10 +46,7 @@ func assign_player_to_team(teamIndex: int, playerId):
 	var team = teams[teamIndex]
 	var player = players[playerId]
 	if player.team != null:
-		# var tempTeam = player.team
-		# print("removing player " + str(playerId) + " from " + str(tempTeam.index))
 		remove_player_from_team(player.team, player)
-	# print("assigning player " + str(playerId) + " to " + str(teamIndex))
 	team.players[player.id] = player
 	player.team = team
 
@@ -75,7 +70,6 @@ func write_player_dump():
 
 func reset():
 	self.players = {}
-	print(GameData.write_player_dump())
 	
 func set_map_info(path):
 	mapInfo = load(path).new()

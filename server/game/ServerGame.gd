@@ -69,7 +69,6 @@ func damage_taken(playerId: int, newHealth: int):
 	rpc("on_take_damage", playerId, newHealth)
 
 func weapon_auto_attack(player):
-	#print("Player: weapon auto attack")
 	var playerId = player.id
 	var weapon = player.get_weapon()
 	# spawn projectile or other attack logic
@@ -96,7 +95,6 @@ func weapon_auto_attack(player):
 remote func auto_attacked(start):
 	var playerId = get_tree().get_rpc_sender_id()
 	var player = get_player(playerId)
-	#print("ServerGame: player auto_attacked: " + str(start))
 	player.set_attacking(start)
 
 func respawn_player(playerId: int):
@@ -109,7 +107,7 @@ func respawn_player(playerId: int):
 
 	if !is_flag_taken(player.teamIndex):
 		rpc("on_respawn_player", playerId)
-		print("respawn player")
+		print("respawning player with playerId: " + str(playerId))
 
 func get_alive_teams():
 	var aliveTeams = []

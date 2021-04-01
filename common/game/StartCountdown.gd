@@ -25,7 +25,6 @@ func start_timer():
 
 func on_timer_finish():
 	timeLeft -= 1
-	print(timeLeft)
 	emit_signal("countdown_updated", timeLeft)
 	if timeLeft <= 0:
 		$StartCountdownTimer.stop()
