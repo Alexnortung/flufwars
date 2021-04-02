@@ -5,6 +5,8 @@ var players = {}
 var teams = []
 var mapInfo
 
+var debug = false
+
 var defaultMap = "beams"
 
 var mapsAvailable = {
