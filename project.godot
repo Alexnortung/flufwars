@@ -85,6 +85,10 @@ fire={
 [layer_names]
 
 2d_physics/layer_1="players"
+2d_physics/layer_2="flags"
+2d_physics/layer_3="projectiles"
+2d_physics/layer_4="edges"
+2d_physics/layer_5="walls"
 
 [physics]
 
