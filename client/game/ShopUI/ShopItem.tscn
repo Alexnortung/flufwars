@@ -1,0 +1,24 @@
+[gd_scene format=2]
+
+[node name="ShopItem" type="HBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ItemName" type="Label" parent="."]
+margin_top = 290.0
+margin_right = 73.0
+margin_bottom = 310.0
+text = "Item name"
+
+[node name="PriceTag" type="Label" parent="."]
+margin_left = 77.0
+margin_top = 290.0
+margin_right = 1024.0
+margin_bottom = 310.0
+size_flags_horizontal = 3
+text = "100 dollars"
+align = 2
