@@ -241,6 +241,8 @@ func on_pickup_weapon(weapon: Node2D):
 	weapon.on_pickup(self)
 
 func knockback(knockbackFactor : float, _knockbackDirection : Vector2):
+	if dead:
+		return
 	knockbackTimeLeft = knockbackTime
 	knockbackSpeed = knockbackDefaultSpeed * knockbackFactor
 	knockbackDirection = _knockbackDirection
