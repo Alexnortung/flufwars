@@ -246,6 +246,8 @@ func knockback(knockbackFactor : float, _knockbackDirection : Vector2):
 	knockbackTimeLeft = knockbackTime
 	knockbackSpeed = knockbackDefaultSpeed * knockbackFactor
 	knockbackDirection = _knockbackDirection
+	# remove edge collision
+	set_egde_collision(false)
 
 func apply_knockback(delta):
 	if knockbackTimeLeft <= 0.0:
@@ -256,6 +258,8 @@ func apply_knockback(delta):
 	knockbackTimeLeft -= delta
 	print(knockbackVector)
 	if knockbackTimeLeft <= 0.0:
-		print("finished knockback")
-		pass
+		# print("finished knockback")
+		set_egde_collision(true)
 
+func set_egde_collision(value : bool):
+	set_collision_mask_bit(3, value)
