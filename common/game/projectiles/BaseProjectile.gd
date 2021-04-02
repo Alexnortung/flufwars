@@ -27,6 +27,7 @@ func _ready():
 func hit(body: Node):
 	if !_should_emit:
 		return
+	self.dont_emit_hit()
 	if body.get_meta("tag") == "projectile":
 		body.dont_emit_hit()
 		emit_signal("hit", body, self)

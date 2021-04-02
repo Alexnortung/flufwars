@@ -109,7 +109,8 @@ func kill_player(is_dead):
 	spawn()
 
 func set_collision(value: bool):
-	$CollisionShape2D.set_disabled(value)
+	$WorldCollider.set_disabled(value)
+	$InteractiveKinematicBody/InteractiveCollider.set_disabled(value)
 
 #virtual function
 func update_health(newHealth: int):
@@ -256,7 +257,6 @@ func apply_knockback(delta):
 	motion += knockbackVector
 	motion = motion.clamped(max(knockbackSpeed, maxSpeed))
 	knockbackTimeLeft -= delta
-	print(knockbackVector)
 	if knockbackTimeLeft <= 0.0:
 		# print("finished knockback")
 		set_egde_collision(true)

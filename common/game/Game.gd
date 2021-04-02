@@ -29,6 +29,7 @@ func _ready():
 	pre_configure()
 
 
+
 func remove_game_player(playerId: int):
 	get_player(playerId).queue_free()
 	players.erase(playerId)
@@ -71,6 +72,7 @@ func loadLevel():
 	levelNode = levelScene.instance()
 	levelNode.set_name("Level")
 	add_child(levelNode)
+	move_child(levelNode, 0)
 
 # virtual lobby
 func load_lobby():
@@ -97,7 +99,7 @@ func spawn_player(playerId, teamNode, spawnNode):
 	
 	playerNode.get_node("NameLabel").text = playerName
 	playerNode.get_node("PlayerAnim").set_sprite_frames(GameData.mapInfo.colorDic[teamIndex].playerAnim)
-	teamNode.get_node("Players").add_child(playerNode)
+	self.get_node("Players").add_child(playerNode)
 	spawnNode.playerNode = playerNode
 	players[playerId] = playerNode
 	playerNode.connect("player_dead", self, "player_dies")
@@ -139,6 +141,7 @@ remotesync func on_flag_picked_up(teamIndex : int, playerId : int):
 	print("Game remote: picking up the flag. Teamindex: " + str(teamIndex) + " playerId: " + str(playerId))
 
 remotesync func on_take_damage(playerId: int, newHealth: int):
+	print("player takes damage")
 	get_player(playerId).update_health(newHealth)
 
 func on_spawn_projectile(position: Vector2, direction: Vector2, projectileType: String, projectileId: String):

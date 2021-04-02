@@ -20,9 +20,13 @@ func is_picked_up():
 
 func pickup(node):
 	# Tell all players over the network that the player picked up the flag.
-	if node.teamIndex != self.teamIndex && !self.is_picked_up() && !node.has_flag():
+	if node.get_meta("tag") != "player":
+		return
+	
+	var playerNode = node.get_player_node()
+	if playerNode.teamIndex != self.teamIndex && !self.is_picked_up() && !playerNode.has_flag():
 		print("Flag: flag picked up")
-		emit_signal("flag_picked_up", self, node)
+		emit_signal("flag_picked_up", self, playerNode)
 	
 func _physics_process(delta):
 	# Continously place flag ontop of the player who is carrying the flag 

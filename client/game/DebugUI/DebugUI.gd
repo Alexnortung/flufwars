@@ -6,9 +6,7 @@ var buttons : Array
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print("############################################################")
 	if GameData.debug:
-		print("in debug")
 		$ToggleButton.connect("expand", self, "expand")
 		$ToggleButton.connect("close", self, "close")
 		buttons = [
@@ -16,7 +14,6 @@ func _ready():
 		]
 		create_buttons()
 	else:
-		print("out of debug")
 		get_node_or_null("ToggleButton").visible = false
 
 func create_buttons():

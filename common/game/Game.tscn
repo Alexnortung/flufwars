@@ -12,3 +12,5 @@ script = ExtResource( 2 )
 
 [node name="StartCountdownTimer" type="Timer" parent="Countdown"]
 pause_mode = 2
+
+[node name="Players" type="YSort" parent="."]
