@@ -3,8 +3,9 @@ extends KinematicBody2D
 signal hit
 signal age_timeout
 
-var damage = 50
-var speed = 100
+export var damage = 50
+export var speed = 100
+export var knockbackFactor : float = 1.0
 var direction = Vector2.ZERO
 var velocity = Vector2.ZERO
 var id : String

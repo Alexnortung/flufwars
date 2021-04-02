@@ -57,3 +57,6 @@ frame = 1
 position = Vector2( 0, 60 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="KnockbackTween" type="Tween" parent="."]
+playback_process_mode = 0

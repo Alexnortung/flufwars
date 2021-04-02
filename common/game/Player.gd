@@ -13,6 +13,14 @@ var dead : bool = false
 var health : int = 100
 const initHealth : int = 100
 var captureTime : float = 2.0
+const knockbackTime : float = 0.2 # can be changed to be more dynamic
+var knockbackTimeLeft : float = 0.0
+# const knockbackDefaultDisatance : float = 20000.0
+# var knockbackDistance : float = 20000.0
+const knockbackDefaultSpeed : float = 800.0
+var knockbackSpeed :float = 800.0
+# var knockbackDistanceLeft : int = 50
+var knockbackDirection : Vector2 = Vector2.UP # should be normalized
 
 var lookDirectionOffset: int = 45
 
@@ -35,6 +43,9 @@ var resources = [
 ]
 
 func _physics_process(delta):
+	# handle knockback
+	# if knockbackTimeLeft > 0.0:
+	# 	handleKnockback(delta)
 	pass
 
 func _process(delta):
@@ -80,6 +91,7 @@ func apply_friction(amount, axis):
 func apply_movement(acceleration):
 	motion += acceleration
 	motion = motion.clamped(maxSpeed)
+
 
 func spawn():
 	self.position = self.playerSpawn.position
@@ -227,3 +239,27 @@ func try_pickup_weapon(weapon : Node2D):
 func on_pickup_weapon(weapon: Node2D):
 	$Weapon.update_weapon(weapon)
 	weapon.on_pickup(self)
+
+func knockback(knockbackFactor : float, _knockbackDirection : Vector2):
+	if dead:
+		return
+	knockbackTimeLeft = knockbackTime
+	knockbackSpeed = knockbackDefaultSpeed * knockbackFactor
+	knockbackDirection = _knockbackDirection
+	# remove edge collision
+	set_egde_collision(false)
+
+func apply_knockback(delta):
+	if knockbackTimeLeft <= 0.0:
+		return
+	var knockbackVector = knockbackSpeed * knockbackDirection
+	motion += knockbackVector
+	motion = motion.clamped(max(knockbackSpeed, maxSpeed))
+	knockbackTimeLeft -= delta
+	print(knockbackVector)
+	if knockbackTimeLeft <= 0.0:
+		# print("finished knockback")
+		set_egde_collision(true)
+
+func set_egde_collision(value : bool):
+	set_collision_mask_bit(3, value)

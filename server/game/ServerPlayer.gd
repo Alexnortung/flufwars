@@ -16,6 +16,7 @@ func _physics_process(delta):
 	if axis != Vector2.ZERO:
 		apply_movement(axis * acc *  delta)
 	apply_friction(acc * delta, axis)
+	apply_knockback(delta)
 	motion = move_and_slide(motion)
 
 	$Weapon.position = server_direction * lookDirectionOffset
