@@ -211,6 +211,7 @@ func flag_captured():
 		kill_progress_bar(captureProgress)
 		captureProgress = null
 	# destroy flag
+	pickedUpFlag.isTaken = true
 	pickedUpFlag.queue_free()
 	pickedUpFlag = null
 

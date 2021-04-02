@@ -102,11 +102,6 @@ remote func auto_attacked(start):
 
 func respawn_player(playerId: int):
 	var player = get_player(playerId)
-	var aliveTeams = get_alive_teams()
-
-	if aliveTeams.size() < 2:
-		rpc("end_game")
-		end_game()
 
 	if !is_flag_taken(player.teamIndex):
 		rpc("on_respawn_player", playerId)
@@ -115,15 +110,15 @@ func respawn_player(playerId: int):
 func get_alive_teams():
 	var aliveTeams = []
 	for team in GameData.teams:
-		if !is_flag_taken(team.index):
-			if team.players.size() != 0:
-				aliveTeams.append(team.index)
+		if !is_flag_taken(team.index): # There is a flag!!!
+			aliveTeams.append(team.index)
 		else:
 			for player in team.players:
 				var gamePlayer = get_player(player)
 				if !gamePlayer.dead:
 					aliveTeams.append(team.index)
 					break
+	print(aliveTeams)
 	return aliveTeams
 
 func set_projectile_connection(projectile: Node):
@@ -140,7 +135,9 @@ func projectile_hit(projectile: Node2D, collider: Node2D):
 
 func player_captured_flag(playerId : int):
 	print("got flag captured from player " + str(playerId))
+	on_flag_captured(playerId)
 	rpc("on_flag_captured", playerId)
+	check_game_is_ending()
 
 func load_lobby():
 	get_tree().change_scene("res://server/lobby/ServerLobby.tscn")
@@ -190,3 +187,19 @@ func player_picked_up_weapon(weapon, player):
 func despawn_projectile(projectile : Node2D):
 	.on_projectile_despawn(projectile.id)
 	rpc("on_projectile_despawn", projectile.id)
+
+func spawn_player(playerId, teamNode, spawnNode):
+	var playerNode = .spawn_player(playerId, teamNode, spawnNode)
+	playerNode.connect("player_dead", self, "player_dies")
+	return playerNode
+
+func player_dies(playerId: int):
+	on_player_dead(playerId)
+	rpc("on_player_dead", playerId)
+	check_game_is_ending()
+
+func check_game_is_ending():
+	var aliveTeams = get_alive_teams()
+	if aliveTeams.size() < 2:
+		rpc("end_game")
+		end_game()

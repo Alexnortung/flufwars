@@ -87,3 +87,9 @@ func debug_command(command, args):
 remote func end_game():
 	if get_tree().get_rpc_sender_id() == 1 or get_tree().is_network_server():
 		.end_game()
+
+remote func on_player_dead(playerId: int):
+		.on_player_dead(playerId)
+
+remote func on_flag_captured(playerId: int):
+		.on_flag_captured(playerId)

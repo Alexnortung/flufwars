@@ -102,7 +102,6 @@ func spawn_player(playerId, teamNode, spawnNode):
 	self.get_node("Players").add_child(playerNode)
 	spawnNode.playerNode = playerNode
 	players[playerId] = playerNode
-	playerNode.connect("player_dead", self, "player_dies")
 	playerNode.get_node("RespawnTimer").connect("timeout", self, "respawn_player", [playerId])
 	return playerNode
 
@@ -127,6 +126,8 @@ func get_flag(teamIndex):
 func is_flag_taken(teamIndex):
 	var flag = get_flag(teamIndex)
 	if flag == null:
+		return true
+	if flag.isTaken:
 		return true
 	return false
 
@@ -159,11 +160,8 @@ remotesync func on_respawn_player(playerId: int):
 	player.health = player.initHealth
 	player.kill_player(false)
 
-remotesync func on_player_dead(playerId):
+func on_player_dead(playerId):
 	get_player(playerId).kill_player(true)
-
-func player_dies(playerId: int):
-	rpc("on_player_dead", playerId)
 
 func respawn_player(playerId: int):
 	pass
@@ -175,7 +173,7 @@ func on_projectile_despawn(projectileId : String):
 	projectiles[projectileId].queue_free()
 	projectiles.erase(projectileId)
 
-remotesync func on_flag_captured(playerId):
+func on_flag_captured(playerId):
 	get_player(playerId).flag_captured()
 
 remotesync func resources_picked_up(resourceSpawnerId: String):

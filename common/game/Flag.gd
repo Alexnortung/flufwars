@@ -3,6 +3,7 @@ extends Node2D
 signal flag_picked_up
 
 const respawnTime = 7.0
+var isTaken = false
 
 var pickedUpPlayer = null
 var teamIndex : int
