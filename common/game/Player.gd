@@ -161,13 +161,9 @@ func animate_sprite():
 func animate_weapon():
 	if !has_weapon():
 		return
-	var look_direction_x = $Weapon.position.x 
-	if look_direction_x <= 0:
-		$Weapon/Weapon/AnimatedSprite.play("left")
-		$Weapon/Weapon/AnimatedSprite.rotation = $Weapon.position.angle()-3.25
-	elif look_direction_x > 0:
-		$Weapon/Weapon/AnimatedSprite.play("right")
-		$Weapon/Weapon/AnimatedSprite.rotation = $Weapon.position.angle()
+	var angle = $Weapon.position.angle()
+	var lookDirectionX = $Weapon.position.x 
+	$Weapon/Weapon.animate_weapon(angle, lookDirectionX)
 	
 
 func set_look_direction(direction : Vector2):

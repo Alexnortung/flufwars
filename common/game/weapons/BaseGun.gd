@@ -24,4 +24,4 @@ func on_attack_effect() -> Array:
 	data["projectile_spawn_position"] = player.get_projectile_spawn_position()
 	data["id"] = UUID.v4()
 
-	return [AttackEffect.new(AttackEffect.attackEffectTypes.SPAWN_PROJECTILES, dir, knockbackFactor, data)]
+	return [AttackEffect.new(AttackEffect.attackEffectTypes.SPAWN_PROJECTILES, dir, knockbackFactor, damage, data)]

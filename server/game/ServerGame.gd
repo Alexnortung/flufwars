@@ -38,7 +38,7 @@ remote func on_client_ready(playerId):
 func on_pre_configure_complete():
 	# spawn pistols for all players
 	for player in players.values():
-		var weapon = server_spawn_weapon("pistol")
+		var weapon = server_spawn_weapon("baguette")
 		player_picked_up_weapon(weapon, player)
 	.on_pre_configure_complete()
 
@@ -99,11 +99,15 @@ func weapon_auto_attack(player):
 # 	rpc_id(playerId, "on_ammo_changed", weapon.ammo)
 
 func weapon_attack_spawn_projectile(attackEffect : AttackEffect):
-	on_spawn_projectile(attackEffect.data["projectile_spawn_position"], attackEffect.direction, attackEffect.data["projectile_type"], attackEffect.data["id"], attackEffect.knockbackFactor)
-	rpc("on_spawn_projectile", attackEffect.data["projectile_spawn_position"], attackEffect.direction, attackEffect.data["projectile_type"], attackEffect.data["id"], attackEffect.knockbackFactor)
+	on_spawn_projectile(attackEffect.data["projectile_spawn_position"], attackEffect.direction, attackEffect.data["projectile_type"], attackEffect.data["id"], attackEffect.knockbackFactor, attackEffect.damage)
+	rpc("on_spawn_projectile", attackEffect.data["projectile_spawn_position"], attackEffect.direction, attackEffect.data["projectile_type"], attackEffect.data["id"], attackEffect.knockbackFactor, attackEffect.damage)
 
 func weapon_attack_melee(attackEffect : AttackEffect):
-	pass
+	var player = attackEffect.data["player"]
+	var tag = player.get_meta("tag")
+	if tag == "player":
+		player.take_damage(attackEffect.damage)
+		player.knockback(attackEffect.knockbackFactor, attackEffect.direction)
 
 remote func auto_attacked(start):
 	var playerId = get_tree().get_rpc_sender_id()
