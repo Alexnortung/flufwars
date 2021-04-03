@@ -15,9 +15,20 @@ enum {
 	ATTACK_TYPE_AUTO,
 }
 
+enum weaponTypes {
+	WEAPON_MELEE,
+	WEAPON_RANGED
+}
+
+var AttackEffect = preload('res://common/game/projectiles/AttackEffect.gd')
+
 var lastFramePressed = false
 var isPressed = false
 
+export var damage = 50
+export var knockbackFactor : float = 1.0
+var player = null
+export(weaponTypes) var weaponType = weaponTypes.WEAPON_RANGED
 var attackType = ATTACK_TYPE_AUTO
 export var cooldown : float = 0.5
 export var reloadTime: float = 2
@@ -121,11 +132,31 @@ func on_enter(body: Node):
 		body.try_pickup_weapon(self)
 
 # Should only be called from player that picks this up
-func on_pickup(player: Node):
+func on_pickup(_player: Node):
 	isDropped = false
-	lastHeldBy = player.id
+	lastHeldBy = _player.id
 	recentlyDropped = false
 	self.position = Vector2.ZERO
+	player = _player
 
 func on_drop_timer_finish():
 	recentlyDropped = false
+
+func get_direction():
+	if player != null:
+		return player.get_direction()
+	else:
+		return null
+
+func on_attack_effect():
+	#returns array of attack effects (struct)
+	return []
+
+func animate_weapon(angle, lookDirectionX):
+	$AnimatedSprite.rotation = angle
+	if lookDirectionX <= 0:
+		$AnimatedSprite.play("left")
+		angle -= PI
+	else:
+		$AnimatedSprite.play("right")
+	$AnimatedSprite.rotation = angle

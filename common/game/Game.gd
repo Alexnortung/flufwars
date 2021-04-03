@@ -17,6 +17,7 @@ const projectileTypes = {
 const weaponTypes = {
 	# BaseWeapon is abstract so we should not use it here
 	pistol = preload("res://common/game/weapons/Pistol.tscn"),
+	baguette = preload("res://common/game/weapons/BaseMele.tscn")
 }
 
 func _ready():
@@ -145,10 +146,10 @@ remotesync func on_take_damage(playerId: int, newHealth: int):
 	print("player takes damage")
 	get_player(playerId).update_health(newHealth)
 
-func on_spawn_projectile(position: Vector2, direction: Vector2, projectileType: String, projectileId: String):
+func on_spawn_projectile(position: Vector2, direction: Vector2, projectileType: String, projectileId: String, knockbackFactor : float, damage : int):
 	var projectileLoad = projectileTypes[projectileType]
 	var projectile = projectileLoad.instance()
-	projectile.init(position, direction, projectileId)
+	projectile.init(position, direction, knockbackFactor, damage, projectileId)
 	add_child(projectile)
 	projectiles[projectileId] = projectile
 	emit_signal("spawn_projectile", projectile)

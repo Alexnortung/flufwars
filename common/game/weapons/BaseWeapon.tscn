@@ -20,3 +20,5 @@ wait_time = 2.0
 shape = SubResource( 1 )
 
 [node name="DropTimer" type="Timer" parent="."]
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]

@@ -61,6 +61,9 @@ func remove_player_from_team(team, player):
 	print("removing from team")
 	var newPlayers = teams[team.index].players.erase(player.id)
 
+func remove_team_from_player(team, player):
+	players[player.id].team = null
+
 
 func write_team_dump():
 	print("############################################\n############################################")

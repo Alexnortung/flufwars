@@ -9,12 +9,18 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Reference",
+"class": "AttackEffect",
+"language": "GDScript",
+"path": "res://common/game/projectiles/AttackEffect.gd"
+}, {
 "base": "Object",
 "class": "TypeFormattingLogic",
 "language": "GDScript",
 "path": "res://addons/metadata_inspector/TypeFormattingLogic.gd"
 } ]
 _global_script_class_icons={
+"AttackEffect": "",
 "TypeFormattingLogic": ""
 }
 

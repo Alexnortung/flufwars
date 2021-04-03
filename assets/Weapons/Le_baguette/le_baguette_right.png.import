@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/left_gun.png-0467f1782d32006c9c3178955bb11339.stex"
+path="res://.import/le_baguette_right.png-788fcf273978b7d40094a2e060f91907.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/entities/pistol/left_gun.png"
-dest_files=[ "res://.import/left_gun.png-0467f1782d32006c9c3178955bb11339.stex" ]
+source_file="res://assets/Weapons/Le_baguette/le_baguette_right.png"
+dest_files=[ "res://.import/le_baguette_right.png-788fcf273978b7d40094a2e060f91907.stex" ]
 
 [params]
 

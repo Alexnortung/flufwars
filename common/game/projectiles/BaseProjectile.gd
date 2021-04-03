@@ -3,19 +3,21 @@ extends KinematicBody2D
 signal hit
 signal age_timeout
 
-export var damage = 50
+var damage = 50
 export var speed = 100
-export var knockbackFactor : float = 1.0
+var knockbackFactor
 var direction = Vector2.ZERO
 var velocity = Vector2.ZERO
 var id : String
 var _should_emit = true
 
-func init(position : Vector2, direction : Vector2, id = UUID.v4()):
+func init(position : Vector2, direction : Vector2, knockbackFactor, damage, id = UUID.v4()):
 	self.position = position
 	self.direction = direction.normalized()
 	self.velocity = self.direction * speed
 	self.id = id
+	self.knockbackFactor = knockbackFactor
+	self.damage = damage
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

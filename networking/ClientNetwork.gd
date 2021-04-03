@@ -38,6 +38,8 @@ remote func on_register_player(playerId: int, playerName: String, curPlayerTeam:
 	if curPlayerTeam != -1:
 		GameData.assign_player_to_team(curPlayerTeam, playerId)
 		emit_signal("assign_player_to_team", playerId, curPlayerTeam, true)
+	else:
+		emit_signal("assign_player_to_team", playerId, -2, true)
 
 func start_game():
 	rpc("on_start_game") # TODO: Move this to Main menu
