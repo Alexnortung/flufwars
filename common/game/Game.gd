@@ -145,10 +145,10 @@ remotesync func on_take_damage(playerId: int, newHealth: int):
 	print("player takes damage")
 	get_player(playerId).update_health(newHealth)
 
-func on_spawn_projectile(position: Vector2, direction: Vector2, projectileType: String, projectileId: String):
+func on_spawn_projectile(position: Vector2, direction: Vector2, projectileType: String, projectileId: String, knockbackFactor : float):
 	var projectileLoad = projectileTypes[projectileType]
 	var projectile = projectileLoad.instance()
-	projectile.init(position, direction, projectileId)
+	projectile.init(position, direction, knockbackFactor, projectileId)
 	add_child(projectile)
 	projectiles[projectileId] = projectile
 	emit_signal("spawn_projectile", projectile)

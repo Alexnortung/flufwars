@@ -13,3 +13,15 @@ func add_random_accuracy(direction: Vector2) -> Vector2:
 	var max_radians = (1.0 - accuracy) * PI / 4 # degrees
 	var random_accuracy_radians = rng.randf_range(-max_radians, max_radians)
 	return direction.rotated(random_accuracy_radians)
+
+
+func on_attack_effect() -> Array:
+	var dir = get_direction()
+	if dir == null:
+		return []
+	var data = {}
+	data["projectile_type"] = projectile
+	data["projectile_spawn_position"] = player.get_projectile_spawn_position()
+	data["id"] = UUID.v4()
+
+	return [AttackEffect.new(AttackEffect.attackEffectTypes.SPAWN_PROJECTILES, dir, knockbackFactor, data)]

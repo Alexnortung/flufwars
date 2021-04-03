@@ -1,6 +1,7 @@
 extends "res://common/game/Game.gd"
 
 var unreadyPlayers := {}
+var AttackEffect = preload("res://common/game/projectiles/AttackEffect.gd")
 
 func _init():
 	self.connect("spawn_flag", self, "handle_spawn_flag")
@@ -74,12 +75,14 @@ func damage_taken(playerId: int, newHealth: int):
 func weapon_auto_attack(player):
 	var playerId = player.id
 	var weapon = player.get_weapon()
-	# spawn projectile or other attack logic
-	var position = player.get_projectile_spawn_position()
-	var direction = player.get_projectile_direction()
-	var id = UUID.v4()
-	on_spawn_projectile(position, direction, weapon.projectile, id)
-	rpc("on_spawn_projectile", position, direction, weapon.projectile, id)
+	var attackEffects = weapon.on_attack_effect()
+
+	for x in attackEffects:
+		match x.attackEffectType:
+			AttackEffect.attackEffectTypes.SPAWN_PROJECTILES:
+				weapon_attack_spawn_projectile(x)
+			AttackEffect.attackEffectTypes.MELEE_ATTACK:
+				weapon_attack_melee(x)
 	rpc_id(playerId, "on_ammo_changed", weapon.ammo)
 
 # remote func single_attacked():
@@ -94,6 +97,13 @@ func weapon_auto_attack(player):
 # 	var direction = player.get_direction()
 # 	rpc("on_spawn_projectile", position, direction, weapon.projectile, UUID.v4())
 # 	rpc_id(playerId, "on_ammo_changed", weapon.ammo)
+
+func weapon_attack_spawn_projectile(attackEffect : AttackEffect):
+	on_spawn_projectile(attackEffect.data["projectile_spawn_position"], attackEffect.direction, attackEffect.data["projectile_type"], attackEffect.data["id"], attackEffect.knockbackFactor)
+	rpc("on_spawn_projectile", attackEffect.data["projectile_spawn_position"], attackEffect.direction, attackEffect.data["projectile_type"], attackEffect.data["id"], attackEffect.knockbackFactor)
+
+func weapon_attack_melee(attackEffect : AttackEffect):
+	pass
 
 remote func auto_attacked(start):
 	var playerId = get_tree().get_rpc_sender_id()
