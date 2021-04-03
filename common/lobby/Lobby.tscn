@@ -19,9 +19,9 @@ __meta__ = {
 }
 
 [node name="Players" type="VBoxContainer" parent="."]
-margin_left = 138.0
+margin_left = 136.0
 margin_top = 73.0
-margin_right = 666.0
+margin_right = 664.0
 margin_bottom = 347.0
 __meta__ = {
 "_edit_use_anchors_": false

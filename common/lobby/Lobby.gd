@@ -11,6 +11,7 @@ func _ready():
 
 func create_player(playerId: int):
 	print("Creating player in lobby")
+	print("############################################################################")
 	#var player = GameData.players[playerId]
 	var namePlateScene = preload("res://common/lobby/NamePlate.tscn")
 	
@@ -38,45 +39,71 @@ func assign_client_to_team(teamIndex):
 	rpc_id(1, "join_team", teamIndex)
 
 remote func assign_player_to_team(playerId, teamIndex, firstTime = false):
-	if GameData.players[playerId].team != null && !firstTime:
-		# remove player from old team
-		var oldTeamIndex = GameData.players[playerId].team.index
-		var oldPlayerNamePlates = $Teams.get_node("Team_" + str(oldTeamIndex)).get_node("Players")
-		oldPlayerNamePlates.get_node("PlayerId_" + str(playerId)).queue_free()
+	#-1 is only send when we want to join spectators
+	if teamIndex == -1:
+		#if it is not already on spectator team
+		if GameData.players[playerId].team != null:
+			var player = GameData.players[playerId]
+			remove_player_from_old_team(playerId)
+			add_player_to_new_team(playerId, "Spectators")
+			GameData.remove_player_from_team(player.team, player)
+			GameData.remove_team_from_player(player.team, player)
+		return
+
+	# -2 is only send from when the player connects.
+	if teamIndex == -2:
+		add_player_to_new_team(playerId, "Spectators")
+		return
+
+	remove_player_from_old_team(playerId)
 
 	# Update game data
 	GameData.assign_player_to_team(teamIndex, playerId)
+	add_player_to_new_team(playerId, "Team_" + str(teamIndex))
 
-	#TODO: move it out of functions
+func remove_player_from_old_team(playerId : int):
+	var player = GameData.players[playerId]
+	var oldPlayerNamePlates = ""
+	if player.team == null:
+		oldPlayerNamePlates = $Teams.get_node("Spectators").get_node("Players")
+	else:
+		var oldTeamIndex = player.team.index
+		oldPlayerNamePlates = $Teams.get_node("Team_" + str(oldTeamIndex)).get_node("Players")
+	oldPlayerNamePlates.get_node("PlayerId_" + str(playerId)).queue_free()
+
+func add_player_to_new_team(playerId : int, teamNode : String):
 	var namePlateScene = preload("res://common/lobby/NamePlate.tscn")
 
 	var namePlate = namePlateScene.instance()
-	$Teams.get_node("Team_" + str(teamIndex)).get_node("Players").add_child(namePlate)
+	$Teams.get_node(teamNode).get_node("Players").add_child(namePlate)
 	namePlate.set_name("PlayerId_" + str(playerId))
 	namePlate.get_node("Name").text = GameData.players[playerId].name
-
-
-
+	
 func generate_team_visual_structure():
 	var teams = GameData.teams
 
-	var teamScene = load("res://common/lobby/LobbyTeam.tscn")
-	var namePlateScene = preload("res://common/lobby/NamePlate.tscn")
 	var i = 0
 	for team in teams:
-		print("creating team")
-		var teamNode = teamScene.instance()
-		$Teams.add_child(teamNode)
-		teamNode.set_name("Team_" + str(i))
-		var rect = teamNode.get_rect()
-		teamNode.rect_position = Vector2(i * (rect.size.x + 50), 25)
-		teamNode.get_node("TeamFlag").texture = GameData.mapInfo.colorDic[i].flagImage
-		teamNode.get_node("JoinButton").text = "Join " + GameData.mapInfo.colorDic[i].color + " team"
-		teamNode.get_node("JoinButton").connect("pressed", self, "assign_client_to_team", [i])
-
-#		for playerId in team.players:
-#			var player = team.players[playerId]
-#			var nameplate = namePlateScene.instance()
-#			nameplate.get_node("Name").text = player[(GameData.PLAYER_NAME)]
-#			teamNode.get_node("Players").add_child(nameplate)
+		create_team_scene("Team_" + str(i), i, 25)
 		i += 1
+	
+	# create spectator team
+	var teamNode = create_team_node("Spectators", 0, 300)
+	teamNode.get_node("JoinButton").connect("pressed", self, "assign_client_to_team", [-1])
+
+func create_team_node(nodeName : String, index : int, y : int):
+	var teamScene = load("res://common/lobby/LobbyTeam.tscn")
+	var namePlateScene = preload("res://common/lobby/NamePlate.tscn")
+	print("creating team")
+	var teamNode = teamScene.instance()
+	$Teams.add_child(teamNode)
+	teamNode.set_name(nodeName)
+	var rect = teamNode.get_rect()
+	teamNode.rect_position = Vector2(index * (rect.size.x + 50), y)
+	return teamNode
+
+func create_team_scene(nodeName : String, index : int, y : int):
+	var teamNode = create_team_node(nodeName, index, y)
+	teamNode.get_node("TeamFlag").texture = GameData.mapInfo.colorDic[index].flagImage
+	teamNode.get_node("JoinButton").text = "Join " + GameData.mapInfo.colorDic[index].color + " team"
+	teamNode.get_node("JoinButton").connect("pressed", self, "assign_client_to_team", [index])
