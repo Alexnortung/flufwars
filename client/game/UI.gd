@@ -9,6 +9,7 @@ var _reloads = INF
 
 func _ready():
 	$MiddleText.get_node("Timer").connect("timeout", self, "on_middle_text_timeout")
+	_get_shop_button().connect("pressed", self, "toggle_shop")
 
 func set_ammo(amount):
 	_ammo = amount
@@ -34,8 +35,11 @@ func _generate_ammo_label():
 		updatedLabel += str(_reloads)
 	return updatedLabel
 
+func _get_right_corner():
+	return $RightSide/RightCorner/RightCornerHBox
+
 func _get_resource_container():
-	return $ResourcesPanel/HBoxContainer
+	return _get_right_corner().get_node("ResourcesPanel/HBoxContainer")
 
 func set_resource1(amount):
 	_get_resource_container().get_node("Label").text = str(amount)
@@ -66,3 +70,9 @@ func show_middle_message(message : String, time : float = 2.0):
 func on_middle_text_timeout():
 	$MiddleText.hide()
 	$MiddleText.get_node("Timer").stop()
+
+func _get_shop_button():
+	return _get_right_corner().get_node("ShopButton")
+
+func toggle_shop():
+	$RightSide/ShopUI.visible = !$RightSide/ShopUI.visible
