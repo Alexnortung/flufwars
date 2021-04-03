@@ -203,3 +203,10 @@ func check_game_is_ending():
 	if aliveTeams.size() < 2:
 		rpc("end_game")
 		end_game()
+
+remote func purchase_item(itemId):
+	# find item
+	var itemData = GameData.gameShopData.itemsById[itemId]
+	# check and deduct resources
+	# if 
+	# give item to player

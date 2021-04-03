@@ -7,6 +7,7 @@ func _ready():
 	clientPlayer.connect("single_attack", self, "single_attack")
 	clientPlayer.connect("auto_attack", self, "auto_attack")
 	$DebugUI.connect("debug_command", self, "debug_command")
+	get_ui().connect("purchase_item", self, "ui_purchase_item")
 
 func get_ui():
 	return $UI
@@ -93,3 +94,6 @@ remote func on_player_dead(playerId: int):
 
 remote func on_flag_captured(playerId: int):
 		.on_flag_captured(playerId)
+
+func ui_purchase_item(itemId):
+	rpc("purchase_item", itemId)
