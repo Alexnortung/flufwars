@@ -9,6 +9,8 @@ var debug = false
 
 var defaultMap = "beams"
 
+var gameShopData
+
 var mapsAvailable = {
 	beams = "res://common/game/levels/Beams/Beams.gd",
 	level1 = "res://common/game/levels/level1/Level1.gd",
@@ -23,6 +25,8 @@ func _init():
 	# Set default level data
 	var selectedMapDataPath = mapsAvailable[defaultMap]
 	set_map_info(selectedMapDataPath)
+	# load shopData
+	gameShopData = load("res://common/game/shop/ShopData.gd").new()
 
 func create_new_player(playerId: int, playerName: String) -> Dictionary:
 	return { PLAYER_ID: playerId, PLAYER_NAME: playerName, team = null }

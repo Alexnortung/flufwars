@@ -1,18 +1,58 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://client/game/UI.tres" type="Theme" id=1]
 [ext_resource path="res://client/game/UIStyleBox.tres" type="StyleBox" id=2]
 [ext_resource path="res://client/game/UI.gd" type="Script" id=3]
+[ext_resource path="res://client/game/ShopUI/ShopUI.tscn" type="PackedScene" id=4]
 
 [node name="UI" type="CanvasLayer"]
 pause_mode = 2
 script = ExtResource( 3 )
 
-[node name="ResourcesPanel" type="PanelContainer" parent="."]
+[node name="RightSide" type="HBoxContainer" parent="."]
 anchor_left = 1.0
-anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = -110.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+alignment = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RightCorner" type="VBoxContainer" parent="RightSide"]
+margin_right = 110.0
+margin_bottom = 600.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 9
+size_flags_vertical = 9
+alignment = 2
+
+[node name="RightCornerHBox" type="HBoxContainer" parent="RightSide/RightCorner"]
+margin_top = 560.0
+margin_right = 110.0
+margin_bottom = 600.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 9
+size_flags_vertical = 9
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ShopButton" type="Button" parent="RightSide/RightCorner/RightCornerHBox"]
+margin_right = 46.0
+margin_bottom = 40.0
+text = "Shop"
+
+[node name="ResourcesPanel" type="PanelContainer" parent="RightSide/RightCorner/RightCornerHBox"]
+margin_left = 50.0
+margin_right = 110.0
+margin_bottom = 40.0
 grow_horizontal = 0
 grow_vertical = 0
 theme = ExtResource( 1 )
@@ -21,7 +61,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ResourcesPanel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="RightSide/RightCorner/RightCornerHBox/ResourcesPanel"]
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 50.0
@@ -32,22 +72,31 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="ResourcesPanel/HBoxContainer"]
+[node name="Label" type="Label" parent="RightSide/RightCorner/RightCornerHBox/ResourcesPanel/HBoxContainer"]
 margin_right = 8.0
 margin_bottom = 20.0
 text = "0"
 
-[node name="Label2" type="Label" parent="ResourcesPanel/HBoxContainer"]
+[node name="Label2" type="Label" parent="RightSide/RightCorner/RightCornerHBox/ResourcesPanel/HBoxContainer"]
 margin_left = 12.0
 margin_right = 20.0
 margin_bottom = 20.0
 text = "0"
 
-[node name="Label3" type="Label" parent="ResourcesPanel/HBoxContainer"]
+[node name="Label3" type="Label" parent="RightSide/RightCorner/RightCornerHBox/ResourcesPanel/HBoxContainer"]
 margin_left = 24.0
 margin_right = 40.0
 margin_bottom = 20.0
 text = "10"
+
+[node name="ShopUI" parent="RightSide" instance=ExtResource( 4 )]
+visible = false
+anchor_left = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 114.0
+margin_right = 414.0
+margin_bottom = 600.0
 
 [node name="AmmoPanel" type="PanelContainer" parent="."]
 anchor_top = 1.0
