@@ -255,8 +255,20 @@ func apply_knockback(delta):
 	motion = motion.clamped(max(knockbackSpeed, maxSpeed))
 	knockbackTimeLeft -= delta
 	if knockbackTimeLeft <= 0.0:
-		# print("finished knockback")
 		set_egde_collision(true)
+		if checkPlayerOutOfBounds():
+			update_health(0)
+
+func checkPlayerOutOfBounds():
+	var level = get_node("../../Level")
+	var tilemap = level.get_node("TileMap")
+	var nodeV = tilemap.world_to_map(self.position)
+	var cell = tilemap.get_cell(nodeV.x, nodeV.y)
+
+	for x in level.outOfBoundsTileIds:
+		if cell == x:
+			return true
+	return false
 
 func set_egde_collision(value : bool):
 	set_collision_mask_bit(3, value)

@@ -22,6 +22,8 @@ func _ready():
 		player.connect("weapon_auto_attack", self, "weapon_auto_attack", [ player ])
 		player.connect("flag_captured", self, "player_captured_flag", [ playerId ])
 		player.connect("pickup_weapon", self, "player_picked_up_weapon", [ player ])
+	
+	print_tree_pretty()
 
 remote func on_client_ready(playerId):
 	print("client ready: %s" % playerId)
@@ -38,7 +40,7 @@ remote func on_client_ready(playerId):
 func on_pre_configure_complete():
 	# spawn pistols for all players
 	for player in players.values():
-		var weapon = server_spawn_weapon("baguette")
+		var weapon = server_spawn_weapon("pistol")
 		player_picked_up_weapon(weapon, player)
 	.on_pre_configure_complete()
 
