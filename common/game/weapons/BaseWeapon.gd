@@ -25,6 +25,7 @@ var AttackEffect = preload('res://common/game/projectiles/AttackEffect.gd')
 var lastFramePressed = false
 var isPressed = false
 
+export var angleOffset = 0.0
 export var damage = 50
 export var knockbackFactor : float = 1.0
 var player = null
@@ -153,10 +154,11 @@ func on_attack_effect():
 	return []
 
 func animate_weapon(angle, lookDirectionX):
+	angle = angle + angleOffset
 	$AnimatedSprite.rotation = angle
-	if lookDirectionX <= 0:
-		$AnimatedSprite.play("left")
-		angle -= PI
-	else:
-		$AnimatedSprite.play("right")
-	$AnimatedSprite.rotation = angle
+	#if lookDirectionX <= 0:
+	#	$AnimatedSprite.play("left")
+	#	angle -= PI + angleOffset
+	#else:
+	#	$AnimatedSprite.play("right")
+	#$AnimatedSprite.rotation = angle

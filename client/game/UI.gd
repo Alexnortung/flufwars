@@ -11,7 +11,7 @@ var _reloads = INF
 func _ready():
 	$MiddleText.get_node("Timer").connect("timeout", self, "on_middle_text_timeout")
 	_get_shop_button().connect("pressed", self, "toggle_shop")
-	$ShopUI.connect("purchase_item", self, "purchase_item")
+	#$ShopUI.connect("purchase_item", self, "purchase_item")
 
 func set_ammo(amount):
 	_ammo = amount

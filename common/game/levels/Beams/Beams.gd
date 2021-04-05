@@ -9,4 +9,3 @@ func _init():
 
 	playersPerTeam = 3
 	teamsInLevel = 4
-	outOfBoundsTileIds = [-1]
