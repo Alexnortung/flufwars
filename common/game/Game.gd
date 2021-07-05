@@ -17,7 +17,8 @@ const projectileTypes = {
 const weaponTypes = {
 	# BaseWeapon is abstract so we should not use it here
 	pistol = preload("res://common/game/weapons/Pistol.tscn"),
-	baguette = preload("res://common/game/weapons/LeBaguette.tscn")
+	baguette = preload("res://common/game/weapons/LeBaguette.tscn"),
+	ak = preload("res://common/game/weapons/AK.tscn"),
 }
 
 func _ready():

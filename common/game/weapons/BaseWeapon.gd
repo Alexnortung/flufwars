@@ -174,12 +174,12 @@ func animate_weapon(angle, lookDirectionX):
 	#$AnimatedSprite.rotation = angle
 	angle -= PI
 	if lookDirectionX <= 0:
-		$RotationCenter/AnimatedSprite.flip_h = false
-		$RotationCenter/AnimatedSprite.flip_v = false
+		$RotationCenter/StaticSprite.flip_h = false
+		$RotationCenter/StaticSprite.flip_v = false
 		# $RotationCenter/AnimatedSprite.play("left")
 	else:
-		$RotationCenter/AnimatedSprite.flip_h = false
-		$RotationCenter/AnimatedSprite.flip_v = true
+		$RotationCenter/StaticSprite.flip_h = false
+		$RotationCenter/StaticSprite.flip_v = true
 		pass
 		# $RotationCenter/AnimatedSprite.play("right")
 	$RotationCenter.rotation = angle

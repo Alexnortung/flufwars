@@ -31,14 +31,14 @@ scale = Vector2( 0.3, 0.3 )
 frames = ExtResource( 2 )
 animation = "left"
 
-[node name="StaticSprite" type="AnimatedSprite" parent="RotationCenter" index="2"]
-position = Vector2( -30, 0 )
-scale = Vector2( 0.3, 0.3 )
-frames = SubResource( 2 )
-
-[node name="Hitbox" parent="RotationCenter" index="3"]
+[node name="Hitbox" parent="RotationCenter" index="2"]
 position = Vector2( 30, 0 )
 
 [node name="CollisionPolygon2D" parent="RotationCenter/Hitbox" index="0"]
 position = Vector2( -1.3348, 1.33484 )
 scale = Vector2( -2, 2 )
+
+[node name="StaticSprite" parent="RotationCenter" index="3"]
+position = Vector2( -30, 0 )
+scale = Vector2( 0.3, 0.3 )
+frames = SubResource( 2 )

@@ -24,3 +24,5 @@ wait_time = 2.0
 shape = SubResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="RotationCenter"]
+
+[node name="StaticSprite" type="AnimatedSprite" parent="RotationCenter"]
