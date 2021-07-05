@@ -12,6 +12,7 @@ func _init():
     # add new items here
     #add_item(primaryShopName, "weapons", "Pistol", "res://common/game/weapons/Pistol.tscn", create_item_cost(10), ItemTypes.WEAPON)
     add_item(primaryShopName, "weapons", "Pistol", "pistol", create_item_cost(10), ItemTypes.WEAPON)
+    add_item(primaryShopName, "weapons", "Le Baguette", "baguette", create_item_cost(15), ItemTypes.WEAPON)
 
 func get_id():
     current_id += 1
