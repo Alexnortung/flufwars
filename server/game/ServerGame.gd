@@ -229,6 +229,9 @@ remote func purchase_item(itemId):
 	var cost = itemData.cost
 	if !check_player_item_cost(player, cost):
 		return
+	# deduct cost
+	on_deduct_cost(player, cost)
+	rpc_id(playerId, "on_deduct_cost", playerId, cost)
 	# Spawn item
 	var itemTypes = GameData.gameShopData.ItemTypes
 	match itemData.itemType:

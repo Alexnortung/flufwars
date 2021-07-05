@@ -48,7 +48,7 @@ func auto_attack(start : bool):
 func load_lobby():
 	get_tree().change_scene("res://client/lobby/ClientLobby.tscn")
 
-remote func resource_amount_changed(resources):
+remote func resource_amount_changed(resources = get_client_player().resources):
 	get_client_player().resources = resources
 	# update UI
 	get_ui().set_resources(resources)
@@ -102,3 +102,11 @@ remote func on_update_weapon_on_player(weaponId, playerId):
 	var weapon = entities[weaponId]
 	var player = get_player(playerId)
 	.update_weapon_on_player(weapon, player)
+
+remote func on_deduct_cost(playerId, cost):
+	if GameData.clientPlayerId != playerId:
+		return
+	var player = get_player(playerId)
+	.on_deduct_cost(player, cost)
+	# update ui
+	resource_amount_changed(player.resources)
