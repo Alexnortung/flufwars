@@ -265,7 +265,7 @@ func checkPlayerOutOfBounds():
 	var nodeV = tilemap.world_to_map(self.position)
 	var cell = tilemap.get_cell(nodeV.x, nodeV.y)
 
-	for x in level.outOfBoundsTileIds:
+	for x in GameData.mapInfo.outOfBoundsTileIds:
 		if cell == x:
 			return true
 	return false

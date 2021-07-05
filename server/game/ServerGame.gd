@@ -23,7 +23,7 @@ func _ready():
 		player.connect("flag_captured", self, "player_captured_flag", [ playerId ])
 		player.connect("pickup_weapon", self, "player_picked_up_weapon", [ player ])
 	
-	print_tree_pretty()
+	#print_tree_pretty()
 
 remote func on_client_ready(playerId):
 	print("client ready: %s" % playerId)

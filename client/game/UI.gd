@@ -11,7 +11,7 @@ var _reloads = INF
 func _ready():
 	$MiddleText.get_node("Timer").connect("timeout", self, "on_middle_text_timeout")
 	_get_shop_button().connect("pressed", self, "toggle_shop")
-	$ShopUI.connect("purchase_item", self, "purchase_item")
+	_get_shop_ui().connect("purchase_item", self, "purchase_item")
 
 func set_ammo(amount):
 	_ammo = amount
@@ -39,6 +39,9 @@ func _generate_ammo_label():
 
 func _get_right_corner():
 	return $RightSide/RightCorner/RightCornerHBox
+
+func _get_shop_ui():
+	return $RightSide/ShopUI
 
 func _get_resource_container():
 	return _get_right_corner().get_node("ResourcesPanel/HBoxContainer")
@@ -77,7 +80,7 @@ func _get_shop_button():
 	return _get_right_corner().get_node("ShopButton")
 
 func toggle_shop():
-	$RightSide/ShopUI.visible = !$RightSide/ShopUI.visible
+	_get_shop_ui().visible = !_get_shop_ui().visible
 
 func purchase_item(itemId):
 	emit_signal("purchase_item", itemId)

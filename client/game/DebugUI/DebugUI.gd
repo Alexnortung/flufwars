@@ -10,7 +10,8 @@ func _ready():
 		$ToggleButton.connect("expand", self, "expand")
 		$ToggleButton.connect("close", self, "close")
 		buttons = [
-			["spawn pistol (not working test)", funcref(self, "spawn_pistol"), []],
+			["spawn pistol", funcref(self, "spawn_pistol"), []],
+			["Print tree", funcref(self, "_print_tree"), []],
 		]
 		create_buttons()
 	else:
@@ -37,3 +38,6 @@ func close():
 
 func spawn_pistol():
 	emit_signal("debug_command", "spawn_pistol", [])
+
+func _print_tree():
+	get_tree().get_root().print_tree_pretty()
