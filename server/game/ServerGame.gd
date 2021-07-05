@@ -180,9 +180,9 @@ func server_spawn_weapon(weaponType : String, position : Vector2 = Vector2.ZERO,
 	var weapon = spawn_weapon(weaponType, id, position)
 	return weapon
 
-func update_weapon_on_player(weaponInstance: Node2D, playerId):
-	pass
-	# rpc("on_update_weapon_on_player", )
+func update_weapon_on_player(weaponInstance: Node2D, player):
+	.update_weapon_on_player(weaponInstance, player)
+	rpc("on_update_weapon_on_player", weaponInstance.id, player.id)
 
 remote func debug_command(command : String, args : Array = []):
 	if GameData.debug == true:
@@ -221,8 +221,18 @@ func check_game_is_ending():
 		end_game()
 
 remote func purchase_item(itemId):
+	var playerId = get_tree().get_rpc_sender_id()
+	var player = get_player(playerId)
 	# find item
 	var itemData = GameData.gameShopData.itemsById[itemId]
 	# check and deduct resources
-	# if 
-	# give item to player
+	var cost = itemData.cost
+	if !check_player_item_cost(player, cost):
+		return
+	# Spawn item
+	var itemTypes = GameData.gameShopData.ItemTypes
+	match itemData.itemType:
+		itemTypes.WEAPON:
+			# Spawn weapon
+			var weapon = server_spawn_weapon(itemData.res)
+			update_weapon_on_player(weapon, player)

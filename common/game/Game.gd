@@ -201,3 +201,16 @@ func start_game_countdown():
 func on_start_game_countdown_finish():
 	print("countdown finisehd")
 	get_tree().paused = false
+
+# Checks that the player has enough resources to purchase item
+func check_player_item_cost(player, cost : Array) -> bool:
+	for i in range(len(cost)):
+		if player.resources[i] < cost[i]:
+			return false
+	return true
+
+func update_weapon_on_player(weaponInstance : Node2D, player):
+	# make player drop weapon
+	player.try_drop_weapon()
+	# add the weapon to the player
+	player.on_pickup_weapon(weaponInstance)

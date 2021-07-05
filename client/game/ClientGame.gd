@@ -97,3 +97,8 @@ remote func on_flag_captured(playerId: int):
 
 func ui_purchase_item(itemId):
 	rpc("purchase_item", itemId)
+
+remote func on_update_weapon_on_player(weaponId, playerId):
+	var weapon = entities[weaponId]
+	var player = get_player(playerId)
+	.update_weapon_on_player(weapon, player)

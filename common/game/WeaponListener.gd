@@ -18,10 +18,25 @@ func update_weapon(weapon: Node2D):
 	weapon.set_name("Weapon")
 	connect_weapon(weapon)
 
+func on_drop_weapon():
+	var weapon = $Weapon
+	# remove the weapon from self
+	disconnect_weapon(weapon)
+	remove_child(weapon)
+	# add the weapon to the level
+	var level = get_player().get_level()
+	level.add_child(weapon)
+	weapon.on_drop()
+
+
 func connect_weapon(weapon = $Weapon):
 	# $Weapon.connect("single_attack", self, "single_attack")
 	weapon.connect("auto_attack", self, "auto_attack")
 	weapon.connect("weapon_auto_attack", self, "weapon_auto_attack")
+
+func disconnect_weapon(weapon = $Weapon):
+	weapon.disconnect("auto_attack", self, "auto_attack")
+	weapon.disconnect("weapon_auto_attack", self, "weapon_auto_attack")
 
 func single_attack():
 	emit_signal("single_attack")
@@ -31,3 +46,6 @@ func auto_attack(start : bool):
 
 func weapon_auto_attack():
 	emit_signal("weapon_auto_attack")
+
+func get_player():
+	return get_parent()

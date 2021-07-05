@@ -40,6 +40,7 @@ var resources = [
 	0,
 	0,
 	0,
+	0,
 ]
 
 func _physics_process(delta):
@@ -238,6 +239,15 @@ func on_pickup_weapon(weapon: Node2D):
 	$Weapon.update_weapon(weapon)
 	weapon.on_pickup(self)
 
+func try_drop_weapon():
+	if !has_weapon():
+		return
+	#print("player has weapon, dropping it...")
+	on_drop_weapon()
+
+func on_drop_weapon():
+	$Weapon.on_drop_weapon()
+
 func knockback(knockbackFactor : float, _knockbackDirection : Vector2):
 	if dead:
 		return
@@ -260,7 +270,7 @@ func apply_knockback(delta):
 			update_health(0)
 
 func checkPlayerOutOfBounds():
-	var level = get_node("../../Level")
+	var level = get_level()
 	var tilemap = level.get_node("TileMap")
 	var nodeV = tilemap.world_to_map(self.position)
 	var cell = tilemap.get_cell(nodeV.x, nodeV.y)
@@ -272,3 +282,7 @@ func checkPlayerOutOfBounds():
 
 func set_egde_collision(value : bool):
 	set_collision_mask_bit(3, value)
+
+	
+func get_level():
+	return get_node("../../Level")

@@ -139,8 +139,20 @@ func on_pickup(_player: Node):
 	self.position = Vector2.ZERO
 	player = _player
 
+func on_drop():
+	# make sure the weapon is not dropped
+	if isDropped:
+		return
+	isDropped = true
+	recentlyDropped = true
+	self.position = player.position
+	player = null
+	$DropTimer.start()
+
 func on_drop_timer_finish():
+	$DropTimer.stop()
 	recentlyDropped = false
+	# try pickup of players inside
 
 func get_direction():
 	if player != null:
