@@ -52,7 +52,7 @@ func init(id = UUID.v4(), position : Vector2 = Vector2.ZERO):
 func _ready():
 	ammo = maxAmmo
 	self.set_meta("tag", "weapon")
-	$Area2D.connect("body_entered", self, "on_enter") # TODO: make server connect this
+	$RotationCenter/Area2D.connect("body_entered", self, "on_enter") # TODO: make server connect this
 	$CooldownTimer.connect("timeout", self, "on_cooldown_finished")
 	$ReloadTimer.connect("timeout", self, "on_reload_finish")
 
@@ -165,10 +165,21 @@ func on_attack_effect():
 	return []
 
 func animate_weapon(angle, lookDirectionX):
-	$AnimatedSprite.rotation = angle
+	#$AnimatedSprite.rotation = angle
+	#if lookDirectionX <= 0:
+	#	$AnimatedSprite.play("left")
+	#	angle -= PI
+	#else:
+	#	$AnimatedSprite.play("right")
+	#$AnimatedSprite.rotation = angle
+	angle -= PI
 	if lookDirectionX <= 0:
-		$AnimatedSprite.play("left")
-		angle -= PI
+		$RotationCenter/AnimatedSprite.flip_h = false
+		$RotationCenter/AnimatedSprite.flip_v = false
+		# $RotationCenter/AnimatedSprite.play("left")
 	else:
-		$AnimatedSprite.play("right")
-	$AnimatedSprite.rotation = angle
+		$RotationCenter/AnimatedSprite.flip_h = false
+		$RotationCenter/AnimatedSprite.flip_v = true
+		pass
+		# $RotationCenter/AnimatedSprite.play("right")
+	$RotationCenter.rotation = angle

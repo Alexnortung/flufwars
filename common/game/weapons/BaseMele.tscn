@@ -1,27 +1,20 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://common/game/weapons/BaseWeapon.tscn" type="PackedScene" id=1]
 [ext_resource path="res://common/game/weapons/BaseMele.gd" type="Script" id=2]
-[ext_resource path="res://assets/Weapons/Le_baguette/le_baguette.tres" type="SpriteFrames" id=3]
 
 [node name="BaseMele" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 damage = 1
-knockbackFactor = 1.0
 weaponType = 0
 cooldown = 1.0
 reloadTime = 0.0
 maxAmmo = 5
 reloads = 0
 
-[node name="Hitbox" type="Area2D" parent="." index="4"]
+[node name="Hitbox" type="Area2D" parent="RotationCenter" index="2"]
 collision_layer = 0
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hitbox" index="0"]
-position = Vector2( -29.7974, 0.397301 )
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RotationCenter/Hitbox" index="0"]
 scale = Vector2( 2, 2 )
 polygon = PoolVector2Array( 0.0446014, -0.550034, 40.3042, -39.2204, 49.5745, -32.5988, 55.9313, -23.5934, 61.2286, -12.9987, 63.0826, 0.244568, 61.4934, 10.5743, 56.7259, 19.3149, 49.8394, 29.1149, 40.5691, 36.0014 )
-
-[node name="AnimatedSprite" parent="." index="5"]
-frames = ExtResource( 3 )
-animation = "left"
