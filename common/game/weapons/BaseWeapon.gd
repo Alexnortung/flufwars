@@ -42,6 +42,7 @@ var id : String
 var lastHeldBy : int
 var isDropped : bool = true
 var recentlyDropped : bool = false
+export var reloadAnimation : Animation
 
 # Constructor
 func init(id = UUID.v4(), position : Vector2 = Vector2.ZERO):
@@ -85,7 +86,8 @@ func start_reload():
 	emit_signal("start_reload")
 
 func start_reload_animation():
-	$ReloadAnimation.play("DefaultReload", -1, 1.0 / reloadTime)
+	var animationName = $ReloadAnimation.find_animation(reloadAnimation)
+	$ReloadAnimation.play(animationName, -1, 1.0 / reloadTime)
 
 func on_reload_animation_finished(anim_name):
 	$ReloadAnimation.stop()
