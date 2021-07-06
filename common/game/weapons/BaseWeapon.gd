@@ -55,6 +55,7 @@ func _ready():
 	$RotationCenter/Area2D.connect("body_entered", self, "on_enter") # TODO: make server connect this
 	$CooldownTimer.connect("timeout", self, "on_cooldown_finished")
 	$ReloadTimer.connect("timeout", self, "on_reload_finish")
+	$ReloadAnimation.connect("animation_finished", self, "on_reload_animation_finished")
 
 func _physics_process(delta):
 	isPressed = Input.is_action_pressed("fire")
@@ -86,12 +87,18 @@ func start_reload():
 func start_reload_animation():
 	$ReloadAnimation.play("DefaultReload", -1, 1.0 / reloadTime)
 
+func on_reload_animation_finished(anim_name):
+	$ReloadAnimation.stop()
+
 ### Helper functions ###
 func stop_cooldown():
 	$CooldownTimer.stop()
 
 
 ### Public functions ###
+
+func has_player():
+	return player != null
 
 func update_from_weapon_data(weaponData: Dictionary):
 	self.ammo = weaponData.ammo
@@ -149,6 +156,7 @@ func on_drop():
 		return
 	isDropped = true
 	recentlyDropped = true
+	isAttacking = false
 	self.position = player.position
 	player = null
 	$DropTimer.start()

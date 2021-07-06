@@ -113,4 +113,5 @@ remote func on_deduct_cost(playerId, cost):
 
 remote func on_start_reload(weaponId : String):
 	var weapon = entities[weaponId]
+	# print("Got reloading weapon from server, id: " + weaponId)
 	weapon.start_reload_animation()
