@@ -8,7 +8,7 @@ signal auto_attack
 signal weapon_auto_attack
 
 # This signal will help the server to tell the clients that the player is reloading
-# signal start_reload
+signal start_reload
 
 enum {
 	ATTACK_TYPE_SINGLE,
@@ -81,6 +81,10 @@ func try_attack():
 func start_reload():
 	isReloading = true
 	$ReloadTimer.start(reloadTime)
+	emit_signal("start_reload")
+
+func start_reload_animation():
+	$ReloadAnimation.play("DefaultReload", -1, 1.0 / reloadTime)
 
 ### Helper functions ###
 func stop_cooldown():

@@ -110,3 +110,7 @@ remote func on_deduct_cost(playerId, cost):
 	.on_deduct_cost(player, cost)
 	# update ui
 	resource_amount_changed(player.resources)
+
+remote func on_start_reload(weaponId : String):
+	var weapon = entities[weaponId]
+	weapon.start_reload_animation()

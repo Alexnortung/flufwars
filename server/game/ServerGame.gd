@@ -178,7 +178,11 @@ func server_spawn_weapon(weaponType : String, position : Vector2 = Vector2.ZERO,
 	print("server spawn weapon called")
 	rpc("on_spawn_weapon", weaponType, id, position)
 	var weapon = spawn_weapon(weaponType, id, position)
+	weapon.connect("start_reload", self, "on_start_reload", [weapon])
 	return weapon
+
+func on_start_reload(weapon : Node2D):
+	rpc("on_start_reload", weapon.id)
 
 func update_weapon_on_player(weaponInstance: Node2D, player):
 	.update_weapon_on_player(weaponInstance, player)

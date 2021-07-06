@@ -1,9 +1,24 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://common/game/weapons/BaseWeapon.gd" type="Script" id=1]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 20.0
+
+[sub_resource type="Animation" id=2]
+resource_name = "DefaultReload"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 2
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 360.0 ]
+}
 
 [node name="BaseWeapon" type="Node2D"]
 script = ExtResource( 1 )
@@ -26,3 +41,6 @@ shape = SubResource( 1 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="RotationCenter"]
 
 [node name="StaticSprite" type="AnimatedSprite" parent="RotationCenter"]
+
+[node name="ReloadAnimation" type="AnimationPlayer" parent="."]
+anims/DefaultReload = SubResource( 2 )
