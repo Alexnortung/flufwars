@@ -115,3 +115,7 @@ remote func on_start_reload(weaponId : String):
 	var weapon = entities[weaponId]
 	# print("Got reloading weapon from server, id: " + weaponId)
 	weapon.start_reload_animation()
+
+remote func on_weapon_attack(weaponId : String):
+	var weapon = entities[weaponId]
+	weapon.start_attack_animation()

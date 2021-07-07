@@ -43,6 +43,7 @@ var lastHeldBy : int
 var isDropped : bool = true
 var recentlyDropped : bool = false
 export var reloadAnimation : Animation
+export var attackAnimation : Animation
 
 # Constructor
 func init(id = UUID.v4(), position : Vector2 = Vector2.ZERO):
@@ -56,7 +57,7 @@ func _ready():
 	$RotationCenter/Area2D.connect("body_entered", self, "on_enter") # TODO: make server connect this
 	$CooldownTimer.connect("timeout", self, "on_cooldown_finished")
 	$ReloadTimer.connect("timeout", self, "on_reload_finish")
-	$ReloadAnimation.connect("animation_finished", self, "on_reload_animation_finished")
+	$AnimationPlayer.connect("animation_finished", self, "on_animation_finished")
 
 func _physics_process(delta):
 	isPressed = Input.is_action_pressed("fire")
@@ -86,11 +87,19 @@ func start_reload():
 	emit_signal("start_reload")
 
 func start_reload_animation():
-	var animationName = $ReloadAnimation.find_animation(reloadAnimation)
-	$ReloadAnimation.play(animationName, -1, 1.0 / reloadTime)
+	var animationName = $AnimationPlayer.find_animation(reloadAnimation)
+	if animationName == "":
+		return
+	$AnimationPlayer.play(animationName, -1, 1.0 / reloadTime)
 
-func on_reload_animation_finished(anim_name):
-	$ReloadAnimation.stop()
+func start_attack_animation():
+	var animationName = $AnimationPlayer.find_animation(attackAnimation)
+	if animationName == "":
+		return
+	$AnimationPlayer.play(animationName)
+
+func on_animation_finished(anim_name):
+	$AnimationPlayer.stop()
 
 ### Helper functions ###
 func stop_cooldown():
@@ -188,12 +197,7 @@ func animate_weapon(angle, lookDirectionX):
 	#$AnimatedSprite.rotation = angle
 	angle -= PI
 	if lookDirectionX <= 0:
-		$RotationCenter/StaticSprite.flip_h = false
-		$RotationCenter/StaticSprite.flip_v = false
-		# $RotationCenter/AnimatedSprite.play("left")
+		$RotationCenter.scale.y = 1
 	else:
-		$RotationCenter/StaticSprite.flip_h = false
-		$RotationCenter/StaticSprite.flip_v = true
-		pass
-		# $RotationCenter/AnimatedSprite.play("right")
+		$RotationCenter.scale.y = -1
 	$RotationCenter.rotation = angle

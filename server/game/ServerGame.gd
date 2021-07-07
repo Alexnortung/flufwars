@@ -77,6 +77,7 @@ func damage_taken(playerId: int, newHealth: int):
 func weapon_auto_attack(player):
 	var playerId = player.id
 	var weapon = player.get_weapon()
+	rpc("on_weapon_attack", weapon.id)
 	var attackEffects = weapon.on_attack_effect()
 
 	for x in attackEffects:
