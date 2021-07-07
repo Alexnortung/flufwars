@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://client/main_menu/MainMenu.gd" type="Script" id=1]
+[ext_resource path="res://assets/misc/flufwars-logo.png" type="Texture" id=2]
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
@@ -11,6 +12,7 @@ __meta__ = {
 }
 
 [node name="ScreenTitle" type="Label" parent="."]
+visible = false
 anchor_right = 1.0
 margin_top = 39.0
 margin_bottom = 53.0
@@ -21,6 +23,7 @@ __meta__ = {
 }
 
 [node name="PlayerNameLabel" type="Label" parent="."]
+visible = false
 anchor_right = 1.0
 margin_top = 110.0
 margin_bottom = 124.0
@@ -38,6 +41,7 @@ __meta__ = {
 }
 
 [node name="ServerIpLabel" type="Label" parent="."]
+visible = false
 anchor_right = 1.0
 margin_top = 179.0
 margin_bottom = 193.0
@@ -58,6 +62,7 @@ __meta__ = {
 }
 
 [node name="ConnectButton" type="Button" parent="."]
+visible = false
 anchor_left = 0.45
 anchor_right = 0.55
 margin_top = 268.0
@@ -66,4 +71,31 @@ text = "Connect"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LogoPosition" type="Control" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="pressed" from="ConnectButton" to="." method="_on_ConnectButton_pressed"]
