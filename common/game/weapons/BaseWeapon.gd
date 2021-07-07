@@ -90,6 +90,7 @@ func start_reload_animation():
 	var animationName = $AnimationPlayer.find_animation(reloadAnimation)
 	if animationName == "":
 		return
+	# TODO: fix potential division by zero
 	$AnimationPlayer.play(animationName, -1, 1.0 / reloadTime)
 
 func start_attack_animation():
