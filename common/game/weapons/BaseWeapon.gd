@@ -8,7 +8,7 @@ signal auto_attack
 signal weapon_auto_attack
 
 # This signal will help the server to tell the clients that the player is reloading
-# signal start_reload
+signal start_reload
 
 enum {
 	ATTACK_TYPE_SINGLE,
@@ -43,6 +43,8 @@ var id : String
 var lastHeldBy : int
 var isDropped : bool = true
 var recentlyDropped : bool = false
+export var reloadAnimation : Animation
+export var attackAnimation : Animation
 
 # Constructor
 func init(id = UUID.v4(), position : Vector2 = Vector2.ZERO):
@@ -53,9 +55,10 @@ func init(id = UUID.v4(), position : Vector2 = Vector2.ZERO):
 func _ready():
 	ammo = maxAmmo
 	self.set_meta("tag", "weapon")
-	$Area2D.connect("body_entered", self, "on_enter") # TODO: make server connect this
+	$RotationCenter/Area2D.connect("body_entered", self, "on_enter") # TODO: make server connect this
 	$CooldownTimer.connect("timeout", self, "on_cooldown_finished")
 	$ReloadTimer.connect("timeout", self, "on_reload_finish")
+	$AnimationPlayer.connect("animation_finished", self, "on_animation_finished")
 
 func _physics_process(delta):
 	isPressed = Input.is_action_pressed("fire")
@@ -82,6 +85,23 @@ func try_attack():
 func start_reload():
 	isReloading = true
 	$ReloadTimer.start(reloadTime)
+	emit_signal("start_reload")
+
+func start_reload_animation():
+	var animationName = $AnimationPlayer.find_animation(reloadAnimation)
+	if animationName == "":
+		return
+	# TODO: fix potential division by zero
+	$AnimationPlayer.play(animationName, -1, 1.0 / reloadTime)
+
+func start_attack_animation():
+	var animationName = $AnimationPlayer.find_animation(attackAnimation)
+	if animationName == "":
+		return
+	$AnimationPlayer.play(animationName)
+
+func on_animation_finished(anim_name):
+	$AnimationPlayer.stop()
 
 ### Helper functions ###
 func stop_cooldown():
@@ -89,6 +109,9 @@ func stop_cooldown():
 
 
 ### Public functions ###
+
+func has_player():
+	return player != null
 
 func update_from_weapon_data(weaponData: Dictionary):
 	self.ammo = weaponData.ammo
@@ -140,8 +163,21 @@ func on_pickup(_player: Node):
 	self.position = Vector2.ZERO
 	player = _player
 
+func on_drop():
+	# make sure the weapon is not dropped
+	if isDropped:
+		return
+	isDropped = true
+	recentlyDropped = true
+	isAttacking = false
+	self.position = player.position
+	player = null
+	$DropTimer.start()
+
 func on_drop_timer_finish():
+	$DropTimer.stop()
 	recentlyDropped = false
+	# try pickup of players inside
 
 func get_direction():
 	if player != null:
@@ -154,11 +190,16 @@ func on_attack_effect():
 	return []
 
 func animate_weapon(angle, lookDirectionX):
-	angle = angle + angleOffset
-	$AnimatedSprite.rotation = angle
+	#$AnimatedSprite.rotation = angle
 	#if lookDirectionX <= 0:
 	#	$AnimatedSprite.play("left")
-	#	angle -= PI + angleOffset
+	#	angle -= PI
 	#else:
 	#	$AnimatedSprite.play("right")
 	#$AnimatedSprite.rotation = angle
+	angle -= PI
+	if lookDirectionX <= 0:
+		$RotationCenter.scale.y = 1
+	else:
+		$RotationCenter.scale.y = -1
+	$RotationCenter.rotation = angle

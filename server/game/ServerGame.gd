@@ -20,10 +20,10 @@ func _ready():
 		var player = self.players[playerId]
 		player.connect("take_damage", self, "damage_taken")
 		player.connect("weapon_auto_attack", self, "weapon_auto_attack", [ player ])
-		player.connect("flag_captured", self, "player_captured_flag", [ playerId ])
+		player.connect("flag_captured", self, "player_captured_flag", [ player ])
 		player.connect("pickup_weapon", self, "player_picked_up_weapon", [ player ])
 	
-	print_tree_pretty()
+	#print_tree_pretty()
 
 remote func on_client_ready(playerId):
 	print("client ready: %s" % playerId)
@@ -77,6 +77,7 @@ func damage_taken(playerId: int, newHealth: int):
 func weapon_auto_attack(player):
 	var playerId = player.id
 	var weapon = player.get_weapon()
+	rpc("on_weapon_attack", weapon.id)
 	var attackEffects = weapon.on_attack_effect()
 
 	for x in attackEffects:
@@ -149,10 +150,14 @@ func projectile_hit(projectile: Node2D, collider: Node2D):
 	.on_projectile_hit(projectile.id)
 	rpc("on_projectile_hit", projectile.id)
 
-func player_captured_flag(playerId : int):
-	print("got flag captured from player " + str(playerId))
-	on_flag_captured(playerId)
-	rpc("on_flag_captured", playerId)
+func resource_amount_changed(player: Node2D):
+	rpc_id(player.id, "resource_amount_changed", player.resources)
+
+func player_captured_flag(player : Node2D):
+	print("got flag captured from player " + str(player.id))
+	on_flag_captured(player.id)
+	rpc("on_flag_captured", player.id)
+	#rpc_id(player.id, "resource_amount_changed", player.resources) # this is redundant, can be done on client
 	check_game_is_ending()
 
 func load_lobby():
@@ -169,7 +174,7 @@ func split_resources(resourceSpawner: Node2D):
 	resourceSpawner.update_player_resources()
 	for player in players:
 		# tell the client the player was updated
-		rpc_id(player.id, "resource_amount_changed", player.resources)
+		resource_amount_changed(player)
 	# rpc call that the resource spawner is now empty
 	# call this after telling the players that they picked up the resources
 	rpc("resources_picked_up", resourceSpawner.id)
@@ -178,11 +183,15 @@ func server_spawn_weapon(weaponType : String, position : Vector2 = Vector2.ZERO,
 	print("server spawn weapon called")
 	rpc("on_spawn_weapon", weaponType, id, position)
 	var weapon = spawn_weapon(weaponType, id, position)
+	weapon.connect("start_reload", self, "on_start_reload", [weapon])
 	return weapon
 
-func update_weapon_on_player(weaponInstance: Node2D, playerId):
-	pass
-	# rpc("on_update_weapon_on_player", )
+func on_start_reload(weapon : Node2D):
+	rpc("on_start_reload", weapon.id)
+
+func update_weapon_on_player(weaponInstance: Node2D, player):
+	.update_weapon_on_player(weaponInstance, player)
+	rpc("on_update_weapon_on_player", weaponInstance.id, player.id)
 
 remote func debug_command(command : String, args : Array = []):
 	if GameData.debug == true:
@@ -221,8 +230,21 @@ func check_game_is_ending():
 		end_game()
 
 remote func purchase_item(itemId):
+	var playerId = get_tree().get_rpc_sender_id()
+	var player = get_player(playerId)
 	# find item
 	var itemData = GameData.gameShopData.itemsById[itemId]
 	# check and deduct resources
-	# if 
-	# give item to player
+	var cost = itemData.cost
+	if !check_player_item_cost(player, cost):
+		return
+	# deduct cost
+	on_deduct_cost(player, cost)
+	rpc_id(playerId, "on_deduct_cost", playerId, cost)
+	# Spawn item
+	var itemTypes = GameData.gameShopData.ItemTypes
+	match itemData.itemType:
+		itemTypes.WEAPON:
+			# Spawn weapon
+			var weapon = server_spawn_weapon(itemData.res)
+			update_weapon_on_player(weapon, player)

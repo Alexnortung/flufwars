@@ -1,7 +1,7 @@
 extends "res://common/game/weapons/BaseWeapon.gd"
 
 func get_players_inside_hitbox():
-	return $Hitbox.get_overlapping_bodies()
+	return $RotationCenter/Hitbox.get_overlapping_bodies()
 
 func on_attack_effect() -> Array:
 	if player == null:
@@ -28,4 +28,4 @@ func on_attack_effect() -> Array:
 
 func animate_weapon(angle, lookDirectionX):
 	.animate_weapon(angle, lookDirectionX)
-	$Hitbox.rotation = angle
+	#$Hitbox.rotation = angle
