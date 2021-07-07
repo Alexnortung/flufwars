@@ -20,7 +20,7 @@ func _ready():
 		var player = self.players[playerId]
 		player.connect("take_damage", self, "damage_taken")
 		player.connect("weapon_auto_attack", self, "weapon_auto_attack", [ player ])
-		player.connect("flag_captured", self, "player_captured_flag", [ playerId ])
+		player.connect("flag_captured", self, "player_captured_flag", [ player ])
 		player.connect("pickup_weapon", self, "player_picked_up_weapon", [ player ])
 	
 	#print_tree_pretty()
@@ -150,10 +150,11 @@ func projectile_hit(projectile: Node2D, collider: Node2D):
 	.on_projectile_hit(projectile.id)
 	rpc("on_projectile_hit", projectile.id)
 
-func player_captured_flag(playerId : int):
-	print("got flag captured from player " + str(playerId))
-	on_flag_captured(playerId)
-	rpc("on_flag_captured", playerId)
+func player_captured_flag(player : Node2D):
+	print("got flag captured from player " + str(player.id))
+	on_flag_captured(player.id)
+	rpc("on_flag_captured", player.id)
+	rpc_id(player.id, "resource_amount_changed", player.resources)
 	check_game_is_ending()
 
 func load_lobby():

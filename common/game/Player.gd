@@ -211,6 +211,8 @@ func flag_captured():
 	pickedUpFlag.isTaken = true
 	pickedUpFlag.queue_free()
 	pickedUpFlag = null
+	# Award flag point
+	resources[3] += 1
 
 
 func resource_pickup(resourceSpawner: Node2D):

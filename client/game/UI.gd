@@ -52,11 +52,14 @@ func set_resource2(amount):
 	_get_resource_container().get_node("Label2").text = str(amount)
 func set_resource3(amount):
 	_get_resource_container().get_node("Label3").text = str(amount)
+func set_resource4(amount):
+	_get_resource_container().get_node("Label4").text = str(amount)
 
 func set_resources(arr: Array):
 	set_resource1(arr[0])
 	set_resource2(arr[1])
 	set_resource3(arr[2])
+	set_resource4(arr[3])
 
 func countdown_finished():
 	show_middle_message("FLUF!", 2)
