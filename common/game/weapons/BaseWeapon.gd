@@ -198,11 +198,9 @@ func on_attack_effect():
 	return []
 
 func animate_weapon(angle, lookDirectionX):
-	angle = angle + angleOffset
-	$AnimatedSprite.rotation = angle
+	angle -= PI
 	if lookDirectionX <= 0:
 		$RotationCenter.scale.y = 1
-		angle -= PI + angleOffset
 	else:
 		$RotationCenter.scale.y = -1
 	$RotationCenter.rotation = angle
