@@ -19,6 +19,8 @@ func _physics_process(delta):
 	apply_knockback(delta)
 	motion = move_and_slide(motion)
 
+	#print_tree_pretty()
+
 	$Weapon.position = server_direction * lookDirectionOffset
 	
 func get_input_axis():

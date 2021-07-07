@@ -20,6 +20,13 @@ enum weaponTypes {
 	WEAPON_RANGED
 }
 
+enum weaponSlots {
+	PRIMARY_WEAPON,
+	SECONDARY_WEAPON,
+	UTILITY,
+	ARMOR
+}
+
 var AttackEffect = preload('res://common/game/projectiles/AttackEffect.gd')
 
 var lastFramePressed = false
@@ -43,6 +50,7 @@ var id : String
 var lastHeldBy : int
 var isDropped : bool = true
 var recentlyDropped : bool = false
+export(weaponSlots) var weaponSlot = weaponSlots.PRIMARY_WEAPON
 
 # Constructor
 func init(id = UUID.v4(), position : Vector2 = Vector2.ZERO):
@@ -156,9 +164,9 @@ func on_attack_effect():
 func animate_weapon(angle, lookDirectionX):
 	angle = angle + angleOffset
 	$AnimatedSprite.rotation = angle
-	#if lookDirectionX <= 0:
-	#	$AnimatedSprite.play("left")
-	#	angle -= PI + angleOffset
-	#else:
-	#	$AnimatedSprite.play("right")
-	#$AnimatedSprite.rotation = angle
+	if lookDirectionX <= 0:
+		$AnimatedSprite.play("left")
+		angle -= PI + angleOffset
+	else:
+		$AnimatedSprite.play("right")
+	$AnimatedSprite.rotation = angle

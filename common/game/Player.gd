@@ -26,6 +26,12 @@ var lookDirectionOffset: int = 45
 
 var captureProgress : Node2D = null
 var playerSpawn : Node2D
+
+var primaryWeaponSlot : Node2D = null
+var secondaryWeaponSlot : Node2D = null
+# 0 = primary | 1 = secondary
+var activeWeaponSlot : int = 0
+
 signal take_damage
 signal single_attack
 signal auto_attack # state change
@@ -222,21 +228,46 @@ func resource_spent(key, amount: int):
 	resources[key] -= amount
 
 func has_weapon() -> bool:
-	return has_node("Weapon/Weapon")
+	return primaryWeaponSlot != null || secondaryWeaponSlot != null
+
+func has_specific_weapon(weapon : Node2D) -> bool:
+	if weapon.weaponSlot == weapon.weaponSlots.PRIMARY_WEAPON or weapon.weaponSlot == weapon.weaponSlots.PRIMARY_WEAPON:
+		return true
+	return false
 
 func try_pickup_weapon(weapon : Node2D):
 	# called from BaseWeapon
 	# happens on client and server side
 	# should be redirected to server game with signal
-	if has_weapon():
+	if has_specific_weapon(weapon):
 		return false
+
 	emit_signal("pickup_weapon", weapon)
 	return true
+
+func find_weapon_switch(weapon : Node2D) -> void:
+	if weapon.weaponSlot == weapon.weaponSlots.PRIMARY_WEAPON:
+		primaryWeaponSlot = weapon
+	
+	if weapon.weaponSlot == weapon.weaponSlots.SECONDARY_WEAPON:
+		secondaryWeaponSlot = weapon
 
 # This is called on the server and client to sync the new weapon
 func on_pickup_weapon(weapon: Node2D):
 	$Weapon.update_weapon(weapon)
 	weapon.on_pickup(self)
+	find_weapon_switch(weapon)
+
+func switch_weapon(weapon_id : int):
+	var weapon : Node2D = null
+
+	if weapon_id == 0: 
+		weapon = primaryWeaponSlot
+	else:
+		weapon = secondaryWeaponSlot
+
+	$Weapon.remove_child(get_node("Weapon"))
+	$Weapon.add_child(weapon)
 
 func knockback(knockbackFactor : float, _knockbackDirection : Vector2):
 	if dead:
