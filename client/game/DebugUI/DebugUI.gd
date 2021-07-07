@@ -12,6 +12,7 @@ func _ready():
 		buttons = [
 			["spawn pistol", funcref(self, "spawn_pistol"), []],
 			["Print tree", funcref(self, "_print_tree"), []],
+			["Make me rich", funcref(self, "make_me_rich"), []],
 		]
 		create_buttons()
 	else:
@@ -41,3 +42,7 @@ func spawn_pistol():
 
 func _print_tree():
 	get_tree().get_root().print_tree_pretty()
+	emit_signal("debug_command", "print_tree")
+
+func make_me_rich():
+	emit_signal("debug_command", "make_me_rich")

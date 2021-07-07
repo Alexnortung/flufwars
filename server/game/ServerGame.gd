@@ -150,11 +150,14 @@ func projectile_hit(projectile: Node2D, collider: Node2D):
 	.on_projectile_hit(projectile.id)
 	rpc("on_projectile_hit", projectile.id)
 
+func resource_amount_changed(player: Node2D):
+	rpc_id(player.id, "resource_amount_changed", player.resources)
+
 func player_captured_flag(player : Node2D):
 	print("got flag captured from player " + str(player.id))
 	on_flag_captured(player.id)
 	rpc("on_flag_captured", player.id)
-	rpc_id(player.id, "resource_amount_changed", player.resources)
+	#rpc_id(player.id, "resource_amount_changed", player.resources) # this is redundant, can be done on client
 	check_game_is_ending()
 
 func load_lobby():
@@ -171,7 +174,7 @@ func split_resources(resourceSpawner: Node2D):
 	resourceSpawner.update_player_resources()
 	for player in players:
 		# tell the client the player was updated
-		rpc_id(player.id, "resource_amount_changed", player.resources)
+		resource_amount_changed(player)
 	# rpc call that the resource spawner is now empty
 	# call this after telling the players that they picked up the resources
 	rpc("resources_picked_up", resourceSpawner.id)

@@ -80,7 +80,7 @@ remote func on_projectile_hit(projectileId):
 remote func on_projectile_despawn(projectileId):
 	.on_projectile_despawn(projectileId)
 
-func debug_command(command, args):
+func debug_command(command, args = []):
 	print("sending debug command")
 	if GameData.debug == true:
 		rpc_id(1, "debug_command", command, args)
@@ -94,6 +94,7 @@ remote func on_player_dead(playerId: int):
 
 remote func on_flag_captured(playerId: int):
 		.on_flag_captured(playerId)
+		resource_amount_changed()
 
 func ui_purchase_item(itemId):
 	rpc("purchase_item", itemId)
