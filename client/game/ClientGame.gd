@@ -48,7 +48,7 @@ func auto_attack(start : bool):
 func load_lobby():
 	get_tree().change_scene("res://client/lobby/ClientLobby.tscn")
 
-remote func resource_amount_changed(resources):
+remote func resource_amount_changed(resources = get_client_player().resources):
 	get_client_player().resources = resources
 	# update UI
 	get_ui().set_resources(resources)
@@ -80,7 +80,7 @@ remote func on_projectile_hit(projectileId):
 remote func on_projectile_despawn(projectileId):
 	.on_projectile_despawn(projectileId)
 
-func debug_command(command, args):
+func debug_command(command, args = []):
 	print("sending debug command")
 	if GameData.debug == true:
 		rpc_id(1, "debug_command", command, args)
@@ -94,6 +94,29 @@ remote func on_player_dead(playerId: int):
 
 remote func on_flag_captured(playerId: int):
 		.on_flag_captured(playerId)
+		resource_amount_changed()
 
 func ui_purchase_item(itemId):
 	rpc("purchase_item", itemId)
+
+remote func on_update_weapon_on_player(weaponId, playerId):
+	var weapon = entities[weaponId]
+	var player = get_player(playerId)
+	.update_weapon_on_player(weapon, player)
+
+remote func on_deduct_cost(playerId, cost):
+	if GameData.clientPlayerId != playerId:
+		return
+	var player = get_player(playerId)
+	.on_deduct_cost(player, cost)
+	# update ui
+	resource_amount_changed(player.resources)
+
+remote func on_start_reload(weaponId : String):
+	var weapon = entities[weaponId]
+	# print("Got reloading weapon from server, id: " + weaponId)
+	weapon.start_reload_animation()
+
+remote func on_weapon_attack(weaponId : String):
+	var weapon = entities[weaponId]
+	weapon.start_attack_animation()

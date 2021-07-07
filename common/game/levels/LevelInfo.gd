@@ -6,6 +6,7 @@ var teamColors = 0
 var playersPerTeam = 0
 var teamsInLevel = 0
 var levelScenePath : String
+var outOfBoundsTileIds = [-1]
 
 func createTeamColor(colorName, colorCode):
 	var flagImage = load("res://assets/flag/" + colorName + "_flag.png")

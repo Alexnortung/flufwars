@@ -46,6 +46,7 @@ var resources = [
 	0,
 	0,
 	0,
+	0,
 ]
 
 func _physics_process(delta):
@@ -216,6 +217,8 @@ func flag_captured():
 	pickedUpFlag.isTaken = true
 	pickedUpFlag.queue_free()
 	pickedUpFlag = null
+	# Award flag point
+	resources[3] += 1
 
 
 func resource_pickup(resourceSpawner: Node2D):
@@ -269,6 +272,15 @@ func switch_weapon(weapon_id : int):
 	$Weapon.remove_child(get_node("Weapon"))
 	$Weapon.add_child(weapon)
 
+func try_drop_weapon():
+	if !has_weapon():
+		return
+	#print("player has weapon, dropping it...")
+	on_drop_weapon()
+
+func on_drop_weapon():
+	$Weapon.on_drop_weapon()
+
 func knockback(knockbackFactor : float, _knockbackDirection : Vector2):
 	if dead:
 		return
@@ -291,15 +303,19 @@ func apply_knockback(delta):
 			update_health(0)
 
 func checkPlayerOutOfBounds():
-	var level = get_node("../../Level")
+	var level = get_level()
 	var tilemap = level.get_node("TileMap")
 	var nodeV = tilemap.world_to_map(self.position)
 	var cell = tilemap.get_cell(nodeV.x, nodeV.y)
 
-	for x in level.outOfBoundsTileIds:
+	for x in GameData.mapInfo.outOfBoundsTileIds:
 		if cell == x:
 			return true
 	return false
 
 func set_egde_collision(value : bool):
 	set_collision_mask_bit(3, value)
+
+	
+func get_level():
+	return get_node("../../Level")

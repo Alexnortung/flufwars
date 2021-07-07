@@ -1,12 +1,15 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://common/game/weapons/BaseWeapon.gd" type="Script" id=1]
+[ext_resource path="res://common/game/weapons/anmations/DefaultReload.tres" type="Animation" id=2]
+[ext_resource path="res://common/game/weapons/anmations/DefaultRecoil.tres" type="Animation" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 30.0
+radius = 20.0
 
 [node name="BaseWeapon" type="Node2D"]
 script = ExtResource( 1 )
+reloadAnimation = ExtResource( 2 )
 
 [node name="CooldownTimer" type="Timer" parent="."]
 wait_time = 0.5
@@ -14,11 +17,19 @@ wait_time = 0.5
 [node name="ReloadTimer" type="Timer" parent="."]
 wait_time = 2.0
 
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource( 1 )
-
 [node name="DropTimer" type="Timer" parent="."]
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="RotationCenter" type="Node2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="RotationCenter"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RotationCenter/Area2D"]
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="RotationCenter"]
+
+[node name="StaticSprite" type="AnimatedSprite" parent="RotationCenter"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/DefaultRecoil = ExtResource( 3 )
+anims/DefaultReload = ExtResource( 2 )

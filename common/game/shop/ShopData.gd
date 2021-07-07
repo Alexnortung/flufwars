@@ -3,10 +3,17 @@ var shops = {}
 var primaryShopName = "primary"
 var current_id : int = 0
 
+enum ItemTypes {
+    WEAPON,
+}
+
 func _init():
     new_shop(primaryShopName, ["weapons"])
     # add new items here
-    add_item(primaryShopName, "weapons", "Pistol", "res://common/game/weapons/Pistol.tscn", create_item_cost(10))
+    #add_item(primaryShopName, "weapons", "Pistol", "res://common/game/weapons/Pistol.tscn", create_item_cost(10), ItemTypes.WEAPON)
+    add_item(primaryShopName, "weapons", "Pistol", "pistol", create_item_cost(10), ItemTypes.WEAPON)
+    add_item(primaryShopName, "weapons", "Le Baguette", "baguette", create_item_cost(15), ItemTypes.WEAPON)
+    add_item(primaryShopName, "weapons", "AK", "ak", create_item_cost(20), ItemTypes.WEAPON)
 
 func get_id():
     current_id += 1
@@ -18,13 +25,14 @@ func new_shop(shopName : String, categories : Array):
         categories = categories
     }
 
-func add_item(shopName : String, category : String, itemName, res : String, cost : Array, id = get_id()):
+func add_item(shopName : String, category : String, itemName, res : String, cost : Array, itemType : int, id = get_id()):
     var shopItem = {
         shopName = shopName,
         category = category,
         name = itemName,
         res = res,
         cost = cost,
+        itemType = itemType,
         id = id,
     }
     shops[shopName]["items"][id] = shopItem

@@ -3,7 +3,7 @@ extends Node
 var resourceSpawners = {}
 
 # could be made into a dictionary have made it an array since rn the size is small, and the other would create additional work.
-var outOfBoundsTileIds = [-1]
+#var outOfBoundsTileIds = [-1]
 
 signal flag_picked_up
 signal spawn_resource
