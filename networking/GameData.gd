@@ -6,6 +6,7 @@ var teams = []
 var mapInfo
 
 var debug = false
+var isClient : bool
 
 var defaultMap = "beams"
 
