@@ -2,7 +2,7 @@ extends Control
 
 func _ready():
 	get_tree().connect('connected_to_server', self, 'on_connected_to_server')
-	get_start_button().connect("pressed", self, "show_connect_window")
+	# get_start_button().connect("pressed", self, "show_connect_window")
 	get_connect_window().get_node("CenterContainer/VBoxContainer/PlayerName").text = GameData.config.playerName
 	get_connect_window().get_node("CenterContainer/VBoxContainer/ServerIp").text = GameData.config.address
 
@@ -21,7 +21,17 @@ func show_connect_window():
 	$ConnectWindow.show_window()
 
 func get_start_button():
-	return $VBoxContainer/StartButton
+	return $VBoxContainer/CenterContainer/StartButton
 
 func get_connect_window():
 	return $ConnectWindow
+
+
+func _on_start_button_pressed():
+	show_connect_window()
+
+func _on_quit_pressed():
+	quit_game()
+
+func quit_game():
+	get_tree().notification(MainLoop.NOTIFICATION_WM_QUIT_REQUEST)

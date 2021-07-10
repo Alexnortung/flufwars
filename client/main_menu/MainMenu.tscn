@@ -1,9 +1,13 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://client/main_menu/MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://assets/misc/flufwars-logo.png" type="Texture" id=2]
 [ext_resource path="res://client/main_menu/MainMenuButton.tscn" type="PackedScene" id=3]
 [ext_resource path="res://client/main_menu/ConnectWindow.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/misc/start-text.png" type="Texture" id=5]
+[ext_resource path="res://assets/misc/quit-text.png" type="Texture" id=6]
+
+[sub_resource type="StyleBoxEmpty" id=1]
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
@@ -43,12 +47,43 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="StartButton" parent="VBoxContainer" instance=ExtResource( 3 )]
-anchor_left = 0.0
-anchor_right = 0.0
-margin_left = 0.0
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer"]
 margin_right = 1024.0
-margin_bottom = 20.0
+margin_bottom = 100.0
+
+[node name="StartButton" parent="VBoxContainer/CenterContainer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+margin_left = 512.0
+margin_right = 512.0
+
+[node name="TextureRect" parent="VBoxContainer/CenterContainer/StartButton/MainMenuButton" index="1"]
+texture = ExtResource( 5 )
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+margin_top = 104.0
+margin_right = 1024.0
+margin_bottom = 114.0
+custom_styles/separator = SubResource( 1 )
+custom_constants/separation = 10
+
+[node name="CenterContainer2" type="CenterContainer" parent="VBoxContainer"]
+margin_top = 118.0
+margin_right = 1024.0
+margin_bottom = 218.0
+
+[node name="MainMenuButtonControl" parent="VBoxContainer/CenterContainer2" instance=ExtResource( 3 )]
+anchor_right = 0.0
+margin_left = 512.0
+margin_right = 512.0
+
+[node name="TextureRect" parent="VBoxContainer/CenterContainer2/MainMenuButtonControl/MainMenuButton" index="1"]
+texture = ExtResource( 6 )
 
 [node name="ConnectWindow" parent="." instance=ExtResource( 4 )]
 visible = false
+
+[connection signal="pressed" from="VBoxContainer/CenterContainer/StartButton/MainMenuButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/CenterContainer2/MainMenuButtonControl/MainMenuButton" to="." method="_on_quit_pressed"]
+
+[editable path="VBoxContainer/CenterContainer/StartButton"]
+[editable path="VBoxContainer/CenterContainer2/MainMenuButtonControl"]
