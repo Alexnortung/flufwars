@@ -51,3 +51,7 @@ func get_projectile_direction():
 	if weapon == null:
 		return dir
 	return weapon.add_random_accuracy(dir)
+
+remote func player_switch_weapon(id : int):
+	switch_weapon(id)
+	rpc("switch_weapon", id)

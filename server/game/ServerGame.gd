@@ -42,7 +42,10 @@ func on_pre_configure_complete():
 	for player in players.values():
 		var weapon = server_spawn_weapon("pistol")
 		player_picked_up_weapon(weapon, player)
+		var weapon2 = server_spawn_weapon("baguette")
+		player_picked_up_weapon(weapon2, player)
 	.on_pre_configure_complete()
+	print_tree()
 
 func remove_player(playerId: int):
 	# If all players are gone, return to lobby

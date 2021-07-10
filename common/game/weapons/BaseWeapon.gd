@@ -85,6 +85,7 @@ func auto_fire_logic():
 # Try attack should be called when the player tries to attack or the cooldown has run out.
 func try_attack():
 	# If conditions are met then fire
+	print("try_attack")
 	if isReloading || !isAttacking || !isReady || ammo <= 0:
 		return false
 	on_attack()
@@ -122,6 +123,7 @@ func has_player():
 	return player != null
 
 func update_from_weapon_data(weaponData: Dictionary):
+	print("update weapon data")
 	self.ammo = weaponData.ammo
 	self.reloads = weaponData.reloads
 
@@ -142,6 +144,7 @@ func on_cooldown_finished():
 # called when the weapon is ready to attack, the weapon is firing and the cooldown has timed out.
 func on_attack():
 	# reset timer
+	print("on_attack")
 	$CooldownTimer.start(cooldown)
 	isReady = false
 	ammo -= 1
@@ -151,6 +154,7 @@ func on_attack():
 
 # Called on server side to help determine the try_attack function
 func set_attacking(active : bool):
+	print("set_attacking")
 	isAttacking = active
 	if active:
 		try_attack()

@@ -248,20 +248,25 @@ func try_pickup_weapon(weapon : Node2D):
 	emit_signal("pickup_weapon", weapon)
 	return true
 
-func find_weapon_switch(weapon : Node2D) -> void:
-	if weapon.weaponSlot == weapon.weaponSlots.PRIMARY_WEAPON:
-		primaryWeaponSlot = weapon
-	
-	if weapon.weaponSlot == weapon.weaponSlots.SECONDARY_WEAPON:
-		secondaryWeaponSlot = weapon
-
 # This is called on the server and client to sync the new weapon
 func on_pickup_weapon(weapon: Node2D):
-	$Weapon.update_weapon(weapon)
-	weapon.on_pickup(self)
-	find_weapon_switch(weapon)
+	if weapon.get_parent() != null:
+		weapon.get_parent().remove_child(weapon)
 
-func switch_weapon(weapon_id : int):
+	if !has_weapon():
+		$Weapon.update_weapon(weapon)
+
+	weapon.on_pickup(self)
+	if weapon.weaponSlot == weapon.weaponSlots.PRIMARY_WEAPON:
+		primaryWeaponSlot = weapon
+	elif weapon.weaponSlot == weapon.weaponSlots.SECONDARY_WEAPON:
+		secondaryWeaponSlot = weapon
+
+#--------------------------------------#--------------------------------------#
+#--------------------------------------#--------------------------------------#
+#--------------------------------------#--------------------------------------#
+
+remote func switch_weapon(weapon_id : int):
 	var weapon : Node2D = null
 
 	if weapon_id == 0: 
@@ -269,8 +274,41 @@ func switch_weapon(weapon_id : int):
 	else:
 		weapon = secondaryWeaponSlot
 
-	$Weapon.remove_child(get_node("Weapon"))
-	$Weapon.add_child(weapon)
+	print("-------------------------------------------------------")
+	print("Changed to " + str(weapon_id))
+	print("-------------------------------------------------------")
+	print("primary weapon: " + primaryWeaponSlot.get_name())
+	print("secondary weapon: " + secondaryWeaponSlot.get_name())
+	print("current weapon: " + get_current_weapon().get_name())
+	print("new weapon: " + weapon.get_name())
+	print("-------------------------------------------------------")
+	print(str(activeWeaponSlot) + " != " + str(weapon_id))
+	print("-------------------------------------------------------")
+
+	if weapon != null && activeWeaponSlot != weapon_id:
+		$Weapon.disconnect_weapon(get_current_weapon())
+		$Weapon.remove_child(get_current_weapon())
+		$Weapon.add_child(weapon)
+		$Weapon.connect_weapon(weapon)
+		weapon.set_name("Weapon")
+		activeWeaponSlot = weapon_id
+
+func get_current_weapon():
+	if activeWeaponSlot == 0:
+		return primaryWeaponSlot
+	else:
+		return secondaryWeaponSlot
+
+func find_weapon_switch(weapon : Node2D) -> void:
+	if weapon.weaponSlot == weapon.weaponSlots.PRIMARY_WEAPON:
+		primaryWeaponSlot = weapon
+	
+	if weapon.weaponSlot == weapon.weaponSlots.SECONDARY_WEAPON:
+		secondaryWeaponSlot = weapon
+
+#--------------------------------------#--------------------------------------#
+#--------------------------------------#--------------------------------------#
+#--------------------------------------#--------------------------------------#
 
 func try_drop_weapon():
 	if !has_weapon():

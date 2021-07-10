@@ -13,6 +13,8 @@ func _physics_process(delta):
 		set_look_direction(normalizedDirection)
 		rpc_unreliable_id(1, "on_player_change_direction", normalizedDirection)
 
+		check_switch_weapon()
+
 func update_health(newHealth: int):
 	health = newHealth
 		
@@ -21,3 +23,9 @@ func get_input_axis():
 	axis.x = int(Input.is_action_pressed("ui_right")) - int(Input.is_action_pressed("ui_left"))
 	axis.y = int(Input.is_action_pressed("ui_down")) - int(Input.is_action_pressed("ui_up"))
 	return axis.normalized()
+
+func check_switch_weapon():
+	if Input.is_action_just_pressed("primary_weapon_selection"):
+		rpc_id(1, "player_switch_weapon", 0)
+	if Input.is_action_just_pressed("secondary_weapon_selection"):
+		rpc_id(1, "player_switch_weapon", 1)
