@@ -5,7 +5,9 @@ var players = {}
 var teams = []
 var mapInfo
 
-var debug = false
+var debug : bool = false
+var isClient : bool
+var config : Dictionary = {}
 
 var defaultMap = "beams"
 

@@ -9,6 +9,9 @@ signal flag_picked_up
 signal spawn_resource
 signal split_resources
 
+func get_game_node():
+	return get_parent()
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var teamIndex = 0

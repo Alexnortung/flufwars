@@ -6,17 +6,17 @@ var buttons : Array
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if GameData.debug:
-		$ToggleButton.connect("expand", self, "expand")
-		$ToggleButton.connect("close", self, "close")
-		buttons = [
-			["spawn pistol", funcref(self, "spawn_pistol"), []],
-			["Print tree", funcref(self, "_print_tree"), []],
-			["Make me rich", funcref(self, "make_me_rich"), []],
-		]
-		create_buttons()
-	else:
+	if !GameData.debug:
 		get_node_or_null("ToggleButton").visible = false
+		return
+	$ToggleButton.connect("expand", self, "expand")
+	$ToggleButton.connect("close", self, "close")
+	buttons = [
+		["spawn pistol", funcref(self, "spawn_pistol"), []],
+		["Print tree", funcref(self, "_print_tree"), []],
+		["Make me rich", funcref(self, "make_me_rich"), []],
+	]
+	create_buttons()
 
 func create_buttons():
 	for props in buttons:
@@ -46,3 +46,10 @@ func _print_tree():
 
 func make_me_rich():
 	emit_signal("debug_command", "make_me_rich")
+
+func get_control_node():
+	return $DebugUIControl
+
+# func on_gui_input(event):
+# 	if event is InputEventMouseButton and event.pressed:
+# 		accept_event()

@@ -357,3 +357,6 @@ func set_egde_collision(value : bool):
 	
 func get_level():
 	return get_node("../../Level")
+
+func get_game_node():
+	return get_level().get_game_node()
