@@ -61,7 +61,6 @@ func _ready():
 	$AnimationPlayer.connect("animation_finished", self, "on_animation_finished")
 
 func _physics_process(delta):
-	isPressed = Input.is_action_pressed("fire")
 	if attackType == ATTACK_TYPE_AUTO:
 		auto_fire_logic()
 	lastFramePressed = isPressed
@@ -203,3 +202,11 @@ func animate_weapon(angle, lookDirectionX):
 	else:
 		$RotationCenter.scale.y = -1
 	$RotationCenter.rotation = angle
+
+func _unhandled_input(event):
+	if event.is_action_pressed("fire"):
+		isPressed = true
+
+func _input(event):
+	if event.is_action_released("fire"):
+		isPressed = false

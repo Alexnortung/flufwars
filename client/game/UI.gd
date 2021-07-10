@@ -13,6 +13,9 @@ func _ready():
 	_get_shop_button().connect("pressed", self, "toggle_shop")
 	_get_shop_ui().connect("purchase_item", self, "purchase_item")
 
+func get_game_node():
+	return get_parent()
+
 func set_ammo(amount):
 	_ammo = amount
 	_set_ammo_label()
