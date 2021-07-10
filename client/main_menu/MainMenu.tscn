@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://client/main_menu/MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://assets/misc/flufwars-logo.png" type="Texture" id=2]
+[ext_resource path="res://client/main_menu/MainMenuButton.tscn" type="PackedScene" id=3]
+[ext_resource path="res://client/main_menu/ConnectWindow.tscn" type="PackedScene" id=4]
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
@@ -11,68 +13,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ScreenTitle" type="Label" parent="."]
-visible = false
-anchor_right = 1.0
-margin_top = 39.0
-margin_bottom = 53.0
-text = "2020 GAME OF THE YEAR"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="PlayerNameLabel" type="Label" parent="."]
-visible = false
-anchor_right = 1.0
-margin_top = 110.0
-margin_bottom = 124.0
-text = "Player Name"
-align = 1
-
-[node name="PlayerName" type="LineEdit" parent="PlayerNameLabel"]
-anchor_left = 0.4
-anchor_right = 0.6
-margin_top = 22.0
-margin_bottom = 46.0
-text = "A Player"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ServerIpLabel" type="Label" parent="."]
-visible = false
-anchor_right = 1.0
-margin_top = 179.0
-margin_bottom = 193.0
-text = "Server IP"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ServerIp" type="LineEdit" parent="ServerIpLabel"]
-anchor_left = 0.4
-anchor_right = 0.6
-margin_top = 21.0
-margin_bottom = 45.0
-text = "127.0.0.1"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ConnectButton" type="Button" parent="."]
-visible = false
-anchor_left = 0.45
-anchor_right = 0.55
-margin_top = 268.0
-margin_bottom = 288.0
-text = "Connect"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="BackgroundColor" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0, 0, 0, 1 )
@@ -80,10 +21,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="Logo" type="TextureRect" parent="."]
 anchor_right = 1.0
-anchor_bottom = 0.5
+anchor_bottom = 0.6
+margin_top = 50.0
+margin_bottom = -10.0
 grow_horizontal = 2
+rect_min_size = Vector2( 0, 200 )
 texture = ExtResource( 2 )
 expand = true
 stretch_mode = 6
@@ -91,11 +35,20 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="LogoPosition" type="Control" parent="."]
-anchor_left = 0.5
-anchor_right = 0.5
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_top = 0.6
+anchor_right = 1.0
+anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[connection signal="pressed" from="ConnectButton" to="." method="_on_ConnectButton_pressed"]
+[node name="StartButton" parent="VBoxContainer" instance=ExtResource( 3 )]
+anchor_left = 0.0
+anchor_right = 0.0
+margin_left = 0.0
+margin_right = 1024.0
+margin_bottom = 20.0
+
+[node name="ConnectWindow" parent="." instance=ExtResource( 4 )]
+visible = false

@@ -1,0 +1,92 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[node name="ConnectWindow" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( -234.586, 24.262 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.537255 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+margin_left = 362.0
+margin_top = 213.0
+margin_right = 662.0
+margin_bottom = 387.0
+rect_min_size = Vector2( 300, 0 )
+
+[node name="PlayerNameLabel" type="Label" parent="CenterContainer/VBoxContainer"]
+margin_right = 300.0
+margin_bottom = 20.0
+text = "Player Name"
+align = 1
+
+[node name="PlayerName" type="LineEdit" parent="CenterContainer/VBoxContainer"]
+margin_top = 24.0
+margin_right = 300.0
+margin_bottom = 54.0
+text = "A Player"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/VBoxContainer"]
+margin_top = 58.0
+margin_right = 300.0
+margin_bottom = 62.0
+custom_styles/separator = SubResource( 1 )
+
+[node name="ServerIpLabel" type="Label" parent="CenterContainer/VBoxContainer"]
+margin_top = 66.0
+margin_right = 300.0
+margin_bottom = 86.0
+text = "Server IP"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ServerIp" type="LineEdit" parent="CenterContainer/VBoxContainer"]
+margin_top = 90.0
+margin_right = 300.0
+margin_bottom = 120.0
+text = "127.0.0.1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSeparator2" type="HSeparator" parent="CenterContainer/VBoxContainer"]
+margin_top = 124.0
+margin_right = 300.0
+margin_bottom = 144.0
+custom_styles/separator = SubResource( 1 )
+custom_constants/separation = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ConnectButton" type="Button" parent="CenterContainer/VBoxContainer"]
+margin_top = 148.0
+margin_right = 300.0
+margin_bottom = 174.0
+text = "Connect"
+__meta__ = {
+"_edit_use_anchors_": false
+}

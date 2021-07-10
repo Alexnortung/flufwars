@@ -105,8 +105,8 @@ visible = false
 anchor_left = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 114.0
-margin_right = 414.0
+margin_left = 118.0
+margin_right = 418.0
 margin_bottom = 600.0
 
 [node name="AmmoPanel" type="PanelContainer" parent="."]

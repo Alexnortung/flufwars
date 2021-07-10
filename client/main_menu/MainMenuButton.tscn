@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://client/main_menu/MainMenuTheme.tres" type="Theme" id=1]
+
+[node name="MainMenuButton" type="Button"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -100.0
+margin_right = 100.0
+margin_bottom = 100.0
+grow_horizontal = 2
+theme = ExtResource( 1 )
+text = "Start"
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -4,6 +4,7 @@ extends Node
 # Determine the type of app this is, and load the entry point for that type
 func _ready():
 	print("Application started")
+	check_debug()
 	if OS.has_feature("server") || "--server" in OS.get_cmdline_args():
 		print("Is server")
 		use_server_entry()
@@ -18,12 +19,10 @@ func _ready():
 
 func use_server_entry():
 	GameData.isClient = false
-	check_debug()
 	get_tree().change_scene("res://server/ServerEntry.tscn")
 
 func use_client_entry():
 	GameData.isClient = true
-	check_debug()
 	get_tree().change_scene("res://client/ClientEntry.tscn")
 
 func check_debug():
