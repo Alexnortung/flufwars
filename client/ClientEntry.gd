@@ -31,7 +31,7 @@ func check_next(searchString) -> Array:
 	var index = Utilities.pool_string_array_find(cmdlineArgs, searchString)
 	if index < 0:
 		return [false]
-	if len(cmdlineArgs <= index + 1):
+	if len(cmdlineArgs) <= index + 1:
 		return [false]
 	return [true, cmdlineArgs[index + 1]]
 

@@ -3,6 +3,8 @@ extends Control
 func _ready():
 	get_tree().connect('connected_to_server', self, 'on_connected_to_server')
 	get_start_button().connect("pressed", self, "show_connect_window")
+	get_connect_window().get_node("CenterContainer/VBoxContainer/PlayerName").text = GameData.config.playerName
+	get_connect_window().get_node("CenterContainer/VBoxContainer/ServerIp").text = GameData.config.address
 
 func _on_ConnectButton_pressed():
 	var ip := $ServerIpLabel/ServerIp.text as String
@@ -20,3 +22,6 @@ func show_connect_window():
 
 func get_start_button():
 	return $VBoxContainer/StartButton
+
+func get_connect_window():
+	return $ConnectWindow
