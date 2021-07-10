@@ -5,7 +5,6 @@
 [sub_resource type="StyleBoxEmpty" id=1]
 
 [node name="ConnectWindow" instance=ExtResource( 1 )]
-hasCloseButton = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" index="0"]
 margin_left = 362.0

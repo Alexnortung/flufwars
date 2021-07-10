@@ -18,7 +18,7 @@ func on_connected_to_server():
 	get_tree().change_scene("res://client/lobby/ClientLobby.tscn")
 
 func show_connect_window():
-	$ConnectWindow.visible = true
+	$ConnectWindow.show_window()
 
 func get_start_button():
 	return $VBoxContainer/StartButton
