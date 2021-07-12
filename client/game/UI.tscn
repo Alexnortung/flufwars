@@ -1,9 +1,12 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://client/game/UI.tres" type="Theme" id=1]
 [ext_resource path="res://client/game/UIStyleBox.tres" type="StyleBox" id=2]
 [ext_resource path="res://client/game/UI.gd" type="Script" id=3]
 [ext_resource path="res://client/game/ShopUI/ShopUI.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/resources/diamond.png" type="Texture" id=5]
+[ext_resource path="res://assets/resources/emerald.png" type="Texture" id=6]
+[ext_resource path="res://assets/resources/A4.png" type="Texture" id=7]
 
 [node name="UI" type="CanvasLayer"]
 pause_mode = 2
@@ -25,7 +28,7 @@ __meta__ = {
 }
 
 [node name="RightCorner" type="VBoxContainer" parent="RightSide"]
-margin_right = 114.0
+margin_right = 223.0
 margin_bottom = 600.0
 grow_horizontal = 0
 grow_vertical = 0
@@ -36,7 +39,7 @@ alignment = 2
 
 [node name="RightCornerHBox" type="HBoxContainer" parent="RightSide/RightCorner"]
 margin_top = 560.0
-margin_right = 114.0
+margin_right = 223.0
 margin_bottom = 600.0
 grow_horizontal = 0
 grow_vertical = 0
@@ -54,7 +57,7 @@ text = "Shop"
 
 [node name="ResourcesPanel" type="PanelContainer" parent="RightSide/RightCorner/RightCornerHBox"]
 margin_left = 50.0
-margin_right = 114.0
+margin_right = 223.0
 margin_bottom = 40.0
 grow_horizontal = 0
 grow_vertical = 0
@@ -68,7 +71,7 @@ __meta__ = {
 [node name="HBoxContainer" type="HBoxContainer" parent="RightSide/RightCorner/RightCornerHBox/ResourcesPanel"]
 margin_left = 10.0
 margin_top = 10.0
-margin_right = 54.0
+margin_right = 163.0
 margin_bottom = 30.0
 grow_horizontal = 0
 grow_vertical = 0
@@ -82,23 +85,70 @@ margin_right = 8.0
 margin_bottom = 20.0
 text = "0"
 
-[node name="Label2" type="Label" parent="RightSide/RightCorner/RightCornerHBox/ResourcesPanel/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="RightSide/RightCorner/RightCornerHBox/ResourcesPanel/HBoxContainer"]
 margin_left = 12.0
-margin_right = 20.0
+margin_right = 35.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 23, 0 )
+texture = ExtResource( 6 )
+expand = true
+stretch_mode = 6
+
+[node name="VSeparator" type="VSeparator" parent="RightSide/RightCorner/RightCornerHBox/ResourcesPanel/HBoxContainer"]
+margin_left = 39.0
+margin_right = 43.0
+margin_bottom = 20.0
+
+[node name="Label2" type="Label" parent="RightSide/RightCorner/RightCornerHBox/ResourcesPanel/HBoxContainer"]
+margin_left = 47.0
+margin_right = 55.0
 margin_bottom = 20.0
 text = "0"
+
+[node name="TextureRect2" type="TextureRect" parent="RightSide/RightCorner/RightCornerHBox/ResourcesPanel/HBoxContainer"]
+margin_left = 59.0
+margin_right = 82.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 23, 0 )
+texture = ExtResource( 5 )
+expand = true
+stretch_mode = 6
+
+[node name="VSeparator2" type="VSeparator" parent="RightSide/RightCorner/RightCornerHBox/ResourcesPanel/HBoxContainer"]
+margin_left = 86.0
+margin_right = 90.0
+margin_bottom = 20.0
 
 [node name="Label3" type="Label" parent="RightSide/RightCorner/RightCornerHBox/ResourcesPanel/HBoxContainer"]
-margin_left = 24.0
-margin_right = 32.0
+margin_left = 94.0
+margin_right = 102.0
 margin_bottom = 20.0
 text = "0"
 
+[node name="TextureRect3" type="TextureRect" parent="RightSide/RightCorner/RightCornerHBox/ResourcesPanel/HBoxContainer"]
+margin_left = 106.0
+margin_right = 129.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 23, 0 )
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 6
+
+[node name="VSeparator3" type="VSeparator" parent="RightSide/RightCorner/RightCornerHBox/ResourcesPanel/HBoxContainer"]
+margin_left = 133.0
+margin_right = 137.0
+margin_bottom = 20.0
+
 [node name="Label4" type="Label" parent="RightSide/RightCorner/RightCornerHBox/ResourcesPanel/HBoxContainer"]
-margin_left = 36.0
-margin_right = 44.0
+margin_left = 141.0
+margin_right = 149.0
 margin_bottom = 20.0
 text = "0"
+
+[node name="TextureRect4" type="TextureRect" parent="RightSide/RightCorner/RightCornerHBox/ResourcesPanel/HBoxContainer"]
+margin_left = 153.0
+margin_right = 153.0
+margin_bottom = 20.0
 
 [node name="ShopUI" parent="RightSide" instance=ExtResource( 4 )]
 visible = false
