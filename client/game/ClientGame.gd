@@ -67,7 +67,9 @@ func show_visual_resource_change(differenceArray: Array, player : Node2D = get_c
 			# ignore it
 			continue
 		var resourceSplash = ResourceSplash.instance()
-		resourceSplash.init(player.position, amount, i)
+		var newPos = player.position + Vector2(0, -50)
+		# TODO: add some random variation
+		resourceSplash.init(newPos, amount, i)
 		add_child(resourceSplash)
 
 remote func on_ammo_changed(amount: int):
@@ -110,8 +112,13 @@ remote func on_player_dead(playerId: int):
 		.on_player_dead(playerId)
 
 remote func on_flag_captured(playerId: int):
+	var clientPlayer = get_client_player()
+	if clientPlayer.id != playerId:
 		.on_flag_captured(playerId)
-		resource_amount_changed()
+		return
+	var oldResources = clientPlayer.resources.duplicate()
+	.on_flag_captured(playerId)
+	resource_amount_changed(clientPlayer.resources, oldResources)
 
 func ui_purchase_item(itemId):
 	rpc("purchase_item", itemId)
