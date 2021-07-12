@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://client/game/UI.tres" type="Theme" id=1]
 [ext_resource path="res://client/game/UIStyleBox.tres" type="StyleBox" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://assets/resources/diamond.png" type="Texture" id=5]
 [ext_resource path="res://assets/resources/emerald.png" type="Texture" id=6]
 [ext_resource path="res://assets/resources/A4.png" type="Texture" id=7]
+[ext_resource path="res://assets/flag/purple_flag.png" type="Texture" id=8]
 
 [node name="UI" type="CanvasLayer"]
 pause_mode = 2
@@ -28,8 +29,9 @@ __meta__ = {
 }
 
 [node name="RightCorner" type="VBoxContainer" parent="RightSide"]
-margin_right = 223.0
-margin_bottom = 600.0
+margin_left = 1306.0
+margin_right = 1559.0
+margin_bottom = 796.0
 grow_horizontal = 0
 grow_vertical = 0
 mouse_filter = 2
@@ -38,9 +40,9 @@ size_flags_vertical = 9
 alignment = 2
 
 [node name="RightCornerHBox" type="HBoxContainer" parent="RightSide/RightCorner"]
-margin_top = 560.0
-margin_right = 223.0
-margin_bottom = 600.0
+margin_top = 756.0
+margin_right = 253.0
+margin_bottom = 796.0
 grow_horizontal = 0
 grow_vertical = 0
 mouse_filter = 2
@@ -57,7 +59,7 @@ text = "Shop"
 
 [node name="ResourcesPanel" type="PanelContainer" parent="RightSide/RightCorner/RightCornerHBox"]
 margin_left = 50.0
-margin_right = 223.0
+margin_right = 253.0
 margin_bottom = 40.0
 grow_horizontal = 0
 grow_vertical = 0
@@ -71,7 +73,7 @@ __meta__ = {
 [node name="HBoxContainer" type="HBoxContainer" parent="RightSide/RightCorner/RightCornerHBox/ResourcesPanel"]
 margin_left = 10.0
 margin_top = 10.0
-margin_right = 163.0
+margin_right = 193.0
 margin_bottom = 30.0
 grow_horizontal = 0
 grow_vertical = 0
@@ -147,8 +149,12 @@ text = "0"
 
 [node name="TextureRect4" type="TextureRect" parent="RightSide/RightCorner/RightCornerHBox/ResourcesPanel/HBoxContainer"]
 margin_left = 153.0
-margin_right = 153.0
+margin_right = 183.0
 margin_bottom = 20.0
+rect_min_size = Vector2( 30, 0 )
+texture = ExtResource( 8 )
+expand = true
+stretch_mode = 6
 
 [node name="ShopUI" parent="RightSide" instance=ExtResource( 4 )]
 visible = false

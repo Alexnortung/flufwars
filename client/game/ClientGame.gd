@@ -1,5 +1,7 @@
 extends "res://common/game/Game.gd"
 
+var ResourceSplash = preload("res://client/game/Gameplay/ResourceSplash.tscn")
+
 func _ready():
 	var clientPlayer = get_client_player()
 	$Countdown.connect("countdown_updated", get_ui(), "countdown_updated")
@@ -48,10 +50,25 @@ func auto_attack(start : bool):
 func load_lobby():
 	get_tree().change_scene("res://client/lobby/ClientLobby.tscn")
 
-remote func resource_amount_changed(resources = get_client_player().resources):
+remote func resource_amount_changed(resources = get_client_player().resources, oldResources : Array = get_client_player().resources):
+	# create difference array
+	var differenceArray = []
+	for i in range(len(oldResources)):
+		differenceArray.push_back(resources[i] - oldResources[i])
 	get_client_player().resources = resources
 	# update UI
 	get_ui().set_resources(resources)
+	show_visual_resource_change(differenceArray, get_client_player())
+
+func show_visual_resource_change(differenceArray: Array, player : Node2D = get_client_player()):
+	for i in range(len(differenceArray)):
+		var amount = differenceArray[i]
+		if amount == 0:
+			# ignore it
+			continue
+		var resourceSplash = ResourceSplash.instance()
+		resourceSplash.init(player.position, amount, i)
+		add_child(resourceSplash)
 
 remote func on_ammo_changed(amount: int):
 	# update weapon
@@ -108,9 +125,10 @@ remote func on_deduct_cost(playerId, cost):
 	if GameData.clientPlayerId != playerId:
 		return
 	var player = get_player(playerId)
+	var oldResources = player.resources.duplicate()
 	.on_deduct_cost(player, cost)
 	# update ui
-	resource_amount_changed(player.resources)
+	resource_amount_changed(player.resources, oldResources)
 
 remote func on_start_reload(weaponId : String):
 	var weapon = entities[weaponId]
