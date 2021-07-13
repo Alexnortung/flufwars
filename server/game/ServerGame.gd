@@ -219,8 +219,14 @@ func spawn_player(playerId, teamNode, spawnNode):
 	return playerNode
 
 func player_dies(playerId: int):
-	on_player_dead(playerId)
+	var player = get_player(playerId)
+	var lost_resources = player.resources.duplicate()
+	spawn_resource_drops_from_player(player, lost_resources)
+	.player_dead(player)
 	rpc("on_player_dead", playerId)
+	# remove all resources from that player
+	on_deduct_cost(player, lost_resources)
+	rpc_id(playerId, "on_deduct_cost", playerId, lost_resources)
 	check_game_is_ending()
 
 func check_game_is_ending():
@@ -248,3 +254,22 @@ remote func purchase_item(itemId):
 			# Spawn weapon
 			var weapon = server_spawn_weapon(itemData.res)
 			update_weapon_on_player(weapon, player)
+
+func spawn_resource_drops_from_player(player : Node2D, lost_resources: Array):
+	assert(player.get_meta("tag") == "player")
+	var resources = lost_resources
+	for resourceType in range(len(resources)):
+		var amount = resources[resourceType]
+		if amount <= 0:
+			# Do not spawn resource drops if there are 0 or less
+			continue
+		# TODO: add randomized direction
+		var newPosition = player.position
+		server_spawn_resource_drop(newPosition, resourceType, amount, player.position)
+
+func server_spawn_resource_drop(position: Vector2, type: int, amount: int, oldPosition : Vector2):
+	.spawn_resource_drop(position, type, amount)
+	rpc("on_spawn_resource_drop", position, type, amount, oldPosition)
+
+func get_resource_drop_scene():
+	return .get_resource_drop_scene()

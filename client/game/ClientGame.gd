@@ -109,7 +109,8 @@ remote func end_game():
 		.end_game()
 
 remote func on_player_dead(playerId: int):
-		.on_player_dead(playerId)
+	var player = get_player(playerId)
+	.player_dead(player)
 
 remote func on_flag_captured(playerId: int):
 	var clientPlayer = get_client_player()
@@ -145,3 +146,7 @@ remote func on_start_reload(weaponId : String):
 remote func on_weapon_attack(weaponId : String):
 	var weapon = entities[weaponId]
 	weapon.start_attack_animation()
+
+remote func on_spawn_resource_drop(position: Vector2, type: int, amount: int, oldPosition: Vector2):
+	var _resourceDrop = .spawn_resource_drop(position, type, amount)
+	# TODO: make animation with the help of oldPositon
