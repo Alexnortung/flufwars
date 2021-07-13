@@ -16,6 +16,7 @@ Label/styles/normal = null
 [node name="ResourceSplash" type="HBoxContainer"]
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -31,6 +32,7 @@ margin_left = 4.0
 margin_right = 44.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 40, 0 )
+mouse_filter = 2
 expand = true
 stretch_mode = 6
 

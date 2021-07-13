@@ -21,6 +21,7 @@ margin_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_min_size = Vector2( 40, 40 )
+mouse_filter = 2
 expand = true
 stretch_mode = 6
 __meta__ = {
