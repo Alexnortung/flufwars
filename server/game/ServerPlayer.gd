@@ -1,12 +1,10 @@
 extends "res://common/game/Player.gd"
 
-var server_axis = {
-	x = 0,
-	y = 0,
-}
+# movement direction
+var server_axis = Vector2.ZERO
 
-var server_direction = Vector2(0,0)
-
+# Look direction
+var server_direction = Vector2.ZERO
 
 puppet func network_update(networkAxis: Vector2):
 	server_axis = networkAxis
@@ -49,3 +47,7 @@ func get_projectile_direction():
 	if weapon == null:
 		return dir
 	return weapon.add_random_accuracy(dir)
+
+func kill_player(is_dead):
+	.kill_player(is_dead)
+	server_axis = Vector2.ZERO
