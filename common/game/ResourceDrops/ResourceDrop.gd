@@ -1,5 +1,10 @@
 extends Node2D
 
+signal on_pickup(body)
+signal on_despawn
+
+var picked_up = false
+
 var resourceIcons = [
 	preload("res://assets/resources/emerald.png"),
 	preload("res://assets/resources/diamond.png"),
@@ -8,15 +13,23 @@ var resourceIcons = [
 ]
 
 var amount : int = 0
+var type : int
+var id : String
 
-func init(position : Vector2, type : int, amount):
+func init(_position : Vector2, _type : int, _amount, _id : String):
 	assert(type >= 0)
 	assert(type < len(resourceIcons))
-	self.amount = amount
-	self.position = position
+	self.type = _type
+	self.amount = _amount
+	self.position = _position
+	self.id = _id
 	$TextureRect.texture = resourceIcons[type]
 	# print("setting position to: " + str(self.position))
 
-func on_enter(body):
+# When a player gets inside the area, emit a signal that the player picked it up
+#   should then be handled by game
+func on_enter(body : Node2D):
 	# only players
-	pass
+	if (body.get_meta("tag") != "player") || picked_up:
+		return
+	emit_signal("on_pickup", self, body)

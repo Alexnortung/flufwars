@@ -224,7 +224,7 @@ func on_deduct_cost(player: Node2D, cost: Array):
 func spawn_resource_drop(position : Vector2, type : int, amount: int, id : String):
 	var scene = get_resource_drop_scene()
 	var resourceDrop = scene.instance()
-	resourceDrop.init(position, type, amount)
+	resourceDrop.init(position, type, amount, id)
 	call_deferred("add_child", resourceDrop)
 	entities[id] = resourceDrop
 	return resourceDrop
@@ -232,3 +232,7 @@ func spawn_resource_drop(position : Vector2, type : int, amount: int, id : Strin
 func get_resource_drop_scene():
 	var resourceDropScene = load("res://common/game/ResourceDrops/ResourceDrop.tscn")
 	return resourceDropScene
+
+func resource_drop_pickup(resourceDrop, player):
+	entities.erase(resourceDrop.id)
+	resourceDrop.queue_free()

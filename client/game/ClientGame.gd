@@ -150,3 +150,8 @@ remote func on_weapon_attack(weaponId : String):
 remote func on_spawn_resource_drop(position: Vector2, type: int, amount: int, oldPosition: Vector2, id : String):
 	var _resourceDrop = .spawn_resource_drop(position, type, amount, id)
 	# TODO: make animation with the help of oldPositon
+
+remote func on_resource_drop_pickup(resourceDropId, playerId):
+	var resourceDrop = entities[resourceDropId]
+	var player = get_player(playerId)
+	.resource_drop_pickup(resourceDrop, player)

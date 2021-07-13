@@ -26,3 +26,5 @@ stretch_mode = 6
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[connection signal="body_entered" from="Node2D" to="." method="on_enter"]
