@@ -264,7 +264,8 @@ func spawn_resource_drops_from_player(player : Node2D, lost_resources: Array):
 			# Do not spawn resource drops if there are 0 or less
 			continue
 		# TODO: add randomized direction
-		var newPosition = player.position
+		var randomVector = Vector2(rng.randf_range(-1, 1), rng.randf_range(-1, 1)) * 50
+		var newPosition = player.position + randomVector
 		server_spawn_resource_drop(newPosition, resourceType, amount, player.position)
 
 func server_spawn_resource_drop(position: Vector2, type: int, amount: int, oldPosition : Vector2, id : String = UUID.v4()):

@@ -10,6 +10,7 @@ var players = {}
 var projectiles = {}
 # Entities are other Nodes with ids
 var entities = {}
+var rng = RandomNumberGenerator.new()
 const projectileTypes = {
 	base_projectile = preload("res://common/game/projectiles/BaseProjectile.tscn"), # 0
 }
