@@ -267,9 +267,9 @@ func spawn_resource_drops_from_player(player : Node2D, lost_resources: Array):
 		var newPosition = player.position
 		server_spawn_resource_drop(newPosition, resourceType, amount, player.position)
 
-func server_spawn_resource_drop(position: Vector2, type: int, amount: int, oldPosition : Vector2):
-	.spawn_resource_drop(position, type, amount)
-	rpc("on_spawn_resource_drop", position, type, amount, oldPosition)
+func server_spawn_resource_drop(position: Vector2, type: int, amount: int, oldPosition : Vector2, id : String = UUID.v4()):
+	.spawn_resource_drop(position, type, amount, id)
+	rpc("on_spawn_resource_drop", position, type, amount, oldPosition, id)
 
 func get_resource_drop_scene():
 	return .get_resource_drop_scene()

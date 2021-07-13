@@ -147,6 +147,6 @@ remote func on_weapon_attack(weaponId : String):
 	var weapon = entities[weaponId]
 	weapon.start_attack_animation()
 
-remote func on_spawn_resource_drop(position: Vector2, type: int, amount: int, oldPosition: Vector2):
-	var _resourceDrop = .spawn_resource_drop(position, type, amount)
+remote func on_spawn_resource_drop(position: Vector2, type: int, amount: int, oldPosition: Vector2, id : String):
+	var _resourceDrop = .spawn_resource_drop(position, type, amount, id)
 	# TODO: make animation with the help of oldPositon

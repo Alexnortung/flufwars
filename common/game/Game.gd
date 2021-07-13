@@ -221,11 +221,12 @@ func on_deduct_cost(player: Node2D, cost: Array):
 		player.resources[i] -= cost[i]
 
 
-func spawn_resource_drop(position : Vector2, type : int, amount: int):
+func spawn_resource_drop(position : Vector2, type : int, amount: int, id : String):
 	var scene = get_resource_drop_scene()
 	var resourceDrop = scene.instance()
 	resourceDrop.init(position, type, amount)
 	call_deferred("add_child", resourceDrop)
+	entities[id] = resourceDrop
 	return resourceDrop
 
 func get_resource_drop_scene():
