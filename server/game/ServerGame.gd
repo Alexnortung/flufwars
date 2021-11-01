@@ -22,8 +22,6 @@ func _ready():
 		player.connect("weapon_auto_attack", self, "weapon_auto_attack", [ player ])
 		player.connect("flag_captured", self, "player_captured_flag", [ player ])
 		player.connect("pickup_weapon", self, "player_picked_up_weapon", [ player ])
-	
-	#print_tree_pretty()
 
 remote func on_client_ready(playerId):
 	print("client ready: %s" % playerId)
@@ -45,7 +43,6 @@ func on_pre_configure_complete():
 		var weapon2 = server_spawn_weapon("baguette")
 		player_picked_up_weapon(weapon2, player)
 	.on_pre_configure_complete()
-	print_tree()
 
 func remove_player(playerId: int):
 	# If all players are gone, return to lobby

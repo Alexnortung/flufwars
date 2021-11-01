@@ -17,8 +17,7 @@ func update_weapon(weapon: Node2D):
 	weapon.set_name("Weapon")
 	connect_weapon(weapon)
 
-func on_drop_weapon():
-	var weapon = $Weapon
+func on_drop_weapon(weapon = $Weapon):
 	# remove the weapon from self
 	disconnect_weapon(weapon)
 	remove_child(weapon)

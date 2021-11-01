@@ -26,6 +26,8 @@ func get_input_axis():
 
 func check_switch_weapon():
 	if Input.is_action_just_pressed("primary_weapon_selection"):
+		print("swtich to weapon 1 clicked")
 		rpc_id(1, "player_switch_weapon", 0)
 	if Input.is_action_just_pressed("secondary_weapon_selection"):
+		print("swtich to weapon 2 clicked")
 		rpc_id(1, "player_switch_weapon", 1)

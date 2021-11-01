@@ -19,6 +19,9 @@ maxAmmo = 8
 weaponSlot = 1
 accuracy = 0.881
 
+[node name="DropTimer" parent="." index="2"]
+wait_time = 5.0
+
 [node name="AnimatedSprite" parent="RotationCenter" index="1"]
 visible = false
 scale = Vector2( 0.05, 0.05 )

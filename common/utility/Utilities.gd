@@ -8,3 +8,11 @@ func pool_string_array_find(array: PoolStringArray, searchString: String, start:
         if currentString == searchString:
             return i
     return -1
+
+func printNodeNames(array):
+    for arr in array:
+        print(arr.name)
+
+func printArray(array):
+    for arr in array:
+        print(arr)

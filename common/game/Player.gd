@@ -169,7 +169,7 @@ func animate_weapon():
 	if !has_weapon():
 		return
 	var angle = $Weapon.position.angle()
-	var lookDirectionX = $Weapon.position.x 
+	var lookDirectionX = $Weapon.position.x
 	$Weapon/Weapon.animate_weapon(angle, lookDirectionX)
 	
 
@@ -234,9 +234,24 @@ func has_weapon() -> bool:
 	return primaryWeaponSlot != null || secondaryWeaponSlot != null
 
 func has_specific_weapon(weapon : Node2D) -> bool:
-	if weapon.weaponSlot == weapon.weaponSlots.PRIMARY_WEAPON or weapon.weaponSlot == weapon.weaponSlots.PRIMARY_WEAPON:
+	if weapon.weaponSlot == weapon.weaponSlots.PRIMARY_WEAPON or weapon.weaponSlot == weapon.weaponSlots.SECONDARY_WEAPON:
 		return true
 	return false
+
+"""
+func has_armor():
+	return $Armor.has("Armor")
+
+func try_pickup_armor(armor : Node2D):
+	if has_armor():
+		return false
+
+	emit_signal("pickup_armor", armor)
+	return true
+
+func on_pickup_armor(armor : Node2D):
+	pass
+"""
 
 func try_pickup_weapon(weapon : Node2D):
 	# called from BaseWeapon
@@ -255,37 +270,52 @@ func on_pickup_weapon(weapon: Node2D):
 
 	if !has_weapon():
 		$Weapon.update_weapon(weapon)
+		activeWeaponSlot = weapon.weaponSlot
+
+	weapon.set_name("Weapon")
 
 	weapon.on_pickup(self)
 	if weapon.weaponSlot == weapon.weaponSlots.PRIMARY_WEAPON:
+		if primaryWeaponSlot != null:
+			if activeWeaponSlot == 0:
+				$Weapon.disconnect_weapon(primaryWeaponSlot)
+				$Weapon.remove_child(primaryWeaponSlot)
+			var level = get_level()
+			level.add_child(primaryWeaponSlot)
+			primaryWeaponSlot.on_drop()
+			if activeWeaponSlot == 0:
+				$Weapon.add_child(weapon)
+				$Weapon.connect_weapon(weapon)
 		primaryWeaponSlot = weapon
 	elif weapon.weaponSlot == weapon.weaponSlots.SECONDARY_WEAPON:
+		if secondaryWeaponSlot != null:
+			if activeWeaponSlot == 1:
+				$Weapon.disconnect_weapon(secondaryWeaponSlot)
+				$Weapon.remove_child(secondaryWeaponSlot)
+			var level = get_level()
+			level.add_child(secondaryWeaponSlot)
+			secondaryWeaponSlot.on_drop()
+			if activeWeaponSlot == 1:
+				$Weapon.add_child(weapon)
+				$Weapon.connect_weapon(weapon)
 		secondaryWeaponSlot = weapon
 
-#--------------------------------------#--------------------------------------#
-#--------------------------------------#--------------------------------------#
-#--------------------------------------#--------------------------------------#
-
 remote func switch_weapon(weapon_id : int):
+	print("switch weapon has been called")
 	var weapon : Node2D = null
 
 	if weapon_id == 0: 
+		print("current weapon has been set to primary")
 		weapon = primaryWeaponSlot
 	else:
+		print("current weapon has been set to secondary")
 		weapon = secondaryWeaponSlot
 
-	print("-------------------------------------------------------")
-	print("Changed to " + str(weapon_id))
-	print("-------------------------------------------------------")
-	print("primary weapon: " + primaryWeaponSlot.get_name())
-	print("secondary weapon: " + secondaryWeaponSlot.get_name())
-	print("current weapon: " + get_current_weapon().get_name())
-	print("new weapon: " + weapon.get_name())
-	print("-------------------------------------------------------")
-	print(str(activeWeaponSlot) + " != " + str(weapon_id))
-	print("-------------------------------------------------------")
-
+	print("weapon node below:")
+	print(weapon)
+	#print("weapon node name: " + weapon.name)
 	if weapon != null && activeWeaponSlot != weapon_id:
+		print("weapon is not null")
 		$Weapon.disconnect_weapon(get_current_weapon())
 		$Weapon.remove_child(get_current_weapon())
 		$Weapon.add_child(weapon)
@@ -305,19 +335,6 @@ func find_weapon_switch(weapon : Node2D) -> void:
 	
 	if weapon.weaponSlot == weapon.weaponSlots.SECONDARY_WEAPON:
 		secondaryWeaponSlot = weapon
-
-#--------------------------------------#--------------------------------------#
-#--------------------------------------#--------------------------------------#
-#--------------------------------------#--------------------------------------#
-
-func try_drop_weapon():
-	if !has_weapon():
-		return
-	#print("player has weapon, dropping it...")
-	on_drop_weapon()
-
-func on_drop_weapon():
-	$Weapon.on_drop_weapon()
 
 func knockback(knockbackFactor : float, _knockbackDirection : Vector2):
 	if dead:
