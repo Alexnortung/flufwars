@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://client/game/Gameplay/ResourceSplash.gd" type="Script" id=1]
+
+[sub_resource type="Theme" id=1]
+Label/colors/font_color = Color( 0.862745, 0.101961, 0.101961, 1 )
+Label/colors/font_color_shadow = Color( 0, 0, 0, 0 )
+Label/colors/font_outline_modulate = Color( 1, 1, 1, 1 )
+Label/constants/line_spacing = 3
+Label/constants/shadow_as_outline = 0
+Label/constants/shadow_offset_x = 1
+Label/constants/shadow_offset_y = 1
+Label/fonts/font = null
+Label/styles/normal = null
+
+[node name="ResourceSplash" type="HBoxContainer"]
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AmountLabel" type="Label" parent="."]
+margin_bottom = 20.0
+theme = SubResource( 1 )
+valign = 1
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_left = 4.0
+margin_right = 44.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 40, 0 )
+mouse_filter = 2
+expand = true
+stretch_mode = 6
+
+[node name="Tween" type="Tween" parent="."]

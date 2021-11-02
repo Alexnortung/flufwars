@@ -1,6 +1,4 @@
-# Flufwars
-
-A capture the flag (CTF) style, online multiplayer game. The game is made with the game engine Godot and based on the template [GodotClientServer](https://github.com/Wavesonics/GodotClientServer) by [Wavesonics](https://github.com/Wavesonics).
+# Development
 
 ## Compilation
 
@@ -37,8 +35,6 @@ Linux:
 ```bash
 ./Client.x86_64
 ```
-
-# Development
 
 ## Troubleshooting
 

@@ -10,6 +10,7 @@ var players = {}
 var projectiles = {}
 # Entities are other Nodes with ids
 var entities = {}
+var rng = RandomNumberGenerator.new()
 const projectileTypes = {
 	base_projectile = preload("res://common/game/projectiles/BaseProjectile.tscn"), # 0
 }
@@ -162,8 +163,8 @@ remotesync func on_respawn_player(playerId: int):
 	player.health = player.initHealth
 	player.kill_player(false)
 
-func on_player_dead(playerId):
-	get_player(playerId).kill_player(true)
+func player_dead(player: Node2D):
+	player.kill_player(true)
 
 func respawn_player(playerId: int):
 	pass
@@ -219,3 +220,20 @@ func update_weapon_on_player(weaponInstance : Node2D, player):
 func on_deduct_cost(player: Node2D, cost: Array):
 	for i in range(len(cost)):
 		player.resources[i] -= cost[i]
+
+
+func spawn_resource_drop(position : Vector2, type : int, amount: int, id : String):
+	var scene = get_resource_drop_scene()
+	var resourceDrop = scene.instance()
+	resourceDrop.init(position, type, amount, id)
+	call_deferred("add_child", resourceDrop)
+	entities[id] = resourceDrop
+	return resourceDrop
+
+func get_resource_drop_scene():
+	var resourceDropScene = load("res://common/game/ResourceDrops/ResourceDrop.tscn")
+	return resourceDropScene
+
+func resource_drop_pickup(resourceDrop, player):
+	entities.erase(resourceDrop.id)
+	resourceDrop.queue_free()

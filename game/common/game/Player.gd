@@ -102,12 +102,19 @@ func kill_player(is_dead):
 	set_process(!is_dead)
 	set_physics_process(!is_dead)
 	set_process_input(!is_dead)
+	reset_motion()
 	self.call_deferred("set_collision", is_dead)
 	self.set_visible(!is_dead)
 	if has_flag():
 		pickedUpFlag.on_flag_drop()
 	pickedUpFlag = null
 	spawn()
+
+# called when the player dies
+func reset_motion():
+	motion = Vector2.ZERO
+	knockbackTimeLeft = 0
+
 
 func set_collision(value: bool):
 	$WorldCollider.set_disabled(value)
