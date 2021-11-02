@@ -20,6 +20,13 @@ enum weaponTypes {
 	WEAPON_RANGED
 }
 
+enum weaponSlots {
+	PRIMARY_WEAPON,
+	SECONDARY_WEAPON,
+	UTILITY,
+	ARMOR
+}
+
 var AttackEffect = preload('res://common/game/projectiles/AttackEffect.gd')
 
 var lastFramePressed = false
@@ -43,6 +50,7 @@ var id : String
 var lastHeldBy : int
 var isDropped : bool = true
 var recentlyDropped : bool = false
+export(weaponSlots) var weaponSlot = weaponSlots.PRIMARY_WEAPON
 export var reloadAnimation : Animation
 export var attackAnimation : Animation
 

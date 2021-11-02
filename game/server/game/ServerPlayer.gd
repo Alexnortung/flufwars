@@ -17,6 +17,8 @@ func _physics_process(delta):
 	apply_knockback(delta)
 	motion = move_and_slide(motion)
 
+	#print_tree_pretty()
+
 	$Weapon.position = server_direction * lookDirectionOffset
 	
 func get_input_axis():
@@ -47,7 +49,11 @@ func get_projectile_direction():
 	if weapon == null:
 		return dir
 	return weapon.add_random_accuracy(dir)
-
+	
 func kill_player(is_dead):
 	.kill_player(is_dead)
 	server_axis = Vector2.ZERO
+
+remote func player_switch_weapon(id : int):
+	switch_weapon(id)
+	rpc("switch_weapon", id)

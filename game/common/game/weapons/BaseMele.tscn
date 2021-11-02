@@ -1,3 +1,4 @@
+  
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://common/game/weapons/BaseWeapon.tscn" type="PackedScene" id=1]
@@ -5,7 +6,6 @@
 
 [node name="BaseMele" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-angleOffset = -0.396
 damage = 1
 weaponType = 0
 cooldown = 1.0

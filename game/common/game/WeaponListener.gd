@@ -12,14 +12,12 @@ func update_weapon(weapon: Node2D):
 	if weapon.get_parent() != null:
 		weapon.get_parent().remove_child(weapon)
 	if has_node("Weapon"):
-		$Weapon.replace_by(weapon)
-	else:
-		add_child(weapon)
+		remove_child($Weapon)
+	add_child(weapon)
 	weapon.set_name("Weapon")
 	connect_weapon(weapon)
 
-func on_drop_weapon():
-	var weapon = $Weapon
+func on_drop_weapon(weapon = $Weapon):
 	# remove the weapon from self
 	disconnect_weapon(weapon)
 	remove_child(weapon)

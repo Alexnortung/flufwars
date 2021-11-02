@@ -212,15 +212,12 @@ func check_player_item_cost(player, cost : Array) -> bool:
 	return true
 
 func update_weapon_on_player(weaponInstance : Node2D, player):
-	# make player drop weapon
-	player.try_drop_weapon()
 	# add the weapon to the player
 	player.on_pickup_weapon(weaponInstance)
 
 func on_deduct_cost(player: Node2D, cost: Array):
 	for i in range(len(cost)):
 		player.resources[i] -= cost[i]
-
 
 func spawn_resource_drop(position : Vector2, type : int, amount: int, id : String):
 	var scene = get_resource_drop_scene()

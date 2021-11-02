@@ -3,7 +3,7 @@ extends Node
 # Entry point for the whole app
 # Determine the type of app this is, and load the entry point for that type
 func _ready():
-	print("Application started")
+	print("Application started 123")
 	check_debug()
 	if OS.has_feature("server") || "--server" in OS.get_cmdline_args():
 		print("Is server")
@@ -15,6 +15,9 @@ func _ready():
 	else:
 		print("Could not detect application type! Defaulting to client.")
 		use_client_entry()
+	
+	if !OS.has_feature("client") && !("—no-window" in OS.get_cmdline_args()):
+		OS.window_position = Vector2(int(OS.get_cmdline_args()[0]),0)
 		# use_server_entry()
 
 func use_server_entry():
